@@ -22,7 +22,7 @@
 .hud-header{padding-top:18px}
 .hud-header.scrolled{background:none;backdrop-filter:none;border-bottom-color:transparent}
 .hud-bar{
-  display:flex;align-items:center;gap:14px;height:auto;justify-content:flex-start;
+  display:flex;align-items:flex-start;gap:14px;height:auto;justify-content:flex-start;
 }
 
 /* logo bloğu */
@@ -45,7 +45,7 @@
 /* menü kapsülü */
 .hud-navwrap{flex:1 1 auto;min-width:0}
 .nav.hud-nav{
-  display:flex;align-items:center;justify-content:center;gap:0;
+  display:flex;align-items:center;justify-content:space-between;gap:4px;
   background:var(--hud-panel);backdrop-filter:blur(12px);
   border:1px solid var(--hud-line);
   border-radius:22px 4px 22px 4px;
@@ -53,9 +53,18 @@
 }
 .nav.hud-nav a:not(.cut-btn){
   font-family:Oswald,Inter,sans-serif;font-size:.86rem;letter-spacing:.04em;
-  padding:0 15px;line-height:58px;color:var(--muted);position:relative;
+  flex:1 1 auto;text-align:center;white-space:nowrap;
+  padding:0 12px;line-height:38px;border-radius:12px 3px 12px 3px;
+  color:var(--muted);position:relative;
+  transition:color .2s,background .25s var(--ease),box-shadow .25s var(--ease);
 }
-.nav.hud-nav a:not(.cut-btn)::after{bottom:16px;height:2px}
+.nav.hud-nav a:not(.cut-btn)::after{display:none}
+.nav.hud-nav a:not(.cut-btn):hover{background:rgba(255,255,255,.05)}
+.nav.hud-nav a.active:not(.cut-btn){
+  color:#fff;
+  background:linear-gradient(135deg,rgba(255,138,61,.22),rgba(139,92,246,.30));
+  box-shadow:inset 0 0 0 1px rgba(167,139,250,.45),0 0 16px rgba(139,92,246,.25);
+}
 .nav.hud-nav .nav-cta{display:none}
 
 /* sağdaki aksiyon butonu */
@@ -88,7 +97,8 @@
 .cut-btn-ghost > span{background:var(--bg-2);color:var(--text)}
 .cut-btn-ghost:hover{background:var(--accent-4)}
 
-.hud-menu > span{padding:16px 26px}
+.hud-menu{height:46px}
+.hud-menu > span{height:100%;padding:0 20px;font-size:.8rem}
 
 /* ---------------- HERO ----------------
    Hedef: hero tek ekrana sığsın. Ölçüler hem genişliğe (vw) hem
@@ -153,7 +163,7 @@
   border-radius:50%;
   background:
     linear-gradient(90deg,transparent 47%,rgba(244,124,32,.4) 48% 52%,transparent 53%),
-    linear-gradient(transparent 47%,rgba(77,124,255,.34) 48% 52%,transparent 53%);
+    linear-gradient(transparent 47%,rgba(122,170,255,.34) 48% 52%,transparent 53%);
   animation:target-spin 18s linear infinite;
 }
 .hud-hero .hero-visual::after{
@@ -199,7 +209,7 @@
 
 /* ---------------- responsive ---------------- */
 @media (max-width:1100px){
-  .nav.hud-nav a:not(.cut-btn){padding:0 10px;font-size:.8rem}
+  .nav.hud-nav a:not(.cut-btn){padding:0 8px;font-size:.8rem}
   .hud-logo{padding:12px 18px}
 }
 @media (max-width:900px){
@@ -223,7 +233,7 @@
     transition:transform .35s var(--ease),opacity .25s var(--ease);
   }
   .nav.hud-nav.open{transform:translateY(0);opacity:1;pointer-events:auto}
-  .nav.hud-nav a:not(.cut-btn){line-height:1.4;padding:14px 0;font-size:1rem}
+  .nav.hud-nav a:not(.cut-btn){line-height:1.4;padding:12px 14px;font-size:1rem;text-align:left;flex:0 0 auto}
   .nav.hud-nav .nav-cta{display:block;margin-top:14px}
   .nav.hud-nav .nav-cta > span{padding:14px 20px}
   .hud-hero{min-height:auto;padding:100px 0 40px}
@@ -241,17 +251,18 @@
    Tek düğme; üzerinde yalnızca yürürlükteki dil görünür. */
 .lang-toggle{
   flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
-  min-width:52px;height:40px;padding:0 14px;
+  min-width:52px;height:46px;padding:0 14px;
   font-family:Oswald,Inter,sans-serif;font-size:.8rem;letter-spacing:.1em;font-weight:600;
   color:var(--muted);cursor:pointer;
   background:var(--hud-panel);backdrop-filter:blur(12px);
-  border:1px solid var(--hud-line);border-radius:999px;
+  border:1px solid var(--hud-line);border-radius:0;
+  clip-path:var(--shape);
   transition:color .25s var(--ease),border-color .25s var(--ease),background .25s var(--ease);
 }
 .lang-toggle:hover{color:var(--accent);border-color:var(--accent)}
 .lang-toggle:active{transform:translateY(1px)}
 @media (max-width:760px){
-  .lang-toggle{margin-left:auto;margin-right:4px;min-width:46px;height:36px;padding:0 11px;font-size:.75rem}
+  .lang-toggle{margin-left:auto;margin-right:4px;min-width:46px;height:44px;padding:0 11px;font-size:.75rem}
 }
 
 /* hero'daki kayan paydaş şeridi */
@@ -306,20 +317,9 @@
   mask-image:radial-gradient(ellipse 85% 75% at 50% 42%,#000 35%,rgba(0,0,0,.35) 70%,transparent 100%);
   animation:grid-drift 20s linear infinite;
 }
-.hud-hero .hero-bg::before{
-  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
-  background:
-    linear-gradient(115deg,transparent 0 18%,rgba(244,124,32,.22) 18.1% 18.4%,transparent 18.5% 44%,rgba(77,124,255,.18) 44.1% 44.4%,transparent 44.5%),
-    linear-gradient(245deg,transparent 0 28%,rgba(139,92,246,.16) 28.1% 28.4%,transparent 28.5% 68%,rgba(244,124,32,.16) 68.1% 68.4%,transparent 68.5%);
-  -webkit-mask-image:radial-gradient(ellipse 80% 68% at 58% 45%,#000 15%,rgba(0,0,0,.55) 56%,transparent 82%);
-  mask-image:radial-gradient(ellipse 80% 68% at 58% 45%,#000 15%,rgba(0,0,0,.55) 56%,transparent 82%);
-  animation:circuit-slide 12s ease-in-out infinite alternate;
-}
 .hud-frame > *{position:relative;z-index:1}
 
 .tech-ring,
-.light-beam,
-.laser-line,
 .pad-symbol,
 .light-orb{
   position:absolute;display:block;pointer-events:none;z-index:1;
@@ -328,59 +328,49 @@
   width:clamp(170px,22vw,320px);aspect-ratio:1;border-radius:50%;
   border:1px solid rgba(255,255,255,.14);
   background:
-    conic-gradient(from 0deg,transparent 0 18%,rgba(244,124,32,.7) 19% 22%,transparent 23% 56%,rgba(77,124,255,.6) 57% 60%,transparent 61%),
+    conic-gradient(from 0deg,transparent 0 18%,rgba(244,124,32,.7) 19% 22%,transparent 23% 56%,rgba(122,170,255,.6) 57% 60%,transparent 61%),
     radial-gradient(circle at 50% 50%,transparent 0 55%,rgba(255,255,255,.08) 56% 57%,transparent 58%);
-  opacity:.45;filter:drop-shadow(0 0 28px rgba(77,124,255,.16));
-  animation:target-spin 26s linear infinite;
+  opacity:.45;filter:drop-shadow(0 0 28px rgba(122,170,255,.16));
+  animation:target-spin 6.5s linear infinite;
+}
+/* harita hedef işareti: radar süpürmesi + merkezde ping dalgaları */
+.tech-ring{
+  background:
+    conic-gradient(from 0deg,transparent 0 80%,rgba(244,124,32,.32) 99.4%,rgba(255,190,120,.85) 99.6% 100%),
+    radial-gradient(circle at 50% 50%,transparent 0 55%,rgba(255,255,255,.08) 56% 57%,transparent 58%);
+  -webkit-mask-image:radial-gradient(circle,transparent 0 3%,#000 4%);
+  mask-image:radial-gradient(circle,transparent 0 3%,#000 4%);
+}
+.tech-ring::before,
+.tech-ring::after{
+  content:"";position:absolute;left:50%;top:50%;width:100%;aspect-ratio:1;border-radius:50%;
+  border:1px solid rgba(244,124,32,.8);
+  transform:translate(-50%,-50%) scale(.04);opacity:0;
+  animation:map-ping 4.8s ease-out infinite;
+}
+.tech-ring::after{animation-delay:-2.4s;border-color:rgba(122,170,255,.8)}
+@keyframes map-ping{
+  0%{transform:translate(-50%,-50%) scale(.04);opacity:.9}
+  100%{transform:translate(-50%,-50%) scale(.95);opacity:0}
 }
 .tech-ring-a{right:9vw;top:13vh}
-.tech-ring-b{left:7vw;bottom:11vh;width:clamp(120px,17vw,220px);animation-direction:reverse;opacity:.28}
-.light-beam{
-  --beam-rot:8deg;
-  top:-30vh;width:clamp(90px,12vw,170px);height:150vh;
-  background:linear-gradient(180deg,transparent 0%,rgba(255,255,255,.02) 18%,rgba(77,124,255,.16) 45%,rgba(244,124,32,.18) 58%,transparent 88%);
-  filter:blur(18px);opacity:.42;mix-blend-mode:screen;
-  transform:translate3d(0,-20vh,0) rotate(var(--beam-rot));
-  will-change:transform,opacity;
-  animation:beam-fall 22s ease-in-out infinite;
-}
-.beam-a{left:13vw;animation-delay:-2s}
-.beam-b{--beam-rot:-10deg;left:48vw;width:clamp(70px,9vw,140px);opacity:.32;animation-duration:26s;animation-delay:-9s}
-.beam-c{right:8vw;width:clamp(120px,14vw,210px);opacity:.28;animation-duration:30s;animation-delay:-6s}
-.laser-line{
-  --laser-rot:-17deg;
-  width:58vw;height:2px;
-  background:linear-gradient(90deg,transparent,rgba(77,124,255,.05),rgba(77,124,255,.85),rgba(244,124,32,.55),transparent);
-  box-shadow:0 0 24px rgba(77,124,255,.72),0 0 60px rgba(244,124,32,.32);
-  opacity:.7;transform-origin:50% 50%;filter:blur(.2px);
-  transform:translate3d(-30vw,-7vh,0) rotate(var(--laser-rot));
-  will-change:transform,opacity;
-  animation:laser-sweep 14s ease-in-out infinite;
-}
-.laser-line::after{
-  content:"";position:absolute;inset:-8px 34% -8px 34%;
-  background:radial-gradient(ellipse,rgba(255,255,255,.6),transparent 65%);
-  filter:blur(8px);
-}
-.laser-a{left:36vw;top:30vh;animation-delay:-1s}
-.laser-b{--laser-rot:24deg;left:-8vw;top:68vh;width:52vw;opacity:.5;animation-duration:18s;animation-delay:-6s}
-.laser-c{--laser-rot:-33deg;left:18vw;top:51vh;width:70vw;opacity:.42;animation-duration:22s;animation-delay:-10s}
+.tech-ring-b{left:7vw;bottom:24vh;animation-duration:8.5s;width:clamp(120px,17vw,220px);animation-direction:reverse;opacity:.28}
 .pad-symbol{
   --pad-rot:0deg;
   width:clamp(34px,4.6vw,68px);aspect-ratio:1;
   opacity:.26;mix-blend-mode:screen;
-  filter:drop-shadow(0 0 20px rgba(77,124,255,.24));
+  filter:drop-shadow(0 0 20px rgba(122,170,255,.24));
   transform:translate3d(0,0,0) rotate(var(--pad-rot));
   will-change:transform,opacity;
   animation:pad-float 26s ease-in-out infinite;
 }
 .pad-square{left:64vw;top:20vh;border:2px solid rgba(244,124,32,.48);border-radius:5px;animation-delay:-4s}
-.pad-circle{right:12vw;top:43vh;border:2px solid rgba(77,124,255,.48);border-radius:50%;width:clamp(42px,5.8vw,82px);animation-duration:30s;animation-delay:-12s}
+.pad-circle{right:12vw;top:43vh;border:2px solid rgba(122,170,255,.48);border-radius:50%;width:clamp(42px,5.8vw,82px);animation-duration:30s;animation-delay:-12s}
 .pad-triangle{
   --pad-rot:-10deg;
   left:22vw;bottom:18vh;width:clamp(42px,5.5vw,78px);
   clip-path:polygon(50% 5%,96% 90%,4% 90%);
-  background:linear-gradient(135deg,rgba(244,124,32,.5),rgba(77,124,255,.22));
+  background:linear-gradient(135deg,rgba(244,124,32,.5),rgba(122,170,255,.22));
   animation-duration:34s;animation-delay:-18s;
 }
 .pad-x{
@@ -398,7 +388,7 @@
 .pad-x::after{transform:translate(-50%,-50%) rotate(-45deg)}
 .light-orb{
   width:clamp(170px,24vw,360px);aspect-ratio:1;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,255,255,.18) 0 2%,rgba(244,124,32,.16) 8%,rgba(77,124,255,.13) 32%,transparent 68%);
+  background:radial-gradient(circle,rgba(255,255,255,.18) 0 2%,rgba(244,124,32,.16) 8%,rgba(122,170,255,.13) 32%,transparent 68%);
   filter:blur(2px);opacity:.44;mix-blend-mode:screen;
   will-change:transform,opacity;
   animation:orb-drift 36s ease-in-out infinite;
@@ -410,24 +400,42 @@
   from{background-position:0 0,0 0,0 0,0 0}
   to{background-position:13px 13px,13px 13px,52px 52px,52px 52px}
 }
-@keyframes circuit-slide{
-  from{transform:translate3d(-1.5%,0,0);opacity:.55}
-  to{transform:translate3d(1.5%,-1%,0);opacity:.85}
+
+/* yukarıdan aşağı düşen PlayStation tuşları */
+.xb{
+  --xc:122,170,255;
+  position:absolute;top:-12vh;z-index:0;pointer-events:none;
+  display:grid;place-items:center;
+  width:var(--xs,44px);aspect-ratio:1;border-radius:50%;
+  color:rgba(var(--xc),.9);
+  border:2px solid rgba(var(--xc),.55);
+  background:radial-gradient(circle,rgba(var(--xc),.16),rgba(var(--xc),.03) 70%);
+  box-shadow:0 0 22px rgba(var(--xc),.28);
+  opacity:0;will-change:transform,opacity;
+  animation:xb-fall var(--xd,18s) linear infinite;animation-delay:var(--xl,0s);
+}
+.xb svg{width:52%;height:52%;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round}
+/* a=üçgen  b=daire  x=çarpı  y=kare (PlayStation renkleri) */
+.xb[data-k=a]{--xc:88,214,140}
+.xb[data-k=b]{--xc:255,96,96}
+.xb[data-k=x]{--xc:122,170,255}
+.xb[data-k=y]{--xc:238,130,200}
+.xb-a{left:6vw;--xs:38px;--xd:19s;--xl:-3s}
+.xb-b{left:19vw;--xs:56px;--xd:15s;--xl:-9s}
+.xb-c{left:34vw;--xs:30px;--xd:24s;--xl:-14s}
+.xb-d{left:47vw;--xs:48px;--xd:17s;--xl:-6s}
+.xb-e{left:61vw;--xs:34px;--xd:22s;--xl:-1s}
+.xb-f{left:73vw;--xs:60px;--xd:14s;--xl:-11s}
+.xb-g{left:84vw;--xs:36px;--xd:21s;--xl:-16s}
+.xb-h{left:93vw;--xs:44px;--xd:18s;--xl:-7s}
+@keyframes xb-fall{
+  0%{transform:translate3d(0,0,0) rotate(-14deg);opacity:0}
+  10%{opacity:.5}
+  78%{opacity:.4}
+  100%{transform:translate3d(2vw,112vh,0) rotate(20deg);opacity:0}
 }
 @keyframes target-spin{
   to{transform:rotate(360deg)}
-}
-@keyframes beam-fall{
-  0%,100%{transform:translate3d(0,-22vh,0) rotate(var(--beam-rot));opacity:.2}
-  42%{transform:translate3d(0,8vh,0) rotate(var(--beam-rot));opacity:.62}
-  72%{transform:translate3d(0,34vh,0) rotate(var(--beam-rot));opacity:.18}
-}
-@keyframes laser-sweep{
-  0%{transform:translate3d(-40vw,-10vh,0) rotate(var(--laser-rot));opacity:0}
-  12%{opacity:.78}
-  50%{transform:translate3d(6vw,4vh,0) rotate(var(--laser-rot));opacity:.86}
-  88%{opacity:.5}
-  100%{transform:translate3d(42vw,12vh,0) rotate(var(--laser-rot));opacity:0}
 }
 @keyframes pad-float{
   0%,100%{transform:translate3d(0,0,0) rotate(var(--pad-rot)) scale(.92);opacity:.16}
@@ -440,22 +448,19 @@
 }
 
 @media (prefers-reduced-motion:reduce){
-  .hud-hero .hero-bg::before,
   .hud-hero .hero-bg::after,
   .tech-ring,
-  .light-beam,
-  .laser-line,
   .pad-symbol,
   .light-orb,
+  .xb,
+  .tech-ring::before,
+  .tech-ring::after,
   .hud-hero .hero-visual::before{animation:none!important}
+  .xb{opacity:.22;top:20vh}
   .hud-hero .hero-visual img{transform:none!important}
 }
 
 @media (max-width:760px){
-  .light-beam{opacity:.22;filter:blur(22px)}
-  .beam-b{display:none}
-  .laser-line{opacity:.36}
-  .laser-c{display:none}
   .pad-symbol{opacity:.16}
   .pad-square{left:72vw;top:22vh}
   .pad-x{right:12vw;bottom:28vh}
@@ -463,7 +468,6 @@
   .light-orb{opacity:.22}
   .tech-ring{opacity:.2}
   .tech-ring-a{right:-18vw;top:15vh}
-  .tech-ring-b{left:-20vw;bottom:13vh}
-  .hud-hero .hero-bg::before{opacity:.42}
+  .tech-ring-b{left:-20vw;bottom:26vh}
   .hud-hero .hero-bg::after{opacity:.62}
 }
