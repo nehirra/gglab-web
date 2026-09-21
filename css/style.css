@@ -101,6 +101,107 @@ img{max-width:100%;display:block}
 .ticks li{position:relative;padding-left:30px;margin-bottom:10px;color:var(--muted)}
 .ticks li::before{content:"✔";position:absolute;left:0;color:var(--accent-2);font-weight:700}
 
+/* ---------- about bridge ---------- */
+.about-bridge{
+  padding-top:clamp(58px,8vh,88px);
+  /* hero'nun alt tonundan sakin zemine yumuşak geçiş */
+  background:linear-gradient(180deg,var(--bg-2),var(--bg) 360px);
+  overflow:hidden;
+}
+/* hero ızgarasının devamı: ikisi de viewport'a sabitli, aynı hız/faz */
+.about-bridge::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px),
+    linear-gradient(rgba(255,255,255,.14) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.14) 1px,transparent 1px);
+  background-size:13px 13px,13px 13px,52px 52px,52px 52px;
+  background-attachment:fixed;
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.27),rgba(0,0,0,.3) 12%,transparent 85%);
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.27),rgba(0,0,0,.3) 12%,transparent 85%);
+  animation:grid-drift 20s linear infinite;
+}
+.about-bridge-inner{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);
+  gap:clamp(28px,5vw,72px);align-items:center;
+}
+.about-copy{
+  position:relative;
+  max-width:680px;
+  padding-left:clamp(18px,2vw,28px);
+}
+.about-copy::before{
+  content:"";position:absolute;left:0;top:3px;bottom:8px;width:2px;
+  background:linear-gradient(180deg,var(--accent),rgba(139,92,246,.7),transparent);
+}
+.about-copy h2{
+  max-width:12ch;
+  font-family:Oswald,"Space Grotesk",sans-serif;
+  text-transform:uppercase;
+  letter-spacing:0;
+  font-size:clamp(2rem,4.5vw,4rem);
+}
+.about-copy p{
+  max-width:58ch;
+  color:var(--muted);
+  font-size:.98rem;
+}
+.about-copy .about-lead{
+  color:var(--text);
+  font-size:clamp(1.02rem,1.5vw,1.2rem);
+  line-height:1.55;
+}
+.about-panel{
+  --cut:18px;
+  position:relative;
+  display:grid;gap:0;
+  padding:1px;
+  background:linear-gradient(135deg,rgba(255,255,255,.24),rgba(244,124,32,.5),rgba(139,92,246,.36),rgba(255,255,255,.12));
+  clip-path:polygon(var(--cut) 0,100% 0,100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,0 100%,0 var(--cut));
+}
+.about-panel::before{
+  content:"";position:absolute;inset:1px;z-index:0;
+  background:
+    linear-gradient(135deg,rgba(12,22,49,.94),rgba(18,32,70,.8)),
+    linear-gradient(90deg,rgba(244,124,32,.1),transparent);
+  clip-path:inherit;
+}
+.about-panel-line{
+  position:absolute;left:1px;right:1px;top:1px;height:3px;z-index:1;
+  background:linear-gradient(90deg,var(--accent),rgba(77,124,255,.8),transparent);
+  opacity:.78;
+}
+.about-signal{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:88px minmax(0,1fr);column-gap:18px;align-items:start;
+  padding:clamp(18px,2.4vw,26px);
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.about-signal:last-child{border-bottom:0}
+.signal-code{
+  font-family:Oswald,Inter,sans-serif;
+  color:var(--accent-2);
+  font-size:.76rem;
+  letter-spacing:.16em;
+  line-height:1.2;
+}
+.about-signal h3{
+  margin:0 0 5px;
+  font-family:Oswald,"Space Grotesk",sans-serif;
+  font-size:1.28rem;
+  text-transform:uppercase;
+  letter-spacing:.02em;
+}
+.about-signal p{
+  grid-column:2;
+  margin:0;
+  color:var(--muted);
+  font-size:.92rem;
+  line-height:1.5;
+}
+
 /* ---------- cards ---------- */
 .card{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;padding:22px 0;
   transition:transform .3s var(--ease),border-color .3s,color .3s}
@@ -181,6 +282,12 @@ img{max-width:100%;display:block}
 .s-ico{width:34px;height:34px;display:grid;place-items:center;border-radius:6px;background:rgba(255,255,255,.06);font-size:1rem;flex:0 0 34px}
 .social strong{display:block;font-size:.92rem}
 .social em{font-style:normal;font-size:.78rem;color:var(--muted)}
+.social-live{position:relative;animation:social-drift 4.8s ease-in-out infinite}
+.social-live-b{animation-delay:-2.2s}
+@keyframes social-drift{
+  0%,100%{top:0}
+  50%{top:-8px}
+}
 .mail a{color:var(--accent-2);border-bottom:1px solid transparent}
 .mail a:hover{border-color:var(--accent-2)}
 .contact-form{background:rgba(23,39,90,.62);border:1px solid var(--line);border-radius:var(--radius);padding:30px}
@@ -229,6 +336,8 @@ img{max-width:100%;display:block}
 /* ---------- responsive ---------- */
 @media (max-width:980px){
   .grid-2,.vm-grid{grid-template-columns:1fr;gap:38px}
+  .about-bridge-inner{grid-template-columns:1fr;gap:30px}
+  .about-copy h2{max-width:14ch}
   .feature-grid,.values,.team{grid-template-columns:1fr 1fr}
   .events{grid-template-columns:1fr 1fr}
   .gallery{grid-template-columns:repeat(3,1fr)}
@@ -244,6 +353,12 @@ img{max-width:100%;display:block}
   .nav-cta{margin-top:16px;border-bottom:0!important;justify-content:center}
   .nav-toggle{display:block}
   .section{padding:72px 0}
+  .about-bridge{padding-top:58px}
+  .about-copy{padding-left:18px}
+  .about-copy h2{max-width:12ch}
+  .about-signal{grid-template-columns:1fr;gap:8px;padding:18px}
+  .about-signal p{grid-column:auto}
+  .signal-code{font-size:.7rem}
   .stats{grid-template-columns:1fr 1fr;gap:18px}
   .about-cards,.feature-grid,.values,.team,.events,.socials{grid-template-columns:1fr}
   .gallery{grid-template-columns:1fr 1fr;grid-auto-rows:150px}
@@ -253,6 +368,7 @@ img{max-width:100%;display:block}
   .lb-prev{left:24px}.lb-next{right:24px}
 }
 @media (prefers-reduced-motion:reduce){
+  .about-bridge::before{animation:none!important}
   *{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
   html{scroll-behavior:auto}
@@ -295,7 +411,7 @@ img{max-width:100%;display:block}
 .partner.has-logo{display:flex;align-items:center;gap:10px;padding:6px 0}
 /* ortak logo kuralı: yükseklik bağlama göre aşağıda ayarlanır */
 .logo-mark{display:block;width:auto;object-fit:contain;flex:0 0 auto}
-.partner .logo-mark{height:30px}
+.partner .logo-mark{height:30px;max-width:72px}
 
 .req-box{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;padding:24px 0;margin:0}
 .req-box h3{font-size:1.02rem;margin-bottom:12px}
@@ -397,12 +513,20 @@ img{max-width:100%;display:block}
 
 @media (max-height:820px){
   .section{padding:clamp(38px,6.5vh,72px) 0}
+  .about-bridge{padding-top:clamp(36px,6vh,62px)}
+  .about-bridge-inner{gap:clamp(20px,3.4vh,36px)}
+  .about-copy h2{font-size:clamp(1.65rem,3.7vw,3rem)}
+  .about-copy p{font-size:.88rem;line-height:1.55}
+  .about-copy .about-lead{font-size:.98rem}
+  .about-signal{padding:clamp(14px,2vh,20px)}
+  .about-signal h3{font-size:1.05rem}
+  .about-signal p{font-size:.84rem}
   .section-head{margin-bottom:clamp(18px,3.2vh,38px)}
   h2{font-size:clamp(1.35rem,2.9vw,2rem)}
   .lead{font-size:.9rem;line-height:1.55}
   .grid-2{gap:clamp(22px,3vw,44px)}
 
-  .card{padding:16px 18px}
+  .card{padding:16px 0}
   .card p{font-size:.86rem;line-height:1.5}
   .card-ico{font-size:1.35rem;margin-bottom:8px}
   .card-num{margin-bottom:6px}
@@ -427,10 +551,10 @@ img{max-width:100%;display:block}
 
   .gallery{grid-auto-rows:clamp(120px,21vh,170px);gap:12px}
 
-  .req-box{padding:18px;margin:16px 0}
+  .req-box{padding:18px 0;margin:0}
   .ticks li{margin-bottom:7px;font-size:.88rem}
 
-  .partner{padding:12px 18px;font-size:.88rem}
+  .partner{padding:8px 0;font-size:.88rem}
   .partner.has-logo{padding:8px 14px;gap:8px}
   .partner .logo-mark{height:26px}
 
@@ -458,7 +582,7 @@ img{max-width:100%;display:block}
    görsel solda dar bir şerit, metin sağda. Kart yüksekliği yarıya iner. */
 @media (max-height:820px) and (min-width:700px){
   .events{grid-template-columns:repeat(2,1fr);gap:14px}
-  .event-card{flex-direction:row}
+  .event-card{display:grid;grid-template-columns:140px minmax(0,1fr)}
   .event-media{flex:0 0 118px;aspect-ratio:auto;height:auto}
   .event-media img{height:100%}
   .event-media .badge{top:8px;left:8px;font-size:.62rem;padding:3px 8px}
@@ -600,6 +724,7 @@ img{max-width:100%;display:block}
 
 @media (prefers-reduced-motion:reduce){
   .reveal-l,.reveal-r,.reveal-zoom{opacity:1;transform:none}
+  .social-live{animation:none;top:0}
   .scroll-progress{display:none}
   .section-head .eyebrow::before{width:26px;margin-right:10px}
 }
