@@ -3,6 +3,8 @@
 Akdeniz Üniversitesi Oyun ve Oyunlaştırma Topluluğu (Games & Gamification Lab) tanıtım sitesi.
 Bağımlılık yok: düz HTML + CSS + JS.
 
+Canlı: **https://nehirra.github.io/gglab-web/** (GitHub Pages, `main` dalına her push'ta yeniden yayınlanır)
+
 ## Çalıştırma
 
 ```bash
