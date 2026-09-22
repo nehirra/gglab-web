@@ -17,14 +17,14 @@ Sonra tarayıcıda `http://localhost:4173`.
 - `css/hud.css` — header + hero'nun HUD tarzı katmanı (sadece `index.html` yükler)
 - `js/main.js` — menü, scroll reveal, galeri lightbox, form doğrulama
 - `js/i18n.js` — TR/EN dil katmanı ve İngilizce sözlük
-- `v1.html` — HUD tasarımından önceki hali (karşılaştırma için duruyor)
+- Eski (HUD öncesi) tasarım repodan kaldırıldı; `git checkout v1-design` ile görülebilir
 - `content/icerik.md` — topluluktan gelen ham metinler (vizyon/misyon, amaçlar, faaliyet alanları)
 - `content/afis-referans.webp` — tanıtım afişi; **sitede kullanılmıyor**, yalnızca içerik kaynağı
 - `content/gamejam-sponsorlar-*.jpg` — jam sponsor afişleri; yalnızca kaynak
 - `assets/img/gamejam-logo.svg` — Game Jam Akdeniz logosu (topluluktan geldi)
-- `assets/img/logo.png` — topluluk logosu
+- `assets/img/logo-yazili.png` — topluluk logosu (yazılı); `logo-yazisiz.png` — favicon
 - `assets/img/logos/` — dışarıdan gelen kurum ve stüdyo logoları (ayrıntı aşağıda)
-- `assets/img/ph-*.svg`, `event-*.svg` — geçici yer tutucu görseller
+- `assets/img/event-*.webp` — etkinlik kartı görselleri
 
 ## Logo arşivi (`assets/img/logos/`)
 
