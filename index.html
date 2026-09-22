@@ -366,7 +366,7 @@
   <section class="section section-alt" id="paydaslar">
     <div class="container">
       <div class="section-head reveal">
-        <p class="eyebrow" data-i18n="part.eyebrow">08 — Partnerler</p>
+        <p class="eyebrow" data-i18n="part.eyebrow">07 — Partnerler</p>
         <h2 data-i18n="part.head">Partnerlerimiz</h2>
         <p class="lead" data-i18n="part.lead">Toplulukla birlikte çalıştığımız stüdyolar ve kuruluşlar.</p>
       </div>
@@ -423,9 +423,11 @@
 
   <!-- İLETİŞİM -->
   <section class="section" id="iletisim">
-    <div class="container grid-2">
+    <!-- Form bir servise (Formspree vb.) bağlanana kadar gizli. Açmak için:
+         forma action ekle, `hidden`'ı kaldır, bu div'e `grid-2` sınıfını geri koy. -->
+    <div class="container">
       <div class="reveal">
-        <p class="eyebrow" data-i18n="ct.eyebrow">09 — İletişim</p>
+        <p class="eyebrow" data-i18n="ct.eyebrow">08 — İletişim</p>
         <h2 data-i18n="ct.head">Bize ulaş</h2>
         <p class="lead" data-i18n="ct.lead">Akdeniz Üniversitesi Kampüsü, Antalya · Sağlık, Kültür ve Spor Daire Başkanlığı
           tarafından tahsis edilen topluluk mekânı.</p>
@@ -433,7 +435,7 @@
         <p class="mail">📧 <span class="todo" data-i18n="ct.mail">e-posta adresi eklenecek</span></p>
       </div>
 
-      <form class="contact-form reveal" id="contactForm" novalidate>
+      <form class="contact-form reveal" id="contactForm" novalidate hidden>
         <div class="field">
           <label for="name" data-i18n="form.name">Ad Soyad</label>
           <input id="name" name="name" type="text" required placeholder="Adın ne?" data-i18n-ph="form.namePh">
@@ -467,7 +469,7 @@
   <section class="section section-alt" id="uyelik">
     <div class="container">
       <div class="section-head reveal">
-        <p class="eyebrow" data-i18n="join.eyebrow">10 — Üyelik</p>
+        <p class="eyebrow" data-i18n="join.eyebrow">09 — Üyelik</p>
         <h2 data-i18n="join.head">Topluluğa katıl</h2>
         <p class="lead" data-i18n="join.lead">GG Lab, topluluğun ürettikleriyle büyüyor. Bölümün, yeteneğin ya da seviyen fark etmez: soru sormak, ekip bulmak, yaptıklarını paylaşmak ya da sadece merhaba demek için Discord'a gel. Etkinlik ve Game Jam duyuruları ilk orada. Diğer kanallardan da bizi takip edebilirsin.</p>
       </div>

@@ -143,18 +143,18 @@
     'gal.g8': 'Presenting a game on stage',
 
     /* --- üyelik --- */
-    'join.eyebrow': '10 — Membership',
+    'join.eyebrow': '09 — Membership',
     'join.head': 'Join the community',
     'join.lead': 'GG Lab grows with what the community makes. Whatever your department, talent or level, hop into our Discord to ask questions, find a team, share what you\'re building, or just say hi. Event and Game Jam announcements land there first. You can follow us on the other channels too.',
     'join.dc': 'Join our Discord',
 
     /* --- paydaşlar --- */
-    'part.eyebrow': '08 — Partners',
+    'part.eyebrow': '07 — Partners',
     'part.head': 'Community partners',
     'part.lead': 'Studios and organizations we work with alongside the community.',
 
     /* --- iletişim --- */
-    'ct.eyebrow': '09 — Contact',
+    'ct.eyebrow': '08 — Contact',
     'ct.head': 'Get in touch',
     'ct.lead': 'Akdeniz University Campus, Antalya · The community space allocated by the Health, Culture and Sports Department.',
     'ct.soon': 'link to be added',
