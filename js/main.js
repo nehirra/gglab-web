@@ -17,6 +17,36 @@
   var y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
 
+  /* --- partner bantları ---
+     Liste HTML'de tek yerde durur (#partnerList). Diğer bantlar oradan
+     kopyalanır: data-marquee-reverse sırayı ters çevirir, data-marquee-plain
+     bölüme özgü .partner sınıfını kaldırır (hero şeridi). */
+  Array.prototype.slice.call(document.querySelectorAll('[data-marquee-from]')).forEach(function (m) {
+    var source = document.getElementById(m.getAttribute('data-marquee-from'));
+    if (!source) return;
+    var track = source.cloneNode(true);
+    track.removeAttribute('id');
+    var items = Array.prototype.slice.call(track.children);
+    if (m.hasAttribute('data-marquee-reverse')) {
+      items.reverse().forEach(function (li) { track.appendChild(li); });
+    }
+    if (m.hasAttribute('data-marquee-plain')) {
+      items.forEach(function (li) { li.classList.remove('partner'); });
+    }
+    m.appendChild(track);
+  });
+
+  /* Kesintisiz döngü için her bant, ekran okuyucudan gizli ikinci bir şerit alır:
+     ilk şerit translateX(-100%) ile çıkarken kopyası yerine geçer. */
+  Array.prototype.slice.call(document.querySelectorAll('[data-marquee]')).forEach(function (m) {
+    var track = m.querySelector('.marquee-track');
+    if (!track) return;
+    var copy = track.cloneNode(true);
+    copy.removeAttribute('id');
+    copy.setAttribute('aria-hidden', 'true');
+    m.appendChild(copy);
+  });
+
   /* --- header scroll durumu --- */
   var header = document.getElementById('siteHeader');
   function onScroll() {

@@ -86,6 +86,15 @@ Her bant **iki özdeş şeritten** oluşur (`.marquee-track`); ikincisi `aria-hi
 olduğu için ekran okuyucu listeyi bir kez okur. Şerit `translateX(-100%)` ile kayar,
 ilki çıkarken ikincisi yerine geçer, böylece dikiş görünmez.
 
+**Liste tek yerde durur:** `index.html` içindeki `<ul id="partnerList">` (Partnerler bölümünün
+ilk bandı). Üç bandın geri kalanını `js/main.js` bu listeden üretir:
+
+- `data-marquee-from="partnerList"` — bant içeriğini listeden kopyalar
+  (hero şeridi + Partnerler bölümünün ikinci bandı)
+- `data-marquee-reverse` — sırayı ters çevirir (ikinci bant; yönü `.marquee-rev` ile de ters)
+- `data-marquee-plain` — bölüme özgü `partner` sınıfını kaldırır (hero şeridi)
+- `data-marquee` taşıyan her banda `aria-hidden="true"` kopya şerit otomatik eklenir
+
 - Hız: `.marquee-track` üzerindeki `animation-duration` (hero 30s, bölüm 46s)
 - Öğeler arası boşluk: `--gap` değişkeni (şeridin sonundaki `padding-right` da bunu kullanır,
   yoksa iki şeridin birleştiği yerde isimler birbirine yapışır)
@@ -102,14 +111,14 @@ Logosu gelen paydaş, isminin yerine değil **isminin yanına** logo alır:
 </li>
 ```
 
-Hero şeridinde `class="partner"` yoktur, yalnızca `has-logo` kullanılır. `alt` bilerek boştur —
+Hero şeridinde `class="partner"` yoktur (`data-marquee-plain` kaldırır). `alt` bilerek boştur —
 isim zaten `<span>` içinde metin olarak duruyor, ekran okuyucu iki kez okumasın diye.
 `loading="lazy"` bilerek **yok**: bandın ikinci (kopya) şeridi ekranın sağında durduğu için
 tarayıcı onu geç yüklüyor ve döngü ilk kez dönerken logo bir an boş kalıyordu.
 İsmin kalması bir tercih değil zorunluluk: bu logolardaki kelime işaretleri bant yüksekliğinde
 (hero ~22px, bölüm ~30px) okunmuyor, tek başına logo ismi görünmez yapıyor.
-Logo dosyası eklerken aynı `<li>` bandın **her iki şeridinde de** değişmeli
-(hero 2, Paydaşlar bölümü 4 kopya — toplam 6 yer).
+Partner eklerken, çıkarırken ya da logo değiştirirken yalnızca `#partnerList` içindeki
+`<li>` düzenlenir; hero ve ikinci bant kendiliğinden güncellenir.
 
 Game Jam bölümündeki destekçi etiketleri de aynı mantıkla çalışır, tek farkı `class="partner"`
 yerine düz `has-logo` ve logonun 22px olması:
