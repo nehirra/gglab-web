@@ -10,15 +10,40 @@ Canlı: **https://nehirra.github.io/gglab-web/** (GitHub Pages, `main` dalına h
 ```bash
 python3 -m http.server 4173
 ```
-Sonra tarayıcıda `http://localhost:4173`.
+Sonra tarayıcıda `http://localhost:4173`. (`main.js` bir ES modülü olduğu için sayfa
+`file://` ile doğrudan açılırsa çalışmaz; yerel sunucu gerekli.)
+
+## Denetim (lint)
+
+Kurulum gerekmez, `npx` araçları geçici olarak indirir:
+
+```bash
+npx html-validate@9 index.html
+npx stylelint@16 "css/*.css"
+```
+
+- `.editorconfig` — UTF-8, LF, 2 boşluk girinti
+- `.htmlvalidate.json` — önerilen kurallar; satır içi stil ve `<br>` yazımı serbest
+- `.stylelintrc.json` — yalnızca hata yakalayan kurallar (bilinmeyen özellik/birim,
+  geçersiz renk, çakışan kısaltma…); biçim kuralı yok, tek satırlık kompakt CSS yazımı korunuyor.
+  `no-duplicate-selectors` bilerek kapalı: `style.css` katmanlı yazıldı (ör. "mor vurgular"
+  bloğu önceki kuralların rengini ezer), aynı seçicinin tekrar geçmesi tasarım gereği.
+
+## Neden build adımı yok
+
+Site tek sayfa ve küçük; bağımlılık, `node_modules` ya da derleme olmadan GitHub Pages'e
+doğrudan yayınlanıyor, topluluktan herkes dosyayı açıp düzenleyebiliyor. Tekrarlanan
+işaretlemenin en büyüğü (partner bantları) JS ile tek listeden üretiliyor.
+Sayfa sayısı artarsa ya da bölümler ayrı dosyalara bölünmek istenirse Eleventy gibi
+bir statik site üreticisine geçmek mantıklı olur.
 
 ## Dosyalar
 
 - `index.html` — tek sayfa, tüm bölümler
 - `css/style.css` — tema ve responsive kurallar
 - `css/hud.css` — header + hero'nun HUD tarzı katmanı (sadece `index.html` yükler)
-- `js/main.js` — menü, scroll reveal, galeri lightbox, form doğrulama
-- `js/i18n.js` — TR/EN dil katmanı ve İngilizce sözlük
+- `js/main.js` — partner bantları, menü, scroll reveal, galeri lightbox, form doğrulama (ES modülü)
+- `js/i18n.js` — TR/EN dil katmanı ve İngilizce sözlük (şu an yüklenmiyor, bkz. Dil)
 - Eski (HUD öncesi) tasarım repodan kaldırıldı; `git checkout v1-design` ile görülebilir
 - `content/icerik.md` — topluluktan gelen ham metinler (vizyon/misyon, amaçlar, faaliyet alanları)
 - `content/afis-referans.webp` — tanıtım afişi; **sitede kullanılmıyor**, yalnızca içerik kaynağı
@@ -136,12 +161,20 @@ yerine düz `has-logo` ve logonun 22px olması:
 
 ## Dil (TR / EN)
 
-Varsayılan dil **İngilizce**. Header'daki tek düğmede yalnızca yürürlükteki dil yazar
-(`EN`); tıklayınca diğer dile geçer. Tercih `localStorage` içinde saklanır.
-Düğmenin `aria-label`'ı hangi dile geçileceğini söyler, böylece ekran okuyucuda anlamlı kalır.
+Site şu an **yalnızca Türkçe**. İngilizce altyapı hazır ama kapalı: `js/i18n.js`
+`index.html`'de yüklenmiyor ve header'daki dil düğmesi (`#langToggle`) `hidden`.
+`main.js` çeviri katmanı olmadan da çalışır (menü ve form mesajları için Türkçe yedeği var).
+
+**İngilizceyi açmak için:**
+1. `index.html` sonundaki yorum satırına alınmış `<script src="js/i18n.js">` satırını geri koy
+2. `#langToggle` düğmesinden `hidden` özniteliğini kaldır
+3. `js/i18n.js` içinde `EN_ENABLED = true` yap
+
+Açıldığında varsayılan dil İngilizcedir; tercih `localStorage` içinde saklanır.
+Düğmede yalnızca yürürlükteki dil yazar, `aria-label`'ı hangi dile geçileceğini söyler.
 
 Türkçe metinler doğrudan `index.html` içinde durur; İngilizce karşılıkları `js/i18n.js`
-içindeki `EN` sözlüğündedir. Yeni metin eklerken:
+içindeki `EN` sözlüğündedir. Yeni metin eklerken (İngilizce kapalıyken de yapılmalı):
 
 1. HTML'de elemana `data-i18n="bolum.anahtar"` ekle (Türkçesini içine yaz)
 2. `js/i18n.js` içindeki `EN` sözlüğüne aynı anahtarla İngilizcesini ekle
@@ -149,8 +182,6 @@ içindeki `EN` sözlüğündedir. Yeni metin eklerken:
 Öznitelikler için: `data-i18n-ph` (placeholder), `data-i18n-aria` (aria-label),
 `data-i18n-alt` (alt), `data-i18n-cap` (galeri başlığı), `data-i18n-meta` (meta content).
 Sözlükte karşılığı bulunmayan anahtar Türkçesine düşer, sayfa boş kalmaz.
-
-**Not:** JavaScript kapalıyken sayfa Türkçe görünür (HTML'in kendi metni Türkçe).
 
 ## İçerik kaynağı
 

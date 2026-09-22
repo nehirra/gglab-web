@@ -270,6 +270,8 @@
 /* hero'daki kayan paydaş şeridi */
 .hud-partners .marquee{flex:1 1 auto;min-width:0}
 .hud-partners .marquee-track{--gap:30px;animation-duration:30s}
+/* şerit içeriğini main.js üretir; JS yoksa boş etiket göstermek yerine gizle */
+html:not(.js) .hud-partners{display:none}
 .hud-partners li{flex:0 0 auto;white-space:nowrap}
 
 /* ---- kısa ekranlar (dizüstü, ölçeklenmiş görünüm) ----
@@ -297,9 +299,8 @@
   .hud-hero .lead{font-size:.83rem;line-height:1.5;max-width:40ch}
   .hud-hero .hero-actions{margin-top:12px}
   .hud-hero .hero-visual img{width:min(270px,100%,35vh)}
-  .hud-hero-grid{gap:22px}
+  .hud-hero-grid{gap:22px;padding-bottom:12px}
   .hud-frame{padding-top:16px}
-  .hud-hero-grid{padding-bottom:12px}
   .hud-partners{padding-top:7px;padding-bottom:7px}
 }
 

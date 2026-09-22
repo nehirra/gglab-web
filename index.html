@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add('js')</script>
 <title data-i18n="meta.title">GG Lab — Akdeniz Üniversitesi Oyun ve Oyunlaştırma Topluluğu</title>
 <meta name="description" data-i18n-meta="meta.desc" content="Akdeniz Üniversitesi Oyun ve Oyunlaştırma Topluluğu (GG Lab). Oyun geliştirme atölyeleri, Game Jam'ler, Indie Talks ve kutu oyunu günleri.">
 <meta property="og:title" content="GG Lab — Oyun ve Oyunlaştırma Topluluğu">
@@ -46,13 +47,13 @@
       </nav>
     </div>
 
-    <button type="button" class="lang-toggle" id="langToggle" aria-label="İngilizceye geç" data-i18n-aria="a11y.lang">
+    <button type="button" class="lang-toggle" id="langToggle" hidden aria-label="İngilizceye geç" data-i18n-aria="a11y.lang">
       <span class="lang-current">TR</span>
     </button>
 
     <a class="cut-btn cut-btn-light hud-menu" href="#uyelik"><span data-i18n="nav.ctaShort">KATIL <i>&#8594;</i></span></a>
 
-    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav" aria-label="Menüyü aç" data-i18n-aria="a11y.menuOpen">
+    <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav" aria-label="Menüyü aç" data-i18n-aria="a11y.menuOpen">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -118,7 +119,7 @@
         <p class="about-lead" data-i18n="about.p1">GG Lab; oyun geliştirme, oyunlaştırma ve masaüstü oyun kültürü etrafında buluşan Akdeniz Üniversitesi öğrencilerinin üretim alanı.</p>
         <p data-i18n="about.p2">Atölyelerde öğrenir, jam'lerde dener, etkinliklerde birbirimizi ve sektörü tanırız. Deneyim seviyen ne olursa olsun, burada fikir masaya gelir ve birlikte şekillenir.</p>
       </div>
-      <div class="about-panel reveal reveal-r" aria-label="GG Lab çalışma alanları" data-i18n-aria="about.panelAria">
+      <div class="about-panel reveal reveal-r" role="group" aria-label="GG Lab çalışma alanları" data-i18n-aria="about.panelAria">
         <span class="about-panel-line" aria-hidden="true"></span>
         <article class="about-signal">
           <span class="signal-code" data-i18n="about.s1k">ÜRET</span>
@@ -331,14 +332,14 @@
         <p class="lead" data-i18n="gal.lead">Game Jam Akdeniz'den kareler. Diğer etkinliklerin fotoğrafları eklendikçe burası büyüyecek.</p>
       </div>
       <div class="gallery" id="gallery">
-        <button class="shot reveal reveal-zoom wide tall" data-full="assets/img/gallery/jam-01.webp" data-caption="Game Jam Akdeniz — katılımcılar" data-i18n-cap="gal.g1" aria-label="Game Jam Akdeniz — katılımcılar" data-i18n-aria="gal.g1"><img src="assets/img/gallery/jam-01-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
-        <button class="shot reveal reveal-zoom tall" data-full="assets/img/gallery/jam-02.webp" data-caption="Ödül töreni" data-i18n-cap="gal.g2" aria-label="Ödül töreni" data-i18n-aria="gal.g2"><img src="assets/img/gallery/jam-02-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
-        <button class="shot reveal reveal-zoom tall" data-full="assets/img/gallery/jam-03.webp" data-caption="Ödül töreni" data-i18n-cap="gal.g3" aria-label="Ödül töreni" data-i18n-aria="gal.g3"><img src="assets/img/gallery/jam-03-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
-        <button class="shot reveal reveal-zoom wide tall" data-full="assets/img/gallery/jam-04.webp" data-caption="Ödül töreni" data-i18n-cap="gal.g4" aria-label="Ödül töreni" data-i18n-aria="gal.g4"><img src="assets/img/gallery/jam-04-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
-        <button class="shot reveal reveal-zoom wide tall" data-full="assets/img/gallery/jam-05.webp" data-caption="Jam alanı" data-i18n-cap="gal.g5" aria-label="Jam alanı" data-i18n-aria="gal.g5"><img src="assets/img/gallery/jam-05-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
-        <button class="shot reveal reveal-zoom tall" data-full="assets/img/gallery/jam-08.webp" data-caption="Sahnede oyun sunumu" data-i18n-cap="gal.g8" aria-label="Sahnede oyun sunumu" data-i18n-aria="gal.g8"><img src="assets/img/gallery/jam-08-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
-        <button class="shot reveal reveal-zoom wide tall" data-full="assets/img/gallery/jam-06.webp" data-caption="Unity'de geliştirme" data-i18n-cap="gal.g6" aria-label="Unity'de geliştirme" data-i18n-aria="gal.g6"><img src="assets/img/gallery/jam-06-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
-        <button class="shot reveal reveal-zoom tall" data-full="assets/img/gallery/jam-07.webp" data-caption="Jam gecesinden bir kare" data-i18n-cap="gal.g7" aria-label="Jam gecesinden bir kare" data-i18n-aria="gal.g7"><img src="assets/img/gallery/jam-07-t.webp" alt="" width="700" height="1244" loading="lazy" decoding="async"></button>
+        <button type="button" class="shot reveal reveal-zoom wide tall" data-full="assets/img/gallery/jam-01.webp" data-caption="Game Jam Akdeniz — katılımcılar" data-i18n-cap="gal.g1" aria-label="Game Jam Akdeniz — katılımcılar" data-i18n-aria="gal.g1"><img src="assets/img/gallery/jam-01-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
+        <button type="button" class="shot reveal reveal-zoom tall" data-full="assets/img/gallery/jam-02.webp" data-caption="Ödül töreni" data-i18n-cap="gal.g2" aria-label="Ödül töreni" data-i18n-aria="gal.g2"><img src="assets/img/gallery/jam-02-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
+        <button type="button" class="shot reveal reveal-zoom tall" data-full="assets/img/gallery/jam-03.webp" data-caption="Ödül töreni" data-i18n-cap="gal.g3" aria-label="Ödül töreni" data-i18n-aria="gal.g3"><img src="assets/img/gallery/jam-03-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
+        <button type="button" class="shot reveal reveal-zoom wide tall" data-full="assets/img/gallery/jam-04.webp" data-caption="Ödül töreni" data-i18n-cap="gal.g4" aria-label="Ödül töreni" data-i18n-aria="gal.g4"><img src="assets/img/gallery/jam-04-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
+        <button type="button" class="shot reveal reveal-zoom wide tall" data-full="assets/img/gallery/jam-05.webp" data-caption="Jam alanı" data-i18n-cap="gal.g5" aria-label="Jam alanı" data-i18n-aria="gal.g5"><img src="assets/img/gallery/jam-05-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
+        <button type="button" class="shot reveal reveal-zoom tall" data-full="assets/img/gallery/jam-08.webp" data-caption="Sahnede oyun sunumu" data-i18n-cap="gal.g8" aria-label="Sahnede oyun sunumu" data-i18n-aria="gal.g8"><img src="assets/img/gallery/jam-08-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
+        <button type="button" class="shot reveal reveal-zoom wide tall" data-full="assets/img/gallery/jam-06.webp" data-caption="Unity'de geliştirme" data-i18n-cap="gal.g6" aria-label="Unity'de geliştirme" data-i18n-aria="gal.g6"><img src="assets/img/gallery/jam-06-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
+        <button type="button" class="shot reveal reveal-zoom tall" data-full="assets/img/gallery/jam-07.webp" data-caption="Jam gecesinden bir kare" data-i18n-cap="gal.g7" aria-label="Jam gecesinden bir kare" data-i18n-aria="gal.g7"><img src="assets/img/gallery/jam-07-t.webp" alt="" width="700" height="1244" loading="lazy" decoding="async"></button>
       </div>
     </div>
   </section>
@@ -465,13 +466,15 @@
 </footer>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Görsel önizleme" data-i18n-aria="a11y.lightbox" hidden>
-  <button class="lb-close" id="lbClose" aria-label="Kapat" data-i18n-aria="a11y.close">✕</button>
-  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Önceki" data-i18n-aria="a11y.prev">‹</button>
-  <figure><img id="lbImg" src="" alt=""><figcaption id="lbCap"></figcaption></figure>
-  <button class="lb-nav lb-next" id="lbNext" aria-label="Sonraki" data-i18n-aria="a11y.next">›</button>
+  <button type="button" class="lb-close" id="lbClose" aria-label="Kapat" data-i18n-aria="a11y.close">✕</button>
+  <button type="button" class="lb-nav lb-prev" id="lbPrev" aria-label="Önceki" data-i18n-aria="a11y.prev">‹</button>
+  <!-- src, lightbox açılınca main.js tarafından verilir -->
+  <figure><!-- [html-validate-disable-next element-required-attributes] --><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+  <button type="button" class="lb-nav lb-next" id="lbNext" aria-label="Sonraki" data-i18n-aria="a11y.next">›</button>
 </div>
 
-<script src="js/i18n.js"></script>
-<script src="js/main.js"></script>
+<!-- İngilizce kapalı: açmak için bu satırı geri koy ve dil düğmesindeki hidden'ı kaldır.
+<script src="js/i18n.js"></script> -->
+<script type="module" src="js/main.js"></script>
 </body>
 </html>

@@ -8,9 +8,9 @@
 (function (w) {
   'use strict';
 
-  /* İngilizce şimdilik kapalı: site yalnızca TR gösteriliyor, dil düğmesi
-     gizleniyor. EN sözlüğü ve değiştirme mantığı korunuyor — ileride
-     yeniden açmak için bu satırı true yapmak yeterli. */
+  /* İngilizce şimdilik kapalı ve bu dosya index.html'de yüklenmiyor.
+     Yeniden açmak için: index.html'deki <script> satırını geri koy,
+     #langToggle'daki hidden'ı kaldır ve bu değeri true yap. */
   var EN_ENABLED = false;
 
   var EN = {
@@ -242,6 +242,9 @@
     current = (lang === 'en') ? 'en' : 'tr';
     document.documentElement.lang = current;
 
+    /* innerHTML bilerek: çevirilerde <br>, <span class="grad"> gibi işaretleme var.
+       Değerler yalnızca bu dosyadaki sözlükten ve sayfanın kendi HTML'inden gelir,
+       kullanıcı girdisi buraya hiç ulaşmaz. */
     document.querySelectorAll('[data-i18n]').forEach(function (el) {
       var v = t(el.getAttribute('data-i18n'));
       if (v) el.innerHTML = v;

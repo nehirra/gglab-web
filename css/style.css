@@ -256,7 +256,6 @@ img{max-width:100%;display:block}
 .event-date .day{display:block;font-family:"Space Grotesk",sans-serif;font-size:1.3rem;font-weight:700;line-height:1}
 .event-date .mon{display:block;font-size:.68rem;color:var(--accent-2);letter-spacing:.1em}
 .event-body p{font-size:.9rem;color:var(--muted)}
-.event-meta{font-size:.82rem!important;margin-bottom:8px!important}
 .link-arrow{color:var(--accent-2);font-size:.88rem;font-weight:600;display:inline-flex;gap:6px;align-items:center}
 .link-arrow span{transition:transform .25s var(--ease)}
 .link-arrow:hover span{transform:translateX(4px)}
@@ -337,9 +336,12 @@ img{max-width:100%;display:block}
 .lb-nav:hover,.lb-close:hover{background:var(--accent);border-color:var(--accent);color:#fff}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 
-/* ---------- reveal ---------- */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.reveal.in{opacity:1;transform:none}
+/* ---------- reveal ----------
+   Gizleme yalnızca .js altında: JS çalışmazsa içerik görünür kalır
+   (<html> üzerindeki js sınıfını <head>'deki satır içi betik ekler). */
+.reveal{transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js .reveal{opacity:0;transform:translateY(22px)}
+.js .reveal.in{opacity:1;transform:none}
 
 /* ---------- responsive ---------- */
 @media (max-width:980px){
@@ -358,7 +360,7 @@ img{max-width:100%;display:block}
   .nav.open{transform:translateY(0)}
   .nav a{padding:14px 0;border-bottom:1px solid var(--line);font-size:1rem}
   .nav a::after{display:none}
-  .nav-cta{margin-top:16px;border-bottom:0!important;justify-content:center}
+  .nav .nav-cta{margin-top:16px;border-bottom:0;justify-content:center}
   .nav-toggle{display:block}
   .section{padding:72px 0}
   .about-bridge{padding-top:58px}
@@ -378,7 +380,7 @@ img{max-width:100%;display:block}
 @media (prefers-reduced-motion:reduce){
   .about-bridge::before{animation:none!important}
   *{animation:none!important;transition:none!important}
-  .reveal{opacity:1;transform:none}
+  .js .reveal{opacity:1;transform:none}
   html{scroll-behavior:auto}
 }
 
@@ -571,7 +573,6 @@ img{max-width:100%;display:block}
   .contact-form{padding:20px}
   .field{margin-bottom:12px}
   .field input,.field select,.field textarea{padding:10px 12px;font-size:.9rem}
-  .field textarea{rows:3}
 
   .site-footer{padding:38px 0 18px}
   .footer-inner{gap:26px;padding-bottom:22px}
@@ -596,7 +597,6 @@ img{max-width:100%;display:block}
   .event-media .badge{top:8px;left:8px;font-size:.62rem;padding:3px 8px}
   .event-body{padding:13px 15px}
   .event-body h3{font-size:1rem}
-  .event-meta{margin-bottom:6px!important}
 }
 @media (max-height:820px) and (min-width:1180px){
   .events{grid-template-columns:repeat(2,1fr)}
@@ -698,10 +698,10 @@ img{max-width:100%;display:block}
 
 /* --- reveal varyantları (.reveal ile birlikte kullanılır) --- */
 .reveal-l,.reveal-r,.reveal-zoom{transition:opacity .75s var(--ease),transform .75s var(--ease)}
-.reveal-l{transform:translateX(-30px)}
-.reveal-r{transform:translateX(30px)}
-.reveal-zoom{transform:scale(.93)}
-.reveal-l.in,.reveal-r.in,.reveal-zoom.in{transform:none}
+.js .reveal-l{transform:translateX(-30px)}
+.js .reveal-r{transform:translateX(30px)}
+.js .reveal-zoom{transform:scale(.93)}
+.js .reveal-l.in,.js .reveal-r.in,.js .reveal-zoom.in{transform:none}
 
 /* --- scroll ilerleme çubuğu --- */
 .scroll-progress{position:fixed;top:0;left:0;z-index:200;height:3px;width:100%;
@@ -731,7 +731,7 @@ img{max-width:100%;display:block}
 .jam-stats dt[data-count]{font-variant-numeric:tabular-nums}
 
 @media (prefers-reduced-motion:reduce){
-  .reveal-l,.reveal-r,.reveal-zoom{opacity:1;transform:none}
+  .js .reveal-l,.js .reveal-r,.js .reveal-zoom{opacity:1;transform:none}
   .social-live{animation:none;top:0}
   .scroll-progress{display:none}
   .section-head .eyebrow::before{width:26px;margin-right:10px}
