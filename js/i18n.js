@@ -8,6 +8,11 @@
 (function (w) {
   'use strict';
 
+  /* İngilizce şimdilik kapalı: site yalnızca TR gösteriliyor, dil düğmesi
+     gizleniyor. EN sözlüğü ve değiştirme mantığı korunuyor — ileride
+     yeniden açmak için bu satırı true yapmak yeterli. */
+  var EN_ENABLED = false;
+
   var EN = {
     /* --- meta / a11y --- */
     'meta.title': 'GG Lab — Games &amp; Gamification Community, Akdeniz University',
@@ -16,6 +21,7 @@
     'a11y.nav': 'Main menu',
     'a11y.footNav': 'Footer menu',
     'a11y.lang': 'Switch to Turkish',
+    'a11y.social': 'Social media',
     'a11y.menuOpen': 'Open menu',
     'a11y.menuClose': 'Close menu',
     'a11y.lightbox': 'Image preview',
@@ -46,21 +52,19 @@
 
     /* --- biz kimiz --- */
     'about.eyebrow': '01 — About Us',
-    'about.head': 'Akdeniz University <span class="accent">Games and Gamification Community</span>',
-    'about.p1': 'GG Lab is a student community that helps Akdeniz University students build knowledge, skills and production capacity in <strong>game design, digital game development, board game design, game art, storytelling and gamification</strong>.',
-    'about.p2': 'By supporting creative thinking, teamwork and project-building skills, we contribute to the game development ecosystem and strengthen academic, cultural and social interaction on campus.',
-    'about.p3': 'In international work and projects we use the name <strong>Games &amp; Gamification Lab (GG Lab)</strong>. Our base is the space allocated by the Health, Culture and Sports Department on the Akdeniz University Campus in Antalya.',
-    'about.t1': 'We work on the principles of volunteering, equality, transparency, merit and solidarity',
-    'about.t2': 'We are production-focused: every workshop a skill, every jam a prototype',
-    'about.t3': 'We do not engage in political or ideological propaganda',
-    'about.c1h': 'Game Development',
-    'about.c1p': 'Want to try making your own game? Turn your idea into a real project with a team.',
-    'about.c2h': 'Gamification',
-    'about.c2p': 'In education, in health, at work… Discover the power of game design and build solutions that move people.',
-    'about.c3h': 'Board Games',
-    'about.c3p': 'Board game days, game analysis sessions and tabletop game design.',
-    'about.c4h': 'Community Spirit',
-    'about.c4p': 'For us games are inclusive. Join us and let\'s build together.',
+    'about.head': 'A campus crew turning ideas into <span class="accent">playable things</span>.',
+    'about.p1': 'GG Lab is the production space for Akdeniz University students who gather around game development, gamification and board game culture.',
+    'about.p2': 'We learn in workshops, experiment in jams, and meet each other and the industry through events. Whatever your experience level, ideas come to the table here and take shape together.',
+    'about.panelAria': 'GG Lab focus areas',
+    'about.s1k': 'BUILD',
+    'about.s1h': 'Game prototypes',
+    'about.s1p': 'From idea to playable experiment.',
+    'about.s2k': 'LEARN',
+    'about.s2h': 'Workshops and meetups',
+    'about.s2p': 'Design, code, art and narrative.',
+    'about.s3k': 'SHARE',
+    'about.s3h': 'Open community spirit',
+    'about.s3p': 'Open to every department and every level.',
 
     /* --- vizyon --- */
     'vision.eyebrow': '02 — Vision &amp; Mission',
@@ -99,7 +103,7 @@
     'jam.eyebrow': '04 — Our Flagship',
     'jam.head': 'Game Jam Akdeniz',
     'jam.when': '2–4 May 2026 · Antalya',
-    'jam.p1': 'The <strong>largest event we have run so far</strong>. A 48-hour game development marathon organised together by Akdeniz University, the Akdeniz University Computer Community and GG Lab, supported by sixteen institutions, studios and brands.',
+    'jam.p1': 'The <strong>largest event we have run so far</strong>. A 48-hour game development marathon organised together by Akdeniz University, AÜBT and GG Lab, supported by sixteen institutions, studios and brands.',
     'jam.p2': 'Over 48 hours participants formed teams and built playable prototypes from scratch around the announced theme. <span class="todo">The 2027 date is not set yet</span> — we will announce it here and on our social media.',
     'jam.s1': 'hours',
     'jam.s2': 'supporters',
@@ -139,23 +143,15 @@
     'gal.g8': 'Presenting a game on stage',
 
     /* --- üyelik --- */
-    'join.eyebrow': '07 — Membership',
-    'join.head': 'Join us',
-    'join.lead': 'For us games are inclusive. Your department, your talent or your level does not matter: everyone\'s contribution counts here.',
-    'join.reqH': 'Membership requirements',
-    'join.req1': 'Being an actively enrolled associate, undergraduate or graduate student at Akdeniz University',
-    'join.req2': 'Accepting the community\'s aims and the provisions of its charter',
-    'join.reqNote': 'Applications are made through the Community Management System or the membership application form; acceptance is subject to Board approval.',
-    'join.rightsH': 'Your rights as a member',
-    'join.r1': 'Attending the General Assembly, taking the floor and voting',
-    'join.r2': 'Standing for and being elected to the Board and the Audit Committee',
-    'join.r3': 'Taking an active role in community activities and projects',
-    'join.cta': 'Contact us to apply',
+    'join.eyebrow': '10 — Membership',
+    'join.head': 'Join the community',
+    'join.lead': 'GG Lab grows with what the community makes. Whatever your department, talent or level, hop into our Discord to ask questions, find a team, share what you\'re building, or just say hi. Event and Game Jam announcements land there first. You can follow us on the other channels too.',
+    'join.dc': 'Join our Discord',
 
     /* --- paydaşlar --- */
     'part.eyebrow': '08 — Partners',
     'part.head': 'Community partners',
-    'part.lead': '<span class="todo">Logo files are added as they arrive</span> — the rest are listed by name.',
+    'part.lead': 'Studios and organizations we work with alongside the community.',
 
     /* --- iletişim --- */
     'ct.eyebrow': '09 — Contact',
@@ -187,7 +183,7 @@
     'foot.menu': 'Menu',
     'foot.vision': 'Vision &amp; Mission',
     'foot.community': 'Community',
-    'foot.join': 'Membership',
+    'foot.join': 'Join Us',
     'foot.partners': 'Partners',
     'foot.links': 'All Links (Linktree)',
     'foot.copy': 'GG Lab — Akdeniz University Games and Gamification Community. Draft site.',
@@ -284,13 +280,21 @@
 
   function init() {
     captureTurkish();
+    var toggle = document.getElementById('langToggle');
+
+    if (!EN_ENABLED) {
+      /* Dil düğmesini gizle, siteyi hep TR göster. */
+      if (toggle) toggle.hidden = true;
+      apply('tr');
+      return;
+    }
+
     var saved = null;
     try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) { /* yoksay */ }
     /* Varsayılan dil İngilizce; tarayıcı diline bakılmaz.
        Ziyaretçi TR'ye geçerse tercihi localStorage'da saklanır. */
     apply(saved || 'en');
 
-    var toggle = document.getElementById('langToggle');
     if (toggle) {
       toggle.addEventListener('click', function () {
         apply(current === 'tr' ? 'en' : 'tr');

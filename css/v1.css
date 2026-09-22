@@ -180,6 +180,12 @@ img{max-width:100%;display:block}
 .s-ico{width:34px;height:34px;display:grid;place-items:center;border-radius:9px;background:var(--surface-2);font-size:1rem;flex:0 0 34px}
 .social strong{display:block;font-size:.92rem}
 .social em{font-style:normal;font-size:.78rem;color:var(--muted)}
+.social-live{position:relative;animation:social-drift 4.8s ease-in-out infinite}
+.social-live-b{animation-delay:-2.2s}
+@keyframes social-drift{
+  0%,100%{top:0}
+  50%{top:-8px}
+}
 .mail a{color:var(--accent-2);border-bottom:1px solid transparent}
 .mail a:hover{border-color:var(--accent-2)}
 .contact-form{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:30px}

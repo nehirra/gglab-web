@@ -74,7 +74,7 @@ img{max-width:100%;display:block}
 .hero-bg{position:absolute;inset:0;
   background:
     radial-gradient(900px 500px at 15% 10%,rgba(244,124,32,.22),transparent 60%),
-    radial-gradient(700px 500px at 85% 25%,rgba(77,124,255,.28),transparent 60%),
+    radial-gradient(700px 500px at 85% 25%,rgba(122,170,255,.28),transparent 60%),
     radial-gradient(700px 600px at 55% 105%,rgba(139,92,246,.30),transparent 62%),
     radial-gradient(500px 420px at 8% 88%,rgba(255,162,77,.12),transparent 60%),
     linear-gradient(180deg,var(--bg),var(--bg-2));
@@ -94,12 +94,20 @@ img{max-width:100%;display:block}
 
 /* ---------- sections ---------- */
 .section{padding:104px 0;position:relative}
-.section-alt{background:linear-gradient(180deg,rgba(18,32,70,.62),rgba(21,30,77,.42));border-block:1px solid rgba(255,255,255,.07)}
+/* kenarlar çizgisiz: ton üstte ve altta şeffafa eriyerek komşu bölümlere karışır */
+.section-alt{background:linear-gradient(180deg,rgba(18,32,70,0),rgba(18,32,70,.6) 16%,rgba(21,30,77,.5) 84%,rgba(21,30,77,0))}
 .section-head{max-width:70ch;margin-bottom:48px}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
 .ticks{list-style:none;padding:0;margin:22px 0 0}
 .ticks li{position:relative;padding-left:30px;margin-bottom:10px;color:var(--muted)}
 .ticks li::before{content:"✔";position:absolute;left:0;color:var(--accent-2);font-weight:700}
+
+/* bölüm renk ışımaları: kenarlara doğru şeffafa erir, geçişleri bozmaz */
+#vizyon{background:
+  radial-gradient(900px 460px at 82% 22%,rgba(110,160,255,.22),transparent 68%),
+  linear-gradient(180deg,rgba(18,32,70,0),rgba(18,32,70,.6) 16%,rgba(21,30,77,.5) 84%,rgba(21,30,77,0))}
+#faaliyet{background:
+  radial-gradient(880px 480px at 8% 30%,rgba(244,124,32,.2),transparent 68%)}
 
 /* ---------- about bridge ---------- */
 .about-bridge{
@@ -304,7 +312,7 @@ img{max-width:100%;display:block}
 .form-note.err{color:var(--accent-3)}
 
 /* ---------- footer ---------- */
-.site-footer{background:var(--bg-2);border-top:1px solid var(--line);padding:56px 0 24px}
+.site-footer{background:linear-gradient(180deg,var(--bg),var(--bg-2) 140px);padding:56px 0 24px}
 .footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;padding-bottom:32px}
 .footer-inner h4{font-size:.95rem;margin-bottom:12px}
 .footer-inner nav a,.footer-inner div a:not(.brand){display:block;color:var(--muted);font-size:.9rem;padding:3px 0;transition:color .2s}

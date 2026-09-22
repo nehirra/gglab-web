@@ -41,6 +41,13 @@ Başka sürümler eki alır (`-acik-zemin`). `.webp` dosyaları banda göre kü�
 | `keep-the-engine.png` + `.webp` | Keep The Engine | paydaş bandı + jam stüdyoları | **siteye bağlı** (bantlarda) |
 | `keep-the-engine-acik-zemin.png` | aynı, açık zemin sürümü | — | yedek (basılı iş / açık temalı mecra) |
 | `heat-interactive.png` + `.webp` | Heat Interactive | paydaş bandı + jam stüdyoları | **siteye bağlı** (ikisinde de) |
+| `demonsoft.png` + `.webp` | DemonSoft | paydaş bandı | **siteye bağlı** — afişten çıkarıldı |
+| `gamfed-turkiye.png` + `.webp` | GamFed Türkiye | paydaş bandı | **siteye bağlı** — afişten çıkarıldı |
+| `vellichor-games.png` + `.webp` | Vellichor Games | paydaş bandı | **siteye bağlı** — afişten çıkarıldı |
+| `reedon-games.png` + `.webp` | Reedon Games | paydaş bandı | **siteye bağlı** — afişten çıkarıldı |
+| `solymos-games.png` + `.webp` | Solymos Games | paydaş bandı + jam stüdyoları | **siteye bağlı** — afişten çıkarıldı |
+| `broken-lyre-entertainment.png` + `.webp` | Broken Lyre Entertainment | paydaş bandı | **siteye bağlı** — afişten çıkarıldı |
+| `mages-market.png` + `.webp` | Mages Market | paydaş bandı | **siteye bağlı** — afişten çıkarıldı |
 | `rogue-duck.png` + `.webp` | Rogue Duck | yalnızca jam stüdyoları | **siteye bağlı** |
 | `akdeniz-universitesi.png` + `.webp` | Akdeniz Üniversitesi | jam düzenleyenleri | **siteye bağlı** — ama çözünürlük zayıf, aşağıya bak |
 
@@ -145,7 +152,7 @@ Vizyon/misyon paragrafları tüzüğün 1. ve 8. maddelerinden yola çıkarak ya
 - [ ] İletişim e-posta adresi
 - [ ] Etkinlik tarihleri, yerleri ve geçmiş etkinlikler
 - [ ] Etkinlik ve galeri fotoğrafları (`assets/img/` içine at, `index.html`'de yolları değiştir)
-- [ ] Paydaş logoları — 9 paydaştan 2'si geldi (Keep The Engine, Heat Interactive); kalan 7'si isim olarak duruyor
+- [x] Paydaş logoları — 9 paydaşın tamamı bantlara eklendi; 7 tanesi afiş kaynağından çıkarıldı
 - [ ] Jam destekçi logoları — 16 destekçiden 4'ü geldi; Akdeniz Üniversitesi arması düşük çözünürlüklü
 - [ ] İletişim formunun bir servise bağlanması (Formspree, Google Form vb.)
 - [ ] Vizyon/misyon metinlerinin yönetim kurulu onayı

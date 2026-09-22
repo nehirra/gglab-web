@@ -203,4 +203,36 @@
       counters.forEach(function (el) { countObs.observe(el); });
     }
   }
+
+  /* --- hero hafif parallax --- */
+  var hero = document.querySelector('.hud-hero');
+  if (hero && !reduceMotion) {
+    var heroTicking = false;
+    var nextHeroX = 0;
+    var nextHeroY = 0;
+
+    function drawHeroParallax() {
+      heroTicking = false;
+      hero.style.setProperty('--hero-x', nextHeroX.toFixed(2) + 'px');
+      hero.style.setProperty('--hero-y', nextHeroY.toFixed(2) + 'px');
+    }
+
+    function requestHeroParallax(e) {
+      var rect = hero.getBoundingClientRect();
+      nextHeroX = ((e.clientX - rect.left) / rect.width - 0.5) * 18;
+      nextHeroY = ((e.clientY - rect.top) / rect.height - 0.5) * 18;
+      if (heroTicking) return;
+      heroTicking = true;
+      requestAnimationFrame(drawHeroParallax);
+    }
+
+    function resetHeroParallax() {
+      nextHeroX = 0;
+      nextHeroY = 0;
+      requestAnimationFrame(drawHeroParallax);
+    }
+
+    hero.addEventListener('pointermove', requestHeroParallax, { passive: true });
+    hero.addEventListener('pointerleave', resetHeroParallax);
+  }
 })();
