@@ -476,10 +476,17 @@
 
 /* ---------------- TOPLULUĞA KATIL: tam ekran bölüm ---------------- */
 #uyelik{
+  position:relative;isolation:isolate;overflow:hidden;
   min-height:100svh;display:flex;align-items:center;
   padding:clamp(88px,11vh,124px) 0 clamp(40px,8vh,96px);
+  background:#0c1631 url('../assets/img/uyelik-gece.svg') center bottom/cover no-repeat;
 }
-#uyelik > .container{width:100%}
+/* üstteki ve alttaki bölümlere yumuşak geçiş */
+#uyelik::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(180deg,var(--bg) 0%,transparent 16%,transparent 82%,var(--bg) 100%);
+}
+#uyelik > .container{position:relative;z-index:1;width:100%}
 #uyelik .section-head{max-width:none;margin-bottom:0;text-align:center}
 #uyelik .section-head h2{font-size:clamp(2.6rem,6.5vw,5.6rem);line-height:1.02;margin:6px 0 24px}
 #uyelik .section-head .lead{max-width:60ch;margin-inline:auto;font-size:clamp(1rem,1.5vw,1.2rem)}

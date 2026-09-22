@@ -314,7 +314,7 @@ img{max-width:100%;display:block}
 /* ---------- footer ---------- */
 .site-footer{background:linear-gradient(180deg,var(--bg),var(--bg-2) 140px);padding:56px 0 24px}
 .footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;padding-bottom:32px}
-.footer-inner h4{font-size:.95rem;margin-bottom:12px}
+.footer-inner h3{font-size:.95rem;margin-bottom:12px}
 .footer-inner nav a,.footer-inner div a:not(.brand){display:block;color:var(--muted);font-size:.9rem;padding:3px 0;transition:color .2s}
 .footer-inner nav a:hover,.footer-inner div a:not(.brand):hover{color:var(--accent-2)}
 .footer-inner .brand{margin-bottom:12px}
