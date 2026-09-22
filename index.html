@@ -15,9 +15,10 @@
 <meta property="og:type" content="website">
 <link rel="icon" href="assets/img/logo-yazisiz.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/img/logo-yazisiz.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Hero'nun ilk karede kullandığı fontlar; diğerleri style.css'teki @font-face ile gerektiğinde iner -->
+<link rel="preload" href="assets/fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/oswald-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/hud.css">
 </head>
@@ -85,18 +86,18 @@
       <div class="hud-frame">
         <div class="hud-hero-grid">
           <div class="hero-text">
-            <p class="eyebrow reveal"><span class="tick" aria-hidden="true"></span><span data-i18n="hero.eyebrow">Akdeniz Üniversitesi · Antalya</span></p>
-            <h1 class="reveal" data-i18n="hero.title">OYUN VE<br><span class="grad">OYUNLAŞTIRMA</span><br>TOPLULUĞU.</h1>
-            <p class="lead reveal" data-i18n="hero.lead">Oyun sadece eğlence değil. GG Lab'de fikirlerini gerçek projelere
+            <p class="eyebrow hero-enter"><span class="tick" aria-hidden="true"></span><span data-i18n="hero.eyebrow">Akdeniz Üniversitesi · Antalya</span></p>
+            <h1 class="hero-enter" data-i18n="hero.title">OYUN VE<br><span class="grad">OYUNLAŞTIRMA</span><br>TOPLULUĞU.</h1>
+            <p class="lead hero-enter" data-i18n="hero.lead">Oyun sadece eğlence değil. GG Lab'de fikirlerini gerçek projelere
               dönüştür, ekip arkadaşlarınla birlikte tasarla ve geliştir. Bölümün, yeteneğin ya da
               seviyen fark etmez — burada herkesin katkısı değerli.</p>
-            <div class="hero-actions reveal">
+            <div class="hero-actions hero-enter">
               <a class="cut-btn cut-btn-light" href="#uyelik"><span data-i18n="hero.cta1"><i>&#8592;</i> Aramıza katıl</span></a>
               <a class="cut-btn cut-btn-ghost" href="#faaliyet"><span data-i18n="hero.cta2">Ne yapıyoruz?</span></a>
             </div>
           </div>
 
-          <div class="hero-visual reveal reveal-r">
+          <div class="hero-visual hero-enter">
             <img src="assets/img/logo-yazili.webp" alt="" width="512" height="512" style="aspect-ratio:1">
           </div>
         </div>

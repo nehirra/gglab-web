@@ -267,6 +267,17 @@
   .lang-toggle{margin-left:auto;margin-right:4px;min-width:46px;height:44px;padding:0 11px;font-size:.75rem}
 }
 
+/* hero girişi: .reveal yerine yalnızca transform animasyonu. İçerik ilk karede
+   görünür olduğu için LCP main.js'i ve scroll kontrolünü beklemez.
+   prefers-reduced-motion'da style.css'teki genel animation:none kapatır. */
+@keyframes hero-enter{from{transform:translateY(18px)}}
+@keyframes hero-enter-r{from{transform:translateX(26px)}}
+.hero-enter{animation:hero-enter .7s var(--ease) both}
+.hero-visual.hero-enter{animation-name:hero-enter-r;animation-duration:.75s}
+.hero-text .hero-enter:nth-child(2){animation-delay:.07s}
+.hero-text .hero-enter:nth-child(3){animation-delay:.14s}
+.hero-text .hero-enter:nth-child(4){animation-delay:.21s}
+
 /* hero'daki kayan paydaş şeridi */
 .hud-partners .marquee{flex:1 1 auto;min-width:0}
 .hud-partners .marquee-track{--gap:30px;animation-duration:30s}
