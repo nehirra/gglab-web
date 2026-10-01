@@ -18,7 +18,7 @@ Sonra tarayıcıda `http://localhost:4173`. (`main.js` bir ES modülü olduğu i
 Kurulum gerekmez, `npx` araçları geçici olarak indirir:
 
 ```bash
-npx html-validate@9 index.html
+npx html-validate@9 index.html 404.html
 npx stylelint@16 "css/*.css"
 ```
 
@@ -40,8 +40,10 @@ bir statik site üreticisine geçmek mantıklı olur.
 ## Dosyalar
 
 - `index.html` — tek sayfa, tüm bölümler
+- `404.html` — GitHub Pages'in eksik adreslerde gösterdiği sayfa; site CSS'ini kullanır,
+  `<base>`'i adrese göre kendisi kurar (`/gglab-web/` ya da özel alan adında `/`)
 - `css/style.css` — tema ve responsive kurallar
-- `css/hud.css` — header + hero'nun HUD tarzı katmanı (sadece `index.html` yükler)
+- `css/hud.css` — header + hero'nun HUD tarzı katmanı (`index.html` ve `404.html` yükler)
 - `js/main.js` — partner bantları, menü, scroll reveal, galeri lightbox, form doğrulama (ES modülü)
 - `js/i18n.js` — TR/EN dil katmanı ve İngilizce sözlük (şu an yüklenmiyor, bkz. Dil)
 - Eski (HUD öncesi) tasarım repodan kaldırıldı; `git checkout v1-design` ile görülebilir
@@ -234,4 +236,4 @@ Vizyon/misyon paragrafları tüzüğün 1. ve 8. maddelerinden yola çıkarak ya
 ## Renkler
 
 `css/style.css` içindeki `:root` bloğunda:
-lacivert `#0c1631`, turuncu `#f47c20`, mavi `#4d7cff`, mor `#8b5cf6`.
+lacivert `#10214d`, turuncu `#f47c20`, mavi `#4d7cff`, mor `#8b5cf6`.
