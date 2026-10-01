@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10214d">
 <script>document.documentElement.classList.add('js')</script>
 <title data-i18n="meta.title">GG Lab — Akdeniz Üniversitesi Oyun ve Oyunlaştırma Topluluğu</title>
 <meta name="description" data-i18n-meta="meta.desc" content="Akdeniz Üniversitesi Oyun ve Oyunlaştırma Topluluğu (GG Lab). Oyun geliştirme atölyeleri, Game Jam'ler, Indie Talks ve kutu oyunu günleri.">
@@ -38,6 +39,7 @@
       <nav class="nav hud-nav" id="nav" aria-label="Ana menü" data-i18n-aria="a11y.nav">
         <a href="#top" class="active" data-i18n="nav.home">Ana Sayfa</a>
         <a href="#hakkimizda" data-i18n="nav.about">Biz Kimiz</a>
+        <a href="#yaklasan" data-i18n="nav.upcoming">Yaklaşan</a>
         <a href="#vizyon" data-i18n="nav.vision">Vizyon</a>
         <a href="#faaliyet" data-i18n="nav.what">Ne Yaparız</a>
         <a href="#gamejam" data-i18n="nav.jam">Game Jam</a>
@@ -157,22 +159,45 @@
     </div>
   </section>
 
+  <!-- YAKLAŞAN ETKİNLİKLER — liste data-sheet'teki CSV'den gelir: şimdilik repodaki
+       content/etkinlikler.csv, ileride yayınlanmış bir Google E-Tablosu adresi.
+       Sütunlar ve düzenleme: README > Yaklaşan etkinlikler. Geçmiş tarihler kendiliğinden gizlenir. -->
+  <section class="section" id="yaklasan" data-sheet="content/etkinlikler.csv">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow" data-i18n="up.eyebrow">02 — Yaklaşan</p>
+        <h2 data-i18n="up.head">Yaklaşan etkinlikler</h2>
+        <p class="lead" data-i18n="up.lead">Takvimdeki sıradaki buluşmalar. Kayıt bağlantısı olanlarda yerini şimdiden ayırt.</p>
+      </div>
+      <div class="upcoming reveal" id="upcoming" aria-busy="true">
+        <div class="up-skeleton" aria-hidden="true"><span></span><span></span></div>
+        <ol class="up-list" id="upList" hidden></ol>
+        <div class="up-empty" id="upEmpty" hidden>
+          <p class="up-empty-h" id="upEmptyH" data-i18n="up.emptyH">Takvim şu an boş, ama uzun sürmez.</p>
+          <p data-i18n="up.emptyP">Yeni etkinlikler ilk Discord'da duyuruluyor; katıl, kaçırma.</p>
+          <a class="cut-btn cut-btn-light" href="https://discord.gg/wFtA5EvmnW" target="_blank" rel="noopener noreferrer"><span><span data-i18n="up.emptyCta"><span lang="en">Discord</span>'a katıl</span></span></a>
+        </div>
+        <noscript><p class="up-noscript">Etkinlik takvimi için JavaScript gerekiyor. Duyurular Discord ve Instagram hesaplarımızda.</p></noscript>
+      </div>
+    </div>
+  </section>
+
   <!-- VİZYON & MİSYON -->
   <section class="section section-alt" id="vizyon">
     <div class="container">
       <div class="section-head reveal">
-        <p class="eyebrow" data-i18n="vision.eyebrow">02 — Vizyon &amp; Misyon</p>
+        <p class="eyebrow" data-i18n="vision.eyebrow">03 — Vizyon &amp; Misyon</p>
         <h2 data-i18n="vision.head">Nereye gidiyoruz?</h2>
       </div>
       <div class="vm-grid">
         <article class="vm-card spotlight reveal reveal-l">
-          <h3><span class="vm-ico">🎯</span> <span data-i18n="vision.v">Vizyonumuz</span></h3>
+          <h3><span class="vm-ico" aria-hidden="true">🎯</span> <span data-i18n="vision.v">Vizyonumuz</span></h3>
           <p data-i18n="vision.vp">Akdeniz Üniversitesi'ni, öğrencilerin oyunu yalnızca oynamadığı; tasarladığı, geliştirdiği ve
             farklı alanlara uyguladığı bir üretim merkezine dönüştürmek. Türkiye'nin oyun geliştirme
             ekosistemine öğrenci projeleriyle katkı sağlayan, uluslararası ölçekte görünür bir topluluk olmak.</p>
         </article>
         <article class="vm-card spotlight reveal reveal-r">
-          <h3><span class="vm-ico">🚀</span> <span data-i18n="vision.m">Misyonumuz</span></h3>
+          <h3><span class="vm-ico" aria-hidden="true">🚀</span> <span data-i18n="vision.m">Misyonumuz</span></h3>
           <p data-i18n="vision.mp">Eğitimler, atölyeler, Game Jam'ler ve sektör buluşmalarıyla öğrencilerin oyun tasarımı ve
             oyunlaştırma alanındaki bilgi, beceri ve üretim kapasitesini geliştirmek; ekip çalışmasını ve
             yaratıcı düşünmeyi destekleyerek herkese açık, kapsayıcı bir üretim ortamı kurmak.</p>
@@ -191,7 +216,7 @@
   <section class="section" id="faaliyet">
     <div class="container">
       <div class="section-head reveal">
-        <p class="eyebrow" data-i18n="act.eyebrow">03 — Ne Yaparız</p>
+        <p class="eyebrow" data-i18n="act.eyebrow">04 — Ne Yaparız</p>
         <h2 data-i18n="act.head">Faaliyet alanlarımız</h2>
         <p class="lead" data-i18n="act.lead">Tüzüğümüzde tanımlı faaliyet alanlarımız.</p>
       </div>
@@ -213,13 +238,11 @@
       <article class="level reveal">
         <figure class="level-cover">
           <img class="level-cover-img" src="assets/img/gallery/jam-06-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async">
-          <span class="level-num" aria-hidden="true">LEVEL 01</span>
-          <span class="level-cleared" data-i18n="jam.cleared">Tamamlandı</span>
           <img class="level-logo" src="assets/img/gamejam-logo.svg" alt="Game Jam Akdeniz" width="1281" height="489" loading="lazy">
         </figure>
 
         <div class="level-info">
-          <p class="eyebrow" data-i18n="jam.eyebrow">04 — Amiral Gemimiz</p>
+          <p class="eyebrow" data-i18n="jam.eyebrow">05 — Amiral Gemimiz</p>
           <h2 data-i18n="jam.head">Game Jam <span class="accent">Akdeniz</span></h2>
           <p class="level-when">
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v3M17 3v3M4 9h16M5 6h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Z"/></svg>
@@ -271,7 +294,7 @@
         <div class="level-next-text">
           <p class="level-label" data-i18n="jam.nextK">Sıradaki bölüm · Level 02</p>
           <h3 data-i18n="jam.nextH">Game Jam Akdeniz 2027</h3>
-          <p data-i18n="jam.nextP">Tarih henüz belli değil. Duyuru ilk Discord'da ve sosyal medya hesaplarımızda olacak.</p>
+          <p data-i18n="jam.nextP">Tarih henüz belli değil. Duyuru ilk Discord'da ve yukarıdaki "Yaklaşan" bölümünde olacak.</p>
         </div>
         <a class="cut-btn cut-btn-ghost" href="https://discord.gg/wFtA5EvmnW" target="_blank" rel="noopener noreferrer"><span data-i18n="jam.nextCta">Haber al</span></a>
       </div>
@@ -292,7 +315,7 @@
   <section class="section" id="etkinlikler">
     <div class="container">
       <div class="section-head reveal">
-        <p class="eyebrow" data-i18n="ev.eyebrow">05 — Düzenli Etkinlikler</p>
+        <p class="eyebrow" data-i18n="ev.eyebrow">06 — Düzenli Etkinlikler</p>
         <h2 data-i18n="ev.head">Düzenli etkinliklerimiz</h2>
         <p class="lead" data-i18n="ev.lead">Yıl boyunca dört ana başlıkta bir araya geliyoruz.
           Tarihler netleştikçe burada ve sosyal medya hesaplarımızda duyuruyoruz.</p>
@@ -350,7 +373,7 @@
   <section class="section" id="galeri">
     <div class="container">
       <div class="section-head reveal">
-        <p class="eyebrow" data-i18n="gal.eyebrow">06 — Galeri</p>
+        <p class="eyebrow" data-i18n="gal.eyebrow">07 — Galeri</p>
         <h2 data-i18n="gal.head">Topluluktan kareler</h2>
         <p class="lead" data-i18n="gal.lead">Game Jam Akdeniz'den kareler. Diğer etkinliklerin fotoğrafları eklendikçe burası büyüyecek.</p>
       </div>
@@ -373,12 +396,12 @@
          forma action ekle, `hidden`'ı kaldır, bülten kutusunu bilgi sütununun altına taşı. -->
     <div class="container grid-2">
       <div class="reveal">
-        <p class="eyebrow" data-i18n="ct.eyebrow">07 — İletişim</p>
+        <p class="eyebrow" data-i18n="ct.eyebrow">08 — İletişim</p>
         <h2 data-i18n="ct.head">Bize ulaş</h2>
         <p class="lead" data-i18n="ct.lead">Soruların, iş birliği tekliflerin ya da etkinlik fikirlerin için bize yaz.</p>
 
-        <p class="contact-line">📍 <a href="https://www.google.com/maps/search/?api=1&amp;query=Akdeniz+%C3%9Cniversitesi" target="_blank" rel="noopener noreferrer" data-i18n="ct.place">Akdeniz Üniversitesi, Konyaaltı / Antalya</a></p>
-        <p class="contact-line">📧 <a href="mailto:gglabakdeniz@gmail.com" data-i18n="ct.mail">gglabakdeniz@gmail.com</a></p>
+        <p class="contact-line"><span aria-hidden="true">📍</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Akdeniz+%C3%9Cniversitesi" target="_blank" rel="noopener noreferrer" data-i18n="ct.place">Akdeniz Üniversitesi, Konyaaltı / Antalya</a></p>
+        <p class="contact-line"><span aria-hidden="true">📧</span> <a href="mailto:gglabakdeniz@gmail.com" data-i18n="ct.mail">gglabakdeniz@gmail.com</a></p>
       </div>
 
       <!-- Bülten: action boşken gönderim yapmaz, "yakında" notu gösterir.
@@ -440,7 +463,7 @@
     </div>
     <div class="container">
       <div class="section-head reveal">
-        <p class="eyebrow" data-i18n="join.eyebrow">08 — Üyelik</p>
+        <p class="eyebrow" data-i18n="join.eyebrow">09 — Üyelik</p>
         <h2 data-i18n="join.head">Topluluğa katıl</h2>
         <p class="lead" data-i18n="join.lead">GG Lab, topluluğun ürettikleriyle büyüyor. Bölümün, yeteneğin ya da seviyen fark etmez: soru sormak, ekip bulmak, yaptıklarını paylaşmak ya da sadece merhaba demek için Discord'a gel. Etkinlik ve Game Jam duyuruları ilk orada. Diğer kanallardan da bizi takip edebilirsin.</p>
       </div>
@@ -466,6 +489,7 @@
     <nav aria-label="Alt menü" data-i18n-aria="a11y.footNav">
       <h3 data-i18n="foot.menu">Menü</h3>
       <a href="#hakkimizda" data-i18n="nav.about">Biz Kimiz</a>
+      <a href="#yaklasan" data-i18n="nav.upcoming">Yaklaşan</a>
       <a href="#vizyon" data-i18n="foot.vision">Vizyon &amp; Misyon</a>
       <a href="#faaliyet" data-i18n="nav.what">Ne Yaparız</a>
       <a href="#gamejam" data-i18n="nav.jam">Game Jam</a>

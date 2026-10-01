@@ -44,10 +44,11 @@ bir statik site üreticisine geçmek mantıklı olur.
   `<base>`'i adrese göre kendisi kurar (`/gglab-web/` ya da özel alan adında `/`)
 - `css/style.css` — tema ve responsive kurallar
 - `css/hud.css` — header + hero'nun HUD tarzı katmanı (`index.html` ve `404.html` yükler)
-- `js/main.js` — partner bantları, menü, scroll reveal, galeri lightbox, form doğrulama (ES modülü)
+- `js/main.js` — partner bantları, menü, scroll reveal, galeri lightbox, yaklaşan etkinlikler, form doğrulama (ES modülü)
 - `js/i18n.js` — TR/EN dil katmanı ve İngilizce sözlük (şu an yüklenmiyor, bkz. Dil)
 - Eski (HUD öncesi) tasarım repodan kaldırıldı; `git checkout v1-design` ile görülebilir
 - `content/icerik.md` — topluluktan gelen ham metinler (vizyon/misyon, amaçlar, faaliyet alanları)
+- `content/etkinlikler.csv` — Yaklaşan etkinlikler listesi (bkz. Yaklaşan etkinlikler)
 - `content/afis-referans.webp` — tanıtım afişi; **sitede kullanılmıyor**, yalnızca içerik kaynağı
 - `content/gamejam-sponsorlar-*.jpg` — jam sponsor afişleri; yalnızca kaynak
 - `assets/img/gamejam-logo.svg` — Game Jam Akdeniz logosu (topluluktan geldi)
@@ -113,12 +114,12 @@ ayrıdır, birleştirilmemelidir. Partnerler yalnızca hero'da gösterilir; sayf
 ayrı bir Partnerler bölümü yoktur.
 
 `#etkinlikler` bölümü takvim değil, **etkinlik türü tanıtımıdır**; tarih iddiası içermez.
-Tarihi kesinleşen etkinlikler için ayrı bir takvim bloğu eklenebilir.
+Tarihi kesinleşen etkinlikler `#yaklasan` bölümünde listelenir (bkz. Yaklaşan etkinlikler).
 
 `#gamejam` bir oyunun "bölüm seçme" ekranı gibi kurulu: solda kutu kapağı (`jam-06` fotoğrafı +
-logo, "LEVEL 01 · Tamamlandı"), sağda bilgiler ve istatistikler, altında galeriden 4 ekran
+logo), sağda bilgiler ve istatistikler, altında galeriden 4 ekran
 görüntüsü (tıklayınca galerinin lightbox'ı açılır), kilitli "Level 02" kartı ve destekçi jeneriği.
-2027 tarihi belli olunca kilitli karttaki metni güncelle.
+2027 tarihi belli olunca kilitli karttaki metni güncelle ve `content/etkinlikler.csv` satırını tam tarihe çevir.
 
 ## Dikey ölçek
 
@@ -176,6 +177,45 @@ Game Jam bölümündeki destekçi etiketleri de aynı mantıkla çalışır, log
 
 `.logo-mark` üç bağlamda da ortak sınıftır; yüksekliği bağlamı saran kural belirler
 (`.chips .logo-mark` 22px, hero şeridinde `clamp(26px,3.6vh,36px)`).
+
+## Yaklaşan etkinlikler
+
+`#yaklasan` bölümündeki liste bir CSV dosyasından okunur (`<section id="yaklasan" data-sheet="…">`).
+Şimdilik bu dosya repodaki **`content/etkinlikler.csv`**; ileride bir Google E-Tablosuna geçilebilir.
+
+**Etkinlik eklemek / düzenlemek (şimdiki yol)**
+1. GitHub'da `content/etkinlikler.csv` dosyasını aç, kalem simgesiyle düzenle.
+2. Her etkinlik bir satır; sütun sırasını koru. Boş bırakılan alan sitede görünmez.
+3. "Commit changes" de; site 1–2 dakika içinde güncellenir.
+
+```csv
+baslik,tarih,saat,yer,tur,aciklama,link
+Kutu Oyunu Günü,10.10.2026,18:00,Kampüs kafeterya,Kutu oyunu,Kısa açıklama,
+Unity atölyesi,2026-11-05,18:00,"Mühendislik Fakültesi, Z-12",Atölye,Laptopunu getir.,https://forms.gle/…
+Game Jam,Ocak 2027,,,Game Jam,Kesin tarih yakında.,
+```
+
+| Sütun | Zorunlu | Not |
+| --- | --- | --- |
+| `baslik` | evet | Etkinliğin adı |
+| `tarih` | evet | `10.10.2026` ya da `2026-10-10`; günü belli değilse yalnızca ay: `Ocak 2027`, `01.2027`, `2027-01` |
+| `saat` | hayır | `18:00` |
+| `yer` | hayır | İçinde virgül varsa çift tırnak içine al: `"Mühendislik Fakültesi, Z-12"` |
+| `tur` | hayır | Atölye, Söyleşi, Kutu oyunu, Game Jam… (küçük etiket olarak görünür) |
+| `aciklama` | hayır | Bir iki cümle; virgül varsa çift tırnak |
+| `link` | hayır | Kayıt formu / Discord etkinliği; yalnızca `https://…` |
+
+- Tarihi geçen satırlar sitede kendiliğinden gizlenir; silmek gerekmez. Yalnızca ayı yazılan etkinlik
+  o ay bitene kadar "Kesin tarih yakında" etiketiyle görünür.
+- En fazla 6 etkinlik gösterilir; en yakını "Sıradaki" olarak öne çıkar ve kaç gün kaldığı yazılır.
+- Liste boşsa ya da dosya okunamazsa bölüm "Takvim şu an boş / yüklenemedi" mesajı ve Discord düğmesi gösterir.
+- Metinler sayfaya düz metin olarak yazılır (HTML çalışmaz).
+
+**İleride Google E-Tablolar'a geçmek** (GitHub kullanmayan ekip üyeleri de düzenleyebilsin diye)
+1. Yeni bir Google E-Tablosu aç, `content/etkinlikler.csv` dosyasını içe aktar (Dosya > İçe aktar).
+2. Dosya > Paylaş > **Web'de yayınla** > ilgili sayfa + **Virgülle ayrılmış değerler (.csv)** > Yayınla.
+3. Verilen adresi (`https://docs.google.com/spreadsheets/d/e/…/pub?…&output=csv`) `data-sheet` içine yaz.
+   Sütunlar aynı kalır; Google yayınlanan CSV'yi birkaç dakika önbellekte tuttuğu için değişiklik ~5 dk'da yansır.
 
 ## Bülten
 

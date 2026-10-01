@@ -32,6 +32,7 @@
     /* --- nav --- */
     'nav.home': 'Home',
     'nav.about': 'About Us',
+    'nav.upcoming': 'Upcoming',
     'nav.vision': 'Vision',
     'nav.what': 'What We Do',
     'nav.jam': 'Game Jam',
@@ -68,7 +69,21 @@
     'about.s3p': 'Open to every department and every level.',
 
     /* --- vizyon --- */
-    'vision.eyebrow': '02 — Vision &amp; Mission',
+    'up.eyebrow': '02 — Upcoming',
+    'up.head': 'Upcoming events',
+    'up.lead': 'What is next on the calendar. Where there is a sign-up link, save your spot now.',
+    'up.emptyH': 'The calendar is empty right now, but not for long.',
+    'up.emptyP': 'New events are announced on Discord first; join so you don\'t miss them.',
+    'up.emptyCta': 'Join <span lang="en">Discord</span>',
+    'up.today': 'Today',
+    'up.tomorrow': 'Tomorrow',
+    'up.daysLeft': '{n} days left',
+    'up.next': 'Next up',
+    'up.signup': 'Sign up',
+    'up.errH': 'The calendar could not be loaded right now.',
+    'up.dateSoon': 'Exact date soon',
+
+    'vision.eyebrow': '03 — Vision &amp; Mission',
     'vision.head': 'Where are we headed?',
     'vision.v': 'Our Vision',
     'vision.vp': 'To turn Akdeniz University into a place where students do not only play games but design, develop and apply them across different fields. To become an internationally visible community contributing to Türkiye\'s game development ecosystem through student projects.',
@@ -84,7 +99,7 @@
     'vision.n4p': 'We don\'t just talk about it — we ship finished work.',
 
     /* --- faaliyet --- */
-    'act.eyebrow': '03 — What We Do',
+    'act.eyebrow': '04 — What We Do',
     'act.head': 'Our fields of activity',
     'act.lead': 'The fields of activity defined in our charter.',
     'act.f1h': 'Game Development Trainings',
@@ -101,16 +116,15 @@
     'act.f6p': 'Gatherings and community nights that strengthen communication between members.',
 
     /* --- game jam --- */
-    'jam.eyebrow': '04 — Our Flagship',
+    'jam.eyebrow': '05 — Our Flagship',
     'jam.head': 'Game Jam <span class="accent">Akdeniz</span>',
     'jam.when': '2–4 May 2026 · Antalya',
     'jam.p1': 'The <strong>largest event we have run so far</strong>. A 48-hour game development marathon organised together by Akdeniz University, AÜBT and GG Lab, supported by sixteen institutions, studios and brands.',
     'jam.p2': 'Over 48 hours participants formed teams and built playable prototypes from scratch around the announced theme.',
-    'jam.cleared': 'Cleared',
     'jam.shotsH': 'Screenshots',
     'jam.nextK': 'Next level · Level 02',
     'jam.nextH': 'Game Jam Akdeniz 2027',
-    'jam.nextP': 'The date is not set yet. It will be announced first on Discord and on our social media.',
+    'jam.nextP': 'The date is not set yet. It will be announced first on Discord and in the "Upcoming" section above.',
     'jam.nextCta': 'Get notified',
     'jam.creditsH': 'Credits',
     'jam.s1': 'hours',
@@ -127,7 +141,7 @@
     'jam.itchSub': 'Game Jam Akdeniz 2026 games · itch.io',
 
     /* --- düzenli etkinlikler --- */
-    'ev.eyebrow': '05 — Regular Events',
+    'ev.eyebrow': '06 — Regular Events',
     'ev.head': 'Our regular events',
     'ev.lead': 'We gather around four main formats throughout the year. Dates are announced here and on our social media as they are confirmed.',
     'ev.e1h': 'Board Game Days',
@@ -140,7 +154,7 @@
     'ev.e4p': 'Team-based game development marathons: from idea to playable prototype.',
 
     /* --- galeri --- */
-    'gal.eyebrow': '06 — Gallery',
+    'gal.eyebrow': '07 — Gallery',
     'gal.head': 'Moments from the community',
     'gal.lead': 'Moments from Game Jam Akdeniz. This page will grow as photos from our other events are added.',
     'gal.g1': 'Game Jam Akdeniz — participants',
@@ -153,13 +167,13 @@
     'gal.g8': 'Presenting a game on stage',
 
     /* --- üyelik --- */
-    'join.eyebrow': '08 — Membership',
+    'join.eyebrow': '09 — Membership',
     'join.head': 'Join the community',
     'join.lead': 'GG Lab grows with what the community makes. Whatever your department, talent or level, hop into our Discord to ask questions, find a team, share what you\'re building, or just say hi. Event and Game Jam announcements land there first. You can follow us on the other channels too.',
     'join.dc': 'Join our Discord',
 
     /* --- iletişim --- */
-    'ct.eyebrow': '07 — Contact',
+    'ct.eyebrow': '08 — Contact',
     'ct.head': 'Get in touch',
     'ct.lead': 'Write to us with your questions, collaboration offers or event ideas.',
     'ct.place': 'Akdeniz University, Konyaaltı / Antalya',
@@ -215,7 +229,14 @@
     'nl.err': 'Geçerli bir e-posta adresi yaz.',
     'nl.ok': 'Kaydın alındı, teşekkürler!',
     'nl.fail': 'Bir sorun oldu, biraz sonra tekrar dene.',
-    'nl.soon': 'Bülten çok yakında açılıyor! O zamana kadar duyurular Discord\'da.'
+    'nl.soon': 'Bülten çok yakında açılıyor! O zamana kadar duyurular Discord\'da.',
+    'up.today': 'Bugün',
+    'up.tomorrow': 'Yarın',
+    'up.daysLeft': '{n} gün kaldı',
+    'up.next': 'Sıradaki',
+    'up.signup': 'Kayıt ol',
+    'up.errH': 'Takvim şu an yüklenemedi.',
+    'up.dateSoon': 'Kesin tarih yakında'
   };
 
   var TR = {};

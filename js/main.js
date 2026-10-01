@@ -11,7 +11,14 @@ const FALLBACK = {
   'nl.err': 'Geçerli bir e-posta adresi yaz.',
   'nl.ok': 'Kaydın alındı, teşekkürler!',
   'nl.fail': 'Bir sorun oldu, biraz sonra tekrar dene.',
-  'nl.soon': 'Bülten çok yakında açılıyor! O zamana kadar duyurular Discord\'da.'
+  'nl.soon': 'Bülten çok yakında açılıyor! O zamana kadar duyurular Discord\'da.',
+  'up.today': 'Bugün',
+  'up.tomorrow': 'Yarın',
+  'up.daysLeft': '{n} gün kaldı',
+  'up.next': 'Sıradaki',
+  'up.signup': 'Kayıt ol',
+  'up.errH': 'Takvim şu an yüklenemedi.',
+  'up.dateSoon': 'Kesin tarih yakında'
 };
 const tr = (key) => window.I18N?.t(key) || FALLBACK[key] || '';
 
@@ -103,6 +110,11 @@ if (nav && navToggle) {
   nav.addEventListener('click', (e) => {
     if (e.target.closest('a')) setMenu(false);
   });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || !nav.classList.contains('open')) return;
+    setMenu(false);
+    navToggle.focus();
+  });
 }
 if (nav) {
   const navLinks = $$('a:not(.btn)', nav);
@@ -184,8 +196,16 @@ if (lb && shots.length) {
   document.getElementById('lbPrev').addEventListener('click', () => show(idx - 1));
   document.getElementById('lbNext').addEventListener('click', () => show(idx + 1));
   lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+  /* odak lightbox içinde döner: Tab sondaki düğmeden başa, Shift+Tab baştan sona */
+  const lbButtons = [lbClose, document.getElementById('lbPrev'), document.getElementById('lbNext')];
   document.addEventListener('keydown', (e) => {
     if (lb.hidden) return;
+    if (e.key === 'Tab') {
+      const at = lbButtons.indexOf(document.activeElement);
+      const next = at < 0 ? 0 : (at + (e.shiftKey ? -1 : 1) + lbButtons.length) % lbButtons.length;
+      e.preventDefault();
+      lbButtons[next].focus();
+    }
     if (e.key === 'Escape') close();
     if (e.key === 'ArrowLeft') show(idx - 1);
     if (e.key === 'ArrowRight') show(idx + 1);
@@ -242,6 +262,176 @@ if (nlForm && nlNote) {
       say('nl.fail', false);
     }
   });
+}
+
+/* --- yaklaşan etkinlikler ---
+   Liste #yaklasan'daki data-sheet adresinden okunur: Google E-Tablolar > Dosya > Paylaş >
+   Web'de yayınla > CSV. Sütunlar (ilk satır başlık, Türkçe karakterli de olabilir):
+   baslik, tarih, saat, yer, tur, aciklama, link. Tarih 2026-10-15 ya da 15.10.2026 biçiminde;
+   günü belli değilse yalnızca ay: 2027-01, 01.2027 ya da "Ocak 2027".
+   Bugünden önceki etkinlikler gizlenir; en yakın tarihli olan "Sıradaki" olarak öne çıkar.
+   Tablodaki metinler yalnızca textContent ile yazılır, bağlantılar yalnızca http(s) olabilir. */
+const upSec = document.getElementById('yaklasan');
+if (upSec) {
+  const box = $('#upcoming', upSec);
+  const list = $('#upList', upSec);
+  const empty = $('#upEmpty', upSec);
+  const MAX_SHOWN = 6;
+  const ALIASES = {
+    baslik: 'baslik', title: 'baslik', etkinlik: 'baslik',
+    tarih: 'tarih', date: 'tarih',
+    saat: 'saat', time: 'saat',
+    yer: 'yer', mekan: 'yer', place: 'yer', location: 'yer',
+    tur: 'tur', type: 'tur',
+    aciklama: 'aciklama', description: 'aciklama',
+    link: 'link', kayit: 'link', url: 'link'
+  };
+
+  /* tırnaklı alanları, alan içindeki virgül ve satır sonlarını destekleyen küçük CSV ayrıştırıcı */
+  const parseCSV = (text) => {
+    const rows = [];
+    let row = [];
+    let cell = '';
+    let quoted = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (quoted) {
+        if (c !== '"') cell += c;
+        else if (text[i + 1] === '"') { cell += '"'; i++; }
+        else quoted = false;
+      } else if (c === '"') quoted = true;
+      else if (c === ',') { row.push(cell); cell = ''; }
+      else if (c === '\n' || c === '\r') {
+        if (c === '\r' && text[i + 1] === '\n') i++;
+        row.push(cell); rows.push(row); row = []; cell = '';
+      } else cell += c;
+    }
+    if (cell || row.length) { row.push(cell); rows.push(row); }
+    return rows.filter((r) => r.some((v) => v.trim()));
+  };
+
+  /* "Başlık" → "baslik", "Açıklama" → "aciklama" */
+  const headerKey = (h) => ALIASES[h.trim().toLocaleLowerCase('tr')
+    .normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ı/g, 'i').replace(/\s+/g, '')] || null;
+
+  const MONTHS = ['ocak', 'subat', 'mart', 'nisan', 'mayis', 'haziran', 'temmuz', 'agustos', 'eylul', 'ekim', 'kasim', 'aralik'];
+  const plain = (s) => s.trim().toLocaleLowerCase('tr').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ı/g, 'i');
+
+  /* { date, monthOnly }: tam gün ya da yalnızca ay (o zaman ayın 1'i, sıralama için) */
+  const parseDate = (v) => {
+    const t = plain(v);
+    let m;
+    let y; let mo; let d;
+    if ((m = t.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/))) [, y, mo, d] = m;
+    else if ((m = t.match(/^(\d{1,2})[./](\d{1,2})[./](\d{4})$/))) [, d, mo, y] = m;
+    else if ((m = t.match(/^(\d{4})-(\d{1,2})$/))) [, y, mo] = m;
+    else if ((m = t.match(/^(\d{1,2})[./](\d{4})$/))) [, mo, y] = m;
+    else if ((m = t.match(/^([a-z]+)\s+(\d{4})$/)) && MONTHS.includes(m[1])) { mo = MONTHS.indexOf(m[1]) + 1; y = m[2]; }
+    else return null;
+    const date = new Date(+y, mo - 1, d ? +d : 1);
+    if (date.getMonth() !== mo - 1 || (d && date.getDate() !== +d)) return null;
+    return { date, monthOnly: !d };
+  };
+
+  const safeLink = (v) => {
+    try {
+      const u = new URL(v.trim());
+      return u.protocol === 'https:' || u.protocol === 'http:' ? u.href : '';
+    } catch { return ''; }
+  };
+
+  const toEvents = (text) => {
+    const [head = [], ...rows] = parseCSV(text);
+    const keys = head.map(headerKey);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return rows
+      .map((r) => Object.fromEntries(keys.map((k, i) => [k, (r[i] || '').trim()]).filter(([k]) => k)))
+      .map((ev) => ({ ...ev, ...parseDate(ev.tarih || '') }))
+      /* yalnızca ayı bilinen etkinlik o ay bitene kadar görünür */
+      .filter((ev) => ev.baslik && ev.date
+        && (ev.monthOnly ? new Date(ev.date.getFullYear(), ev.date.getMonth() + 1, 1) > today : ev.date >= today))
+      .sort((a, b) => a.date - b.date || (a.saat || '').localeCompare(b.saat || ''))
+      .slice(0, MAX_SHOWN);
+  };
+
+  const make = (tag, cls, text) => {
+    const el = document.createElement(tag);
+    if (cls) el.className = cls;
+    if (text) el.textContent = text;
+    return el;
+  };
+
+  const render = (events) => {
+    const locale = document.documentElement.lang === 'en' ? 'en-GB' : 'tr-TR';
+    const fmt = (opts, d) => new Intl.DateTimeFormat(locale, opts).format(d);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    events.forEach((ev, i) => {
+      const li = make('li', 'up-card' + (i === 0 ? ' is-next' : ''));
+      const ym = `${ev.date.getFullYear()}-${String(ev.date.getMonth() + 1).padStart(2, '0')}`;
+      const iso = `${ym}-${String(ev.date.getDate()).padStart(2, '0')}`;
+      const time = make('time', 'up-date' + (ev.monthOnly ? ' is-month' : ''));
+      const month = fmt({ month: 'short' }, ev.date).replace('.', '');
+      if (ev.monthOnly) {
+        time.dateTime = ym;
+        time.append(make('span', 'up-day', month), make('span', 'up-mon', String(ev.date.getFullYear())));
+      } else {
+        time.dateTime = ev.saat ? `${iso}T${ev.saat}` : iso;
+        time.append(
+          make('span', 'up-day', String(ev.date.getDate())),
+          make('span', 'up-mon', month),
+          make('span', 'up-wd', fmt({ weekday: 'long' }, ev.date))
+        );
+      }
+
+      const body = make('div', 'up-body');
+      const meta = make('p', 'up-meta');
+      if (i === 0) meta.append(make('span', 'up-chip is-next', tr('up.next')));
+      if (ev.tur) meta.append(make('span', 'up-chip', ev.tur));
+      const days = Math.round((ev.date - today) / 864e5);
+      meta.append(make('span', 'up-left', ev.monthOnly ? tr('up.dateSoon')
+        : days === 0 ? tr('up.today') : days === 1 ? tr('up.tomorrow') : tr('up.daysLeft').replace('{n}', days)));
+      body.append(meta, make('h3', '', ev.baslik));
+      const where = [ev.saat, ev.yer].filter(Boolean).join(' · ');
+      if (where) body.append(make('p', 'up-where', where));
+      if (ev.aciklama) body.append(make('p', 'up-desc', ev.aciklama));
+      li.append(time, body);
+
+      const href = safeLink(ev.link || '');
+      if (href) {
+        const a = make('a', 'cut-btn cut-btn-light up-cta');
+        a.href = href;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.append(make('span', '', tr('up.signup') + ' ↗'));
+        li.append(a);
+      }
+      list.append(li);
+    });
+    list.hidden = false;
+  };
+
+  const finish = (events, failed) => {
+    if (events.length) render(events);
+    else {
+      if (failed) $('#upEmptyH', upSec).textContent = tr('up.errH');
+      empty.hidden = false;
+    }
+    box.setAttribute('aria-busy', 'false');
+  };
+
+  const url = (upSec.dataset.sheet || '').trim();
+  if (!url) finish([]);
+  else {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 8000);
+    fetch(url, { signal: ctrl.signal })
+      .then((res) => { if (!res.ok) throw new Error(res.status); return res.text(); })
+      .then((text) => finish(toEvents(text), false))
+      .catch(() => finish([], true))
+      .finally(() => clearTimeout(timer));
+  }
 }
 
 /* --- scroll ilerleme çubuğu --- */

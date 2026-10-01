@@ -39,7 +39,7 @@
   --ease:cubic-bezier(.22,.8,.3,1);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:84px}
+html{color-scheme:dark;scroll-behavior:smooth;scroll-padding-top:84px}
 body{
   margin:0;background:var(--bg);color:var(--text);
   font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -613,21 +613,9 @@ img{max-width:100%;display:block}
   content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(180deg,rgba(10,20,50,.35),rgba(10,20,50,0) 30%,rgba(10,20,50,.25) 55%,rgba(8,16,42,.92));
 }
-.level-num,.level-cleared,.level-logo{position:absolute;z-index:2}
-.level-num{
-  top:14px;left:22px;padding:5px 10px;
-  font-family:Oswald,Inter,sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.2em;color:#fff;
-  background:rgba(10,20,50,.72);border:1px solid var(--hud-line);
-}
-.level-cleared{
-  top:16px;right:14px;padding:4px 10px;transform:rotate(-8deg);
-  font-family:Oswald,Inter,sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--accent-2);border:2px solid var(--accent-2);background:rgba(10,20,50,.6);
-}
-.level-cleared::before{content:"✓ "}
 /* logonun siyah çizilmiş küçük yazıları koyu zeminde kaybolmasın diye ince beyaz hâle */
 .level-logo{
-  left:8%;bottom:7%;width:84%;height:auto;
+  position:absolute;z-index:2;left:8%;bottom:7%;width:84%;height:auto;
   filter:drop-shadow(0 0 1.5px rgba(255,255,255,.95)) drop-shadow(0 0 2px rgba(255,255,255,.65)) drop-shadow(0 6px 20px rgba(0,0,0,.5));
 }
 
@@ -718,6 +706,60 @@ img{max-width:100%;display:block}
   .level-shots ul{grid-template-columns:repeat(2,minmax(0,1fr))}
   .level-next{grid-template-columns:auto minmax(0,1fr);padding:16px}
   .level-next .cut-btn{grid-column:1 / -1;justify-self:start}
+}
+
+/* ============================================================
+   Yaklaşan etkinlikler — kartlar main.js'te Google E-Tablosundan üretilir
+   ============================================================ */
+.up-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.up-card{
+  position:relative;display:grid;grid-template-columns:92px minmax(0,1fr) auto;align-items:center;gap:16px 26px;
+  padding:18px 22px;background:rgba(10,20,50,.3);border:1px solid var(--hud-line-soft);
+  transition:border-color .3s,transform .3s var(--ease);
+}
+.up-card:hover{border-color:rgba(255,255,255,.28);transform:translateX(3px)}
+/* en yakın etkinlik öne çıkar */
+.up-card.is-next{background:linear-gradient(100deg,rgba(244,124,32,.14),rgba(10,20,50,.3) 55%);border-color:rgba(244,124,32,.45)}
+.up-card.is-next::before{content:"";position:absolute;left:-1px;top:-1px;bottom:-1px;width:3px;background:var(--accent)}
+
+.up-date{
+  display:grid;justify-items:center;padding:12px 0 10px;line-height:1;text-align:center;
+  background:var(--hud-panel);border:1px solid var(--hud-line);
+  clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+}
+.up-day{font-family:Oswald,"Space Grotesk",sans-serif;font-size:2.2rem;font-weight:700;font-variant-numeric:tabular-nums}
+.up-mon{margin-top:4px;font-family:Oswald,Inter,sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2)}
+.up-wd{margin-top:6px;font-size:.68rem;color:var(--muted)}
+.up-date.is-month .up-day{font-size:1.7rem;text-transform:uppercase}
+
+.up-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:0 0 6px}
+.up-chip{
+  padding:3px 8px;font-family:Oswald,Inter,sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text);border:1px solid var(--hud-line);
+}
+.up-chip.is-next{color:#12204a;background:var(--accent);border-color:var(--accent)}
+.up-left{font-size:.8rem;font-weight:600;color:var(--accent-2)}
+.up-card h3{margin:0 0 4px;font-size:1.2rem}
+.up-where{margin:0;font-size:.88rem;color:var(--muted)}
+.up-desc{margin:6px 0 0;max-width:70ch;font-size:.88rem;color:var(--muted)}
+.up-cta{justify-self:end}
+
+/* yüklenirken iki boş kart; JS yoksa hiç görünmez */
+.up-skeleton{display:none}
+.js .up-skeleton{display:grid;gap:12px}
+.up-skeleton span{height:104px;background:rgba(255,255,255,.035);border:1px solid var(--hud-line-soft)}
+.upcoming[aria-busy="false"] .up-skeleton{display:none}
+
+.up-empty{padding:26px 24px;border:1px dashed rgba(255,255,255,.22);background:rgba(10,20,50,.25)}
+.up-empty-h{margin:0 0 6px;font-family:"Space Grotesk",Inter,sans-serif;font-size:1.2rem;font-weight:600;color:var(--text)}
+.up-empty p{color:var(--muted)}
+.up-empty .cut-btn{margin-top:6px}
+.up-noscript{color:var(--muted)}
+
+@media (max-width:640px){
+  .up-card{grid-template-columns:72px minmax(0,1fr);gap:14px 16px;padding:16px}
+  .up-day{font-size:1.8rem}
+  .up-cta{grid-column:1 / -1;justify-self:start}
 }
 
 /* ============================================================

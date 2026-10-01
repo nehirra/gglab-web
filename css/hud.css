@@ -246,6 +246,11 @@
   .nav.hud-nav a:not(.cut-btn){padding:0 8px;font-size:.8rem}
   .hud-logo{padding:12px 18px}
 }
+/* 9 bağlantı 900–1000px arasında kapsüle sığsın */
+@media (max-width:1000px){
+  .nav.hud-nav{padding:0 6px;gap:2px}
+  .nav.hud-nav a:not(.cut-btn){padding:0 5px;font-size:.78rem;letter-spacing:.02em}
+}
 @media (max-width:900px){
   .hud-menu{display:none}
   .hud-frame{padding:28px 24px 0;border-radius:20px}
@@ -266,9 +271,11 @@
     /* style.css'teki kapalı konum bu seçiciyle de geçerli olsun */
     transform:translateY(calc(-100% - 110px));
     opacity:0;pointer-events:none;
-    transition:transform .35s var(--ease),opacity .25s var(--ease);
+    /* visibility: kapalı menüdeki bağlantılar Tab ile seçilmesin; kapanış animasyonu bitince gizlenir */
+    visibility:hidden;
+    transition:transform .35s var(--ease),opacity .25s var(--ease),visibility 0s .35s;
   }
-  .nav.hud-nav.open{transform:translateY(0);opacity:1;pointer-events:auto}
+  .nav.hud-nav.open{transform:translateY(0);opacity:1;pointer-events:auto;visibility:visible;transition-delay:0s}
   .nav.hud-nav a:not(.cut-btn){line-height:1.4;padding:12px 14px;font-size:1rem;text-align:left;flex:0 0 auto}
   .nav.hud-nav .nav-cta{display:block;margin-top:14px}
   .nav.hud-nav .nav-cta > span{padding:14px 20px}
