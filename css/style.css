@@ -1,29 +1,31 @@
 /* ============ GGLab — taslak tema ============ */
-/* Self-hosted Google Fonts (SIL Open Font License 1.1) — yalnızca latin + latin-ext.
+/* Self-hosted Google Fonts (SIL Open Font License 1.1) — latin + Türkçe alt küme (-tr).
    Değişken fontlar: her aile/alt küme tek dosya, ağırlık aralığı font-weight ile. */
+/* -tr dosyaları yalnızca Türkçe harfleri (Ğ ğ İ Ş ş) içerir; ı ve Ç Ö Ü temel latin dosyasında.
+   Başka bir Latin Genişletilmiş harf gerekirse yeniden alt kümele (README > Fontlar). */
 @font-face{font-family:"Inter";font-style:normal;font-weight:400 600;font-display:swap;
-  src:url(../assets/fonts/inter-latin-ext.woff2) format("woff2");
-  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+  src:url(../assets/fonts/inter-tr.woff2) format("woff2");
+  unicode-range:U+011E-011F, U+0130, U+015E-015F}
 @font-face{font-family:"Inter";font-style:normal;font-weight:400 600;font-display:swap;
   src:url(../assets/fonts/inter-latin.woff2) format("woff2");
   unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 @font-face{font-family:"Oswald";font-style:normal;font-weight:500 700;font-display:swap;
-  src:url(../assets/fonts/oswald-latin-ext.woff2) format("woff2");
-  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+  src:url(../assets/fonts/oswald-tr.woff2) format("woff2");
+  unicode-range:U+011E-011F, U+0130, U+015E-015F}
 @font-face{font-family:"Oswald";font-style:normal;font-weight:500 700;font-display:swap;
   src:url(../assets/fonts/oswald-latin.woff2) format("woff2");
   unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 @font-face{font-family:"Space Grotesk";font-style:normal;font-weight:500 700;font-display:swap;
-  src:url(../assets/fonts/space-grotesk-latin-ext.woff2) format("woff2");
-  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+  src:url(../assets/fonts/space-grotesk-tr.woff2) format("woff2");
+  unicode-range:U+011E-011F, U+0130, U+015E-015F}
 @font-face{font-family:"Space Grotesk";font-style:normal;font-weight:500 700;font-display:swap;
   src:url(../assets/fonts/space-grotesk-latin.woff2) format("woff2");
   unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 :root{
-  --bg:#0c1631;            /* koyu lacivert */
-  --bg-2:#122046;
-  --surface:#17275a;
-  --surface-2:#1e3169;
+  --bg:#10214d;            /* lacivert */
+  --bg-2:#172b60;
+  --surface:#1d3474;
+  --surface-2:#253f86;
   --line:rgba(255,255,255,.12);
   --text:#eef2ff;
   --muted:#a9b6dd;
@@ -115,7 +117,7 @@ img{max-width:100%;display:block}
 /* ---------- sections ---------- */
 .section{padding:104px 0;position:relative}
 /* kenarlar çizgisiz: ton üstte ve altta şeffafa eriyerek komşu bölümlere karışır */
-.section-alt{background:linear-gradient(180deg,rgba(18,32,70,0),rgba(18,32,70,.6) 16%,rgba(21,30,77,.5) 84%,rgba(21,30,77,0))}
+.section-alt{background:linear-gradient(180deg,rgba(23,43,96,0),rgba(23,43,96,.6) 16%,rgba(27,40,104,.5) 84%,rgba(27,40,104,0))}
 .section-head{max-width:70ch;margin-bottom:48px}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
 .ticks{list-style:none;padding:0;margin:22px 0 0}
@@ -125,9 +127,50 @@ img{max-width:100%;display:block}
 /* bölüm renk ışımaları: kenarlara doğru şeffafa erir, geçişleri bozmaz */
 #vizyon{background:
   radial-gradient(900px 460px at 82% 22%,rgba(110,160,255,.22),transparent 68%),
-  linear-gradient(180deg,rgba(18,32,70,0),rgba(18,32,70,.6) 16%,rgba(21,30,77,.5) 84%,rgba(21,30,77,0))}
+  linear-gradient(180deg,rgba(23,43,96,0),rgba(23,43,96,.6) 16%,rgba(27,40,104,.5) 84%,rgba(27,40,104,0))}
 #faaliyet{background:
   radial-gradient(880px 480px at 8% 30%,rgba(244,124,32,.2),transparent 68%)}
+
+/* ---------- ambient sızıntı ----------
+   Hero'nun blueprint ızgarası, çok düşük dozda (neredeyse fark edilmez)
+   sitedeki hemen her bölüme taşınır — sayfa tek bir dilden konuşsun diye.
+   Zaten kendi dokusu olan bölümler dışarıda bırakıldı: hero (kendi ızgarası),
+   Biz Kimiz/about-bridge (kendi ızgarası), Game Jam kartı (kendi blueprint'i,
+   ama dış bölüme burada yine de eklendi), Üyelik (foto + ::before/::after zaten dolu,
+   üçüncü bir pseudo-eleman sığmıyor). Vizyon ve Faaliyet ayrıca kendi renkli,
+   süzülen ışık lekesini (::after) korur. İçerik her zaman üstte kalır. */
+#vizyon,#faaliyet,#gamejam,#etkinlikler,#galeri,#iletisim{overflow:hidden}
+#vizyon > .container,#faaliyet > .container,#gamejam > .container,
+#etkinlikler > .container,#galeri > .container,
+#iletisim > .container{position:relative;z-index:1}
+#vizyon::before,#faaliyet::before,#gamejam::before,
+#etkinlikler::before,#galeri::before,#iletisim::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:52px 52px;
+  -webkit-mask-image:radial-gradient(ellipse 75% 65% at 50% 35%,#000,transparent 78%);
+  mask-image:radial-gradient(ellipse 75% 65% at 50% 35%,#000,transparent 78%);
+}
+#vizyon::after{
+  content:"";position:absolute;z-index:0;pointer-events:none;
+  width:min(480px,60vw);aspect-ratio:1;right:-10%;top:-14%;border-radius:50%;
+  background:radial-gradient(circle,rgba(122,170,255,.16),transparent 68%);
+  filter:blur(4px);
+  animation:ambient-orb-drift 34s ease-in-out infinite;
+}
+#faaliyet::after{
+  content:"";position:absolute;z-index:0;pointer-events:none;
+  width:min(420px,55vw);aspect-ratio:1;left:-8%;bottom:-16%;border-radius:50%;
+  background:radial-gradient(circle,rgba(244,124,32,.14),transparent 68%);
+  filter:blur(4px);
+  animation:ambient-orb-drift 40s ease-in-out infinite reverse;
+}
+@keyframes ambient-orb-drift{
+  0%,100%{transform:translate3d(0,0,0) scale(1);opacity:.65}
+  50%{transform:translate3d(-3vw,4vh,0) scale(1.1);opacity:1}
+}
 
 /* ---------- about bridge ---------- */
 .about-bridge{
@@ -136,7 +179,8 @@ img{max-width:100%;display:block}
   background:linear-gradient(180deg,var(--bg-2),var(--bg) 360px);
   overflow:hidden;
 }
-/* hero ızgarasının devamı: ikisi de viewport'a sabitli, aynı hız/faz */
+/* hero ızgarasının devamı: ikisi de viewport'a sabitli, aynı faz.
+   Kayma (background-position) animasyonu yok: her karede tüm katmanı yeniden boyatıyordu. */
 .about-bridge::before{
   content:"";position:absolute;inset:0;pointer-events:none;
   background-image:
@@ -148,7 +192,6 @@ img{max-width:100%;display:block}
   background-attachment:fixed;
   -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.27),rgba(0,0,0,.3) 12%,transparent 85%);
   mask-image:linear-gradient(180deg,rgba(0,0,0,.27),rgba(0,0,0,.3) 12%,transparent 85%);
-  animation:grid-drift 20s linear infinite;
 }
 .about-bridge-inner{
   position:relative;z-index:1;
@@ -192,7 +235,7 @@ img{max-width:100%;display:block}
 .about-panel::before{
   content:"";position:absolute;inset:1px;z-index:0;
   background:
-    linear-gradient(135deg,rgba(12,22,49,.94),rgba(18,32,70,.8)),
+    linear-gradient(135deg,rgba(16,33,77,.94),rgba(23,43,96,.8)),
     linear-gradient(90deg,rgba(244,124,32,.1),transparent);
   clip-path:inherit;
 }
@@ -237,6 +280,19 @@ img{max-width:100%;display:block}
 .card h3{margin-bottom:6px}
 .card p{margin:0;color:var(--muted);font-size:.93rem}
 .card-ico{font-size:1.7rem;display:block;margin-bottom:12px}
+
+/* ---------- spotlight: imleci takip eden ışık halkası ----------
+   .spotlight taşıyan kart, fare hareketiyle JS'in yazdığı --mx/--my
+   konumunda yumuşak bir ışık gösterir. --spot-color, bölüme göre
+   farklı bir vurgu rengine geçmek için elemanın kendi kuralında ezilir. */
+.spotlight{position:relative;--spot-color:244,124,32}
+.spotlight > *{position:relative;z-index:1}
+.spotlight::after{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(280px circle at var(--mx,50%) var(--my,50%),rgba(var(--spot-color),.18),transparent 72%);
+  opacity:0;transition:opacity .4s var(--ease);
+}
+.spotlight:hover::after{opacity:1}
 .about-cards{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
 .feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0 28px}
 
@@ -258,13 +314,13 @@ img{max-width:100%;display:block}
   cursor:pointer;font-family:inherit;font-size:.88rem;transition:.25s var(--ease)}
 .filter:hover{color:var(--text);border-color:var(--accent-2)}
 .filter.is-active{background:var(--accent);border-color:var(--accent);color:#fff}
-.events{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.events{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
 .event-card{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;overflow:visible;
-  display:grid;grid-template-columns:minmax(120px,.8fr) minmax(0,1fr);gap:16px;align-items:start;padding-top:18px;
+  display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start;padding-top:18px;
   transition:transform .3s var(--ease),border-color .3s}
 .event-card:hover{transform:translateY(-4px);border-color:rgba(244,124,32,.45)}
 .event-card.is-hidden{display:none}
-.event-media{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--surface-2);border-radius:var(--radius-sm)}
+.event-media{position:relative;aspect-ratio:3/2;overflow:hidden;background:var(--surface-2);border-radius:var(--radius-sm)}
 .event-media img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
 .event-card:hover .event-media img{transform:scale(1.06)}
 .badge{position:absolute;top:12px;left:12px;background:rgba(10,11,18,.78);backdrop-filter:blur(6px);
@@ -286,7 +342,6 @@ img{max-width:100%;display:block}
 .shot img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease),filter .3s}
 .shot::after{content:"⤢";position:absolute;inset:auto 10px 10px auto;width:30px;height:30px;display:grid;place-items:center;
   border-radius:8px;background:rgba(10,11,18,.7);opacity:0;transition:opacity .25s}
-.shot:hover img{transform:scale(1.07)}
 .shot:hover::after{opacity:1}
 .shot.wide{grid-column:span 2}
 .shot.tall{grid-row:span 2}
@@ -315,9 +370,33 @@ img{max-width:100%;display:block}
   0%,100%{top:0}
   50%{top:-8px}
 }
-.mail a{color:var(--accent-2);border-bottom:1px solid transparent}
-.mail a:hover{border-color:var(--accent-2)}
-.contact-form{background:rgba(23,39,90,.62);border:1px solid var(--line);border-radius:var(--radius);padding:30px}
+.contact-line{display:flex;gap:8px;align-items:baseline;margin:0 0 10px;overflow-wrap:anywhere}
+.contact-line:first-of-type{margin-top:22px}
+.contact-line a{color:var(--accent-2);border-bottom:1px solid transparent}
+.contact-line a:hover{border-color:var(--accent-2)}
+
+/* bülten kutusu */
+.newsletter{position:relative;background:rgba(29,52,116,.5);border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(22px,3vw,32px)}
+.newsletter::before{content:"";position:absolute;left:-1px;top:-1px;bottom:-1px;width:3px;border-radius:var(--radius) 0 0 var(--radius);
+  background:linear-gradient(180deg,var(--accent),var(--accent-4))}
+.newsletter .eyebrow{margin-bottom:8px}
+.newsletter h3{font-size:clamp(1.15rem,2vw,1.4rem);margin-bottom:8px}
+.newsletter .muted{font-size:.92rem;margin:0 0 18px}
+.newsletter-row{display:flex;gap:10px;align-items:stretch}
+.newsletter-row input{
+  flex:1 1 auto;min-width:0;padding:12px 14px;border-radius:var(--radius-sm);border:1px solid var(--line);
+  background:var(--bg-2);color:var(--text);font-family:inherit;font-size:1rem;transition:border-color .2s,box-shadow .2s}
+.newsletter-row input:focus{outline:none;border-color:var(--accent-4);box-shadow:0 0 0 3px rgba(139,92,246,.22)}
+.newsletter-row input.invalid{border-color:var(--accent-3)}
+.newsletter-row .cut-btn{flex:0 0 auto}
+.newsletter-row .cut-btn > span{height:100%}
+.newsletter .form-note{margin-top:10px}
+@media (max-width:420px){
+  .newsletter-row{flex-direction:column}
+}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.contact-form{background:rgba(29,52,116,.62);border:1px solid var(--line);border-radius:var(--radius);padding:30px}
 .field{margin-bottom:16px}
 .field label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:6px}
 .field input,.field select,.field textarea{
@@ -416,7 +495,6 @@ img{max-width:100%;display:block}
   letter-spacing:.18em;color:var(--accent);margin-bottom:10px}
 .feature-grid{grid-template-columns:repeat(3,1fr)}
 
-.todo{color:var(--accent-2);border-bottom:1px dashed var(--accent-2);font-style:italic}
 .note{margin-top:26px;font-size:.88rem;color:var(--muted)}
 .sub-head{margin:48px 0 16px;font-size:1.1rem}
 
@@ -431,17 +509,8 @@ img{max-width:100%;display:block}
 .dept{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:9px 20px;font-size:.9rem}
 .dept::before{content:"▸ ";color:var(--accent)}
 
-.partners{display:flex;flex-wrap:wrap;gap:12px}
-.partner{background:transparent;border:0;border-radius:0;
-  padding:10px 0;font-family:"Space Grotesk",sans-serif;font-weight:500;font-size:.95rem;color:var(--muted);
-  transition:.25s var(--ease)}
-.partner:hover{color:var(--text);border-color:var(--accent);transform:translateY(-2px)}
-/* logosu gelmiş paydaş: isim yerine görsel — kart yüksekliği isimlerle aynı kalsın diye
-   dikey padding küçültülür, logo yüksekliği sabit, genişlik orana göre serbesttir */
-.partner.has-logo{display:flex;align-items:center;gap:10px;padding:6px 0}
-/* ortak logo kuralı: yükseklik bağlama göre aşağıda ayarlanır */
+/* ortak logo kuralı: yükseklik bağlama göre ayarlanır */
 .logo-mark{display:block;width:auto;object-fit:contain;flex:0 0 auto}
-.partner .logo-mark{height:30px;max-width:72px}
 
 .req-box{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;padding:24px 0;margin:0}
 .req-box h3{font-size:1.02rem;margin-bottom:12px}
@@ -475,13 +544,14 @@ img{max-width:100%;display:block}
   -webkit-background-clip:text;background-clip:text;color:transparent}
 .vm-card::before{background:linear-gradient(180deg,var(--accent),var(--accent-4))}
 .vm-card:hover{border-color:rgba(139,92,246,.5)}
+.vm-card.spotlight{--spot-color:139,92,246}
 .value span{color:var(--accent-4)}
 .filter.is-active{background:linear-gradient(100deg,var(--accent),var(--accent-4));border-color:transparent;color:#fff}
 .event-card:hover{border-color:rgba(139,92,246,.55);box-shadow:none}
+.event-card.spotlight{--spot-color:77,124,255}
 .badge{border-color:rgba(139,92,246,.35)}
 .shot:hover{border-color:rgba(139,92,246,.6)}
 .dept::before{color:var(--accent-4)}
-.partner:hover{border-color:var(--accent-4);box-shadow:none}
 .social:hover{border-color:var(--accent-4)}
 .s-ico{background:linear-gradient(135deg,rgba(139,92,246,.28),rgba(244,124,32,.2))}
 .req-box{border-left:0}
@@ -511,18 +581,12 @@ img{max-width:100%;display:block}
   animation:marquee-run 34s linear infinite;
   will-change:transform;
 }
-.marquee-rev .marquee-track{animation-direction:reverse}
 .marquee:hover .marquee-track,
 .marquee:focus-within .marquee-track{animation-play-state:paused}
 @keyframes marquee-run{
   from{transform:translateX(0)}
   to{transform:translateX(-100%)}
 }
-
-/* büyük sürüm: Paydaşlar bölümü */
-.marquee-lg{margin-bottom:14px}
-.marquee-lg .marquee-track{--gap:14px;animation-duration:46s}
-.marquee-lg .partner{flex:0 0 auto;white-space:nowrap}
 
 /* hareket azaltma tercihi: animasyon yerine elle kaydırılabilir şerit */
 @media (prefers-reduced-motion:reduce){
@@ -584,10 +648,6 @@ img{max-width:100%;display:block}
   .req-box{padding:18px 0;margin:0}
   .ticks li{margin-bottom:7px;font-size:.88rem}
 
-  .partner{padding:8px 0;font-size:.88rem}
-  .partner.has-logo{padding:8px 14px;gap:8px}
-  .partner .logo-mark{height:26px}
-
   .socials{gap:10px;margin:18px 0}
   .social{padding:11px 13px}
   .contact-form{padding:20px}
@@ -626,28 +686,84 @@ img{max-width:100%;display:block}
 /* ============================================================
    Game Jam Akdeniz — amiral gemisi bölümü
    ============================================================ */
-.jam{
+#gamejam{
   position:relative;
-  border:1px solid var(--line);border-radius:var(--radius);
-  background:linear-gradient(160deg,rgba(30,49,105,.55),rgba(18,32,70,.35));
-  padding:clamp(24px,3.4vh,44px) clamp(20px,3vw,44px);
-  overflow:hidden;
+  background:
+    /* ışık merkezleri, solma yarıçapı (≈0.6 × dikey yarıçap) kadar aşağıda:
+       daha yukarıda olunca ışık bölümün üst kenarında kesilip çizgi bırakıyordu */
+    radial-gradient(1000px 560px at 10% 360px,rgba(244,124,32,.18),transparent 62%),
+    radial-gradient(900px 640px at 94% 400px,rgba(139,92,246,.22),transparent 60%),
+    linear-gradient(180deg,rgba(23,43,96,0),rgba(23,43,96,.6) 16%,rgba(27,40,104,.5) 84%,rgba(27,40,104,0));
 }
-/* köşe parantezleri (hero çerçevesiyle aynı dil) */
-.jam .corner{position:absolute;width:34px;height:34px;border:2px solid var(--accent);opacity:.7}
-.jam .tl{top:-1px;left:-1px;border-right:0;border-bottom:0;border-radius:var(--radius) 0 0 0}
-.jam .tr{top:-1px;right:-1px;border-left:0;border-bottom:0;border-radius:0 var(--radius) 0 0}
-.jam .bl{bottom:-1px;left:-1px;border-right:0;border-top:0;border-radius:0 0 0 var(--radius)}
-.jam .br{bottom:-1px;right:-1px;border-left:0;border-top:0;border-radius:0 0 var(--radius) 0}
 
-.jam-top{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(20px,3vw,40px);align-items:center}
+.jam{
+  position:relative;isolation:isolate;
+  border:1px solid var(--line);
+  background:linear-gradient(160deg,rgba(37,63,134,.62),rgba(23,43,96,.4));
+  padding:clamp(30px,4vh,56px) clamp(22px,3.4vw,52px) clamp(26px,3.4vh,46px);
+  overflow:hidden;
+  clip-path:polygon(30px 0,100% 0,100% calc(100% - 30px),calc(100% - 30px) 100%,0 100%,0 30px);
+}
+/* üst kenarda ince degrade şerit, panele "aktif ekran" hissi verir */
+.jam::before{
+  content:"";position:absolute;inset:0 0 auto 0;height:3px;z-index:1;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-4),var(--accent-3));
+}
+/* hafif blueprint dokusu, sol üstte yoğun, kenarlara doğru erir */
+.jam::after{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.55;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:44px 44px;
+  -webkit-mask-image:radial-gradient(ellipse 85% 70% at 18% 0%,#000,transparent 72%);
+  mask-image:radial-gradient(ellipse 85% 70% at 18% 0%,#000,transparent 72%);
+}
+.jam > *{position:relative;z-index:1}
+
+.jam-top{position:relative}
+
+/* rozet + tarih tek satırda, başlığın hemen üstünde — dağınık dikey blok yerine sıkı bir üst şerit */
+.jam-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:14px}
+/* "amiral gemimiz" etiketi: gradyanlı, kesik köşeli rozet */
+.jam-tag{
+  display:inline-block;padding:7px 16px 7px 14px;
+  font-family:Oswald,Inter,sans-serif;font-size:.72rem;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:#12204a;
+  background:linear-gradient(100deg,var(--accent),var(--accent-2));
+  clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);
+  box-shadow:0 10px 26px rgba(244,124,32,.32);
+}
+.jam-when{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:Oswald,"Space Grotesk",sans-serif;letter-spacing:.1em;text-transform:uppercase;
+  font-size:.78rem;color:var(--accent-2);
+  padding:6px 14px;border-radius:999px;border:1px solid rgba(255,162,77,.35);
+  background:rgba(255,162,77,.08);
+}
+.jam-when .ic{width:14px;height:14px;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.jam-top h2{margin-bottom:clamp(18px,2.6vh,28px)}
+
+/* gövde: logo solda sabit genişlikte, metin sağda — ikisi de üstten hizalı,
+   ortalanmış eski düzenin bıraktığı boş alanlar kalkıyor */
+.jam-body{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:clamp(24px,3.4vw,44px);align-items:start}
 
 /* Logo doğrudan koyu zeminin üstünde durur (plaka yok).
    Siyah konturlar zeminle birleşir, beyaz harf yüzeyleri okunur kalır;
    hafif bir gölge harfleri zeminden ayırır. */
-.jam-brand{display:grid;place-items:center}
+.jam-brand{position:relative;z-index:1;max-width:220px}
+/* logonun arkasında dönen radar halkası — hero'daki hedef işaretiyle aynı dil */
+.jam-brand-ring{
+  position:absolute;inset:6% 12%;z-index:0;border-radius:50%;
+  border:1px solid rgba(255,255,255,.14);
+  background:
+    conic-gradient(from 0deg,transparent 0 80%,rgba(244,124,32,.4) 94%,rgba(255,190,120,.9) 97% 100%),
+    radial-gradient(circle at 50% 50%,rgba(139,92,246,.16),transparent 62%);
+  -webkit-mask-image:radial-gradient(circle,transparent 0 3%,#000 4%);
+  mask-image:radial-gradient(circle,transparent 0 3%,#000 4%);
+  animation:target-spin 16s linear infinite;
+}
 .jam-brand img{
-  width:100%;height:auto;max-width:440px;
+  position:relative;z-index:1;width:100%;height:auto;
   /* Logonun üstündeki küçük "GAME JAM" yazısı siyah çizilmiş ve koyu zeminde
      kayboluyor; ince beyaz hâle onu okunur kılar, logonun geri kalanına
      çıkartma görünümü verir. */
@@ -656,53 +772,101 @@ img{max-width:100%;display:block}
          drop-shadow(0 6px 20px rgba(0,0,0,.5));
 }
 
-.jam-intro h2{margin-bottom:6px}
-.jam-when{
-  font-family:Oswald,"Space Grotesk",sans-serif;letter-spacing:.12em;text-transform:uppercase;
-  font-size:.82rem;color:var(--accent);margin-bottom:14px;
+/* logonun altındaki "düzenleyen" kredisi: etkinliği kimin yaptığı ilk bakışta
+   görünsün diye üst içerikte durur, destekçi listesinin gölgesinde kalmaz */
+.jam-by{position:relative;z-index:1;margin:14px 0 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+.jam-by-label{
+  font-family:Oswald,Inter,sans-serif;font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent-2);
 }
-.jam-intro p{color:var(--muted);font-size:.93rem}
-.jam-intro strong{color:var(--text)}
+.jam-by-names{
+  display:inline-flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;
+  font-family:Oswald,"Space Grotesk",sans-serif;font-size:.86rem;font-weight:600;color:var(--text);
+}
+.jam-by-names .logo-mark{height:20px}
 
+.jam-copy{max-width:62ch}
+.jam-copy p{color:var(--muted);font-size:.93rem;margin:0 0 10px}
+.jam-copy p:last-child{margin-bottom:0}
+.jam-copy strong{color:var(--text)}
+
+/* itch.io bağlantısı: kenarında dönen turuncu-mor ışık, üzerine gelince parlama */
+.jam-itch{
+  position:relative;isolation:isolate;overflow:hidden;
+  display:flex;align-items:center;gap:14px;max-width:440px;margin-top:22px;padding:14px 18px 14px 14px;
+  border-radius:var(--radius);background:rgba(255,255,255,.14);color:var(--text);
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+}
+.jam-itch::before{
+  content:"";position:absolute;left:50%;top:50%;width:200%;aspect-ratio:1;z-index:-2;
+  background:conic-gradient(from 0deg,transparent 0 55%,var(--accent) 72%,var(--accent-2) 80%,var(--accent-4) 92%,transparent);
+  transform:translate(-50%,-50%);
+  animation:itch-spin 4.5s linear infinite;
+}
+.jam-itch::after{
+  content:"";position:absolute;inset:1.5px;z-index:-1;border-radius:calc(var(--radius) - 1px);
+  background:
+    linear-gradient(110deg,transparent 30%,rgba(255,255,255,.09) 45%,transparent 60%) -150% 0/250% 100% no-repeat,
+    linear-gradient(135deg,#1d3474,#10214d 70%);
+  transition:background-position .7s var(--ease);
+}
+.jam-itch:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(139,92,246,.32),0 0 0 1px rgba(244,124,32,.25)}
+.jam-itch:hover::after{background-position:150% 0,0 0}
+.jam-itch-ico{
+  flex:0 0 46px;height:46px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--accent),var(--accent-4));
+  clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);
+}
+.jam-itch-ico svg{width:22px;height:22px;fill:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));transition:transform .3s var(--ease)}
+.jam-itch:hover .jam-itch-ico svg{transform:scale(1.15)}
+.jam-itch-text{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1 1 auto}
+.jam-itch-text strong{font-family:Oswald,Inter,sans-serif;font-size:1.05rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.jam-itch-text small{font-size:.78rem;color:var(--muted);line-height:1.4}
+.jam-itch-arrow{flex:0 0 auto;font-size:1.3rem;color:var(--accent-2);transition:transform .3s var(--ease)}
+.jam-itch:hover .jam-itch-arrow{transform:translate(3px,-3px)}
+@keyframes itch-spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@media (max-width:420px){
+  .jam-itch{gap:12px;padding:12px 14px 12px 12px}
+  .jam-itch-ico{flex-basis:40px;height:40px}
+  .jam-itch-text strong{font-size:.95rem;letter-spacing:.03em}
+}
+
+/* istatistikler: ince bölücülerle tek satırlık kompakt şerit — ayrı ayrı kutu yerine */
 .jam-stats{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:clamp(20px,3vh,32px) 0;
-  padding:18px 0;border-block:1px solid var(--line);
+  display:flex;flex-wrap:wrap;
+  margin:clamp(22px,3vh,32px) 0 0;padding:16px 0;border-block:1px solid var(--line);
 }
-.jam-stats dt{font-family:Oswald,"Space Grotesk",sans-serif;font-size:clamp(1.5rem,3vw,2.1rem);font-weight:700;line-height:1}
-.jam-stats dd{margin:4px 0 0;font-size:.8rem;color:var(--muted)}
+.jam-stats > div{position:relative;flex:1 1 120px;text-align:center;padding:0 14px}
+.jam-stats > div + div::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:1px;background:var(--line)}
+.jam-stats dt{
+  font-family:Oswald,"Space Grotesk",sans-serif;font-size:clamp(1.4rem,2.6vw,1.9rem);font-weight:700;line-height:1;
+  background:linear-gradient(100deg,var(--accent),var(--accent-2),var(--accent-4));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.jam-stats dd{margin:5px 0 0;font-size:.74rem;color:var(--muted);letter-spacing:.03em;text-transform:uppercase}
 
-.jam-sub{
-  font-family:Oswald,Inter,sans-serif;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--accent-2);margin:18px 0 10px;
-}
-.jam-sub:first-child{margin-top:0}
-.chips{display:flex;flex-wrap:wrap;gap:0 18px;list-style:none;margin:0;padding:0}
-.chips li{
-  position:relative;background:transparent;border:0;border-radius:0;
-  padding:5px 0 5px 13px;font-size:.84rem;color:var(--muted);transition:.25s var(--ease);
-}
-.chips li::before{content:"";position:absolute;left:0;top:50%;width:5px;height:5px;border-radius:50%;background:var(--accent-2);transform:translateY(-50%);opacity:.72}
-.chips li:hover{color:var(--text);border-color:var(--accent);transform:translateY(-2px)}
-/* logosu olan jam destekçisi: etiketin soluna küçük logo, isim yerinde kalır */
-.chips li.has-logo{display:inline-flex;align-items:center;gap:8px;padding-left:0}
-.chips li.has-logo::before{display:none}
-.chips .logo-mark{height:22px}
-.chip-todo{display:inline-flex;align-items:center;gap:8px}
-.chip-todo .todo{font-size:.74rem}
+/* destekçi listesi: künye dipnotu — etkinliğin ve "biz yaptık" kredisinin
+   önüne asla geçmesin diye küçük, tek renkli, düz metin satırları */
+.jam-support{margin-top:clamp(18px,2.6vh,26px);padding-top:14px;border-top:1px solid var(--line)}
+.jam-support-line{margin:0 0 4px;font-size:.76rem;line-height:1.6;color:var(--muted);opacity:.8}
+.jam-support-line:last-child{margin-bottom:0}
+.jam-support-k{color:var(--muted);font-weight:600;margin-right:.4em}
+.jam-support-k::after{content:":"}
 
-@media (max-width:900px){
-  .jam-top{grid-template-columns:1fr;gap:22px}
-  .jam-stats{grid-template-columns:repeat(2,1fr);gap:16px}
+@media (max-width:720px){
+  .jam-body{grid-template-columns:1fr;gap:18px}
+  .jam-brand{max-width:180px}
+  .jam-stats > div{flex:1 1 45%}
+  .jam-stats > div:nth-child(2)::before{display:block}
+  .jam-stats > div:nth-child(odd)::before{display:none}
 }
 @media (max-height:820px){
-  .jam{padding:22px 24px}
-  .jam-stats{margin:18px 0;padding:14px 0}
-  .jam-intro p{font-size:.86rem}
-  .jam-sub{margin:14px 0 8px}
-  .chips li{padding:4px 0 4px 12px;font-size:.79rem}
-  .chips li.has-logo{padding-left:0;gap:6px}
-  .chips .logo-mark{height:19px}
-  .jam-brand img{max-width:320px}
+  .jam{padding:26px 24px}
+  .jam-stats{margin-top:16px;padding:12px 0}
+  .jam-copy p{font-size:.86rem}
+  .jam-support{margin-top:14px;padding-top:12px}
+  .jam-brand{max-width:170px}
 }
 
 /* ============================================================
@@ -714,7 +878,28 @@ img{max-width:100%;display:block}
 /* --- galeri mozaiği --- */
 .gallery{grid-auto-flow:dense}
 .shot{transition:transform .35s var(--ease),border-color .3s,box-shadow .35s}
-.gallery .shot:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.35)}
+/* zoom artık karenin kendisinde: fotoğraf kendi başına sürekli
+   Ken Burns animasyonu çektiği için transform'u hover'la paylaşmıyor */
+.gallery .shot:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 18px 40px rgba(0,0,0,.35)}
+
+/* fotoğraf sürekli çok yavaş nefes alır (Ken Burns), hover'dan bağımsız;
+   her karo farklı süre/gecikmeyle başlar ki bant gibi senkron görünmesin */
+@keyframes shot-kenburns{
+  0%,100%{transform:scale(1.001)}
+  50%{transform:scale(1.05)}
+}
+.shot img{animation:shot-kenburns 17s ease-in-out infinite}
+.shot:nth-of-type(2n) img{animation-duration:21s;animation-delay:-4s}
+.shot:nth-of-type(3n) img{animation-duration:15s;animation-delay:-9s}
+.shot:nth-of-type(4n) img{animation-delay:-13s}
+
+/* --- galeri: perde açılır gibi ortaya çıkma ---
+   Diğer .reveal öğeleri fade+translate kullanırken galeri karoları
+   clip-path ile soldan sağa "kesilerek" açılır — mevcut kesik köşe
+   dilinin (hud.css .cut-btn, .jam) bir sahne geçişi hâli. */
+.js .gallery-reveal{opacity:1;transform:none;clip-path:inset(0 0 0 100%)}
+.gallery-reveal{transition:clip-path .85s var(--ease)}
+.js .gallery-reveal.in{clip-path:inset(0)}
 
 /* --- reveal varyantları (.reveal ile birlikte kullanılır) --- */
 .reveal-l,.reveal-r,.reveal-zoom{transition:opacity .75s var(--ease),transform .75s var(--ease)}
@@ -744,14 +929,14 @@ img{max-width:100%;display:block}
 /* --- kart numarası ve istatistikler --- */
 .card-num{transition:transform .3s var(--ease)}
 .card:hover .card-num{transform:translateY(-3px) scale(1.1)}
-.jam-stats dt{transition:transform .3s var(--ease)}
-.jam-stats div:hover dt{transform:translateY(-4px)}
 
 /* --- sayaç çalışırken sayı zıplamasın --- */
 .jam-stats dt[data-count]{font-variant-numeric:tabular-nums}
 
 @media (prefers-reduced-motion:reduce){
   .js .reveal-l,.js .reveal-r,.js .reveal-zoom{opacity:1;transform:none}
+  .js .gallery-reveal{clip-path:none}
+  .spotlight::after{display:none}
   .social-live{animation:none;top:0}
   .scroll-progress{display:none}
   .section-head .eyebrow::before{width:26px;margin-right:10px}

@@ -49,6 +49,7 @@
     'hero.cta1': '<i>&#8592;</i> Join us',
     'hero.cta2': 'What we do',
     'hero.partners': 'PARTNERS',
+    'game.score': 'SCORE',
 
     /* --- biz kimiz --- */
     'about.eyebrow': '01 — About Us',
@@ -101,20 +102,22 @@
 
     /* --- game jam --- */
     'jam.eyebrow': '04 — Our Flagship',
-    'jam.head': 'Game Jam Akdeniz',
+    'jam.head': 'Game Jam <span class="grad">Akdeniz</span>',
     'jam.when': '2–4 May 2026 · Antalya',
     'jam.p1': 'The <strong>largest event we have run so far</strong>. A 48-hour game development marathon organised together by Akdeniz University, AÜBT and GG Lab, supported by sixteen institutions, studios and brands.',
-    'jam.p2': 'Over 48 hours participants formed teams and built playable prototypes from scratch around the announced theme. <span class="todo">The 2027 date is not set yet</span> — we will announce it here and on our social media.',
+    'jam.p2': 'Over 48 hours participants formed teams and built playable prototypes from scratch around the announced theme. <strong>The 2027 date is not set yet</strong> — we will announce it here and on our social media.',
     'jam.s1': 'hours',
     'jam.s2': 'supporters',
     'jam.s3': 'organising bodies',
     'jam.s4': 'first edition',
-    'jam.orgH': 'Organisers',
+    'jam.byLabel': 'Organised by',
+    'jam.byNames': 'Akdeniz University · AÜBT · GG Lab',
     'jam.studioH': 'Studios and industry',
     'jam.instH': 'Institutional support',
     'jam.sponsorH': 'Sponsors',
     'jam.unknown': 'full name to be added',
-    'jam.logoNote': '<span class="todo">Logo files are added as they arrive</span> — supporters without one are listed by name.',
+    'jam.itch': 'Play the jam games',
+    'jam.itchSub': 'Game Jam Akdeniz 2026 games · itch.io',
 
     /* --- düzenli etkinlikler --- */
     'ev.eyebrow': '05 — Regular Events',
@@ -143,22 +146,28 @@
     'gal.g8': 'Presenting a game on stage',
 
     /* --- üyelik --- */
-    'join.eyebrow': '09 — Membership',
+    'join.eyebrow': '08 — Membership',
     'join.head': 'Join the community',
     'join.lead': 'GG Lab grows with what the community makes. Whatever your department, talent or level, hop into our Discord to ask questions, find a team, share what you\'re building, or just say hi. Event and Game Jam announcements land there first. You can follow us on the other channels too.',
     'join.dc': 'Join our Discord',
 
-    /* --- paydaşlar --- */
-    'part.eyebrow': '07 — Partners',
-    'part.head': 'Community partners',
-    'part.lead': 'Studios and organizations we work with alongside the community.',
-
     /* --- iletişim --- */
-    'ct.eyebrow': '08 — Contact',
+    'ct.eyebrow': '07 — Contact',
     'ct.head': 'Get in touch',
-    'ct.lead': 'Akdeniz University Campus, Antalya · The community space allocated by the Health, Culture and Sports Department.',
+    'ct.lead': 'Write to us with your questions, collaboration offers or event ideas.',
+    'ct.place': 'Akdeniz University, Konyaaltı / Antalya',
     'ct.soon': 'link to be added',
-    'ct.mail': 'email address to be added',
+    'ct.mail': 'gglabakdeniz@gmail.com',
+
+    /* --- bülten --- */
+    'nl.eyebrow': 'Newsletter',
+    'nl.head': 'Get announcements by email',
+    'nl.lead': 'Be the first to hear about events, workshops and game jams. Unsubscribe any time.',
+    'nl.send': 'Subscribe',
+    'nl.err': 'Please enter a valid email address.',
+    'nl.ok': 'You are on the list, thanks!',
+    'nl.fail': 'Something went wrong, please try again later.',
+    'nl.soon': 'The newsletter is launching soon! Until then, announcements go out on Discord.',
 
     /* --- form --- */
     'form.name': 'Full Name',
@@ -184,9 +193,8 @@
     'foot.vision': 'Vision &amp; Mission',
     'foot.community': 'Community',
     'foot.join': 'Join Us',
-    'foot.partners': 'Partners',
     'foot.links': 'All Links (Linktree)',
-    'foot.copy': 'GG Lab — Akdeniz University Games and Gamification Community. Draft site.',
+    'foot.copy': 'GG Lab — Akdeniz University Games and Gamification Community.',
     'foot.top': 'Top ↑'
   };
 
@@ -196,7 +204,11 @@
     'a11y.menuOpen': 'Menüyü aç',
     'a11y.menuClose': 'Menüyü kapat',
     'form.err': 'Lütfen ad, geçerli bir e-posta ve mesaj alanlarını doldur.',
-    'form.ok': 'Teşekkürler! (Taslak site — mesaj henüz bir yere gönderilmiyor.)'
+    'form.ok': 'Teşekkürler! (Taslak site — mesaj henüz bir yere gönderilmiyor.)',
+    'nl.err': 'Geçerli bir e-posta adresi yaz.',
+    'nl.ok': 'Kaydın alındı, teşekkürler!',
+    'nl.fail': 'Bir sorun oldu, biraz sonra tekrar dene.',
+    'nl.soon': 'Bülten çok yakında açılıyor! O zamana kadar duyurular Discord\'da.'
   };
 
   var TR = {};

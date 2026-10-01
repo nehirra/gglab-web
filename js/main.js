@@ -7,7 +7,11 @@ const FALLBACK = {
   'a11y.menuOpen': 'Menüyü aç',
   'a11y.menuClose': 'Menüyü kapat',
   'form.err': 'Lütfen ad, geçerli bir e-posta ve mesaj alanlarını doldur.',
-  'form.ok': 'Teşekkürler! (Taslak site — mesaj henüz bir yere gönderilmiyor.)'
+  'form.ok': 'Teşekkürler! (Taslak site — mesaj henüz bir yere gönderilmiyor.)',
+  'nl.err': 'Geçerli bir e-posta adresi yaz.',
+  'nl.ok': 'Kaydın alındı, teşekkürler!',
+  'nl.fail': 'Bir sorun oldu, biraz sonra tekrar dene.',
+  'nl.soon': 'Bülten çok yakında açılıyor! O zamana kadar duyurular Discord\'da.'
 };
 const tr = (key) => window.I18N?.t(key) || FALLBACK[key] || '';
 
@@ -29,31 +33,54 @@ function perFrame(fn) {
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
 
-/* --- partner bantları ---
-   Liste HTML'de tek yerde durur (#partnerList). Diğer bantlar oradan
-   kopyalanır: data-marquee-reverse sırayı ters çevirir, data-marquee-plain
-   bölüme özgü .partner sınıfını kaldırır (hero şeridi). */
-$$('[data-marquee-from]').forEach((m) => {
-  const source = document.getElementById(m.dataset.marqueeFrom);
-  if (!source) return;
-  const track = source.cloneNode(true);
-  track.removeAttribute('id');
-  const items = [...track.children];
-  if (m.hasAttribute('data-marquee-reverse')) track.replaceChildren(...items.reverse());
-  if (m.hasAttribute('data-marquee-plain')) items.forEach((li) => li.classList.remove('partner'));
-  m.append(track);
-});
-
-/* Kesintisiz döngü için her bant, ekran okuyucudan gizli ikinci bir şerit alır:
-   ilk şerit translateX(-100%) ile çıkarken kopyası yerine geçer. */
+/* --- partner bandı ---
+   Kesintisiz döngü için şerit en az bant genişliği kadar olmalı: liste kısa
+   kalırsa (geniş ekran, az logo) öğeler ekran okuyucudan gizli kopyalarla
+   çoğaltılır, yoksa şeridin sonunda boşluk kalır. Ardından bant, gizli ikinci
+   bir şerit alır: ilki translateX(-100%) ile çıkarken kopyası yerine geçer.
+   Tur süresi şerit genişliğinden hesaplanır: bant her ekranda aynı hızda akar. */
+const MARQUEE_SPEED = 20; /* px/sn — yavaşlatmak için küçült */
 $$('[data-marquee]').forEach((m) => {
   const track = $('.marquee-track', m);
   if (!track) return;
+  const originals = [...track.children];
   const copy = track.cloneNode(true);
-  copy.removeAttribute('id');
   copy.setAttribute('aria-hidden', 'true');
   m.append(copy);
+
+  const fill = () => {
+    const need = m.clientWidth;
+    for (const t of [track, copy]) {
+      /* ölçüm min-width:100%'den etkilenmesin diye geçici olarak kapatılır */
+      t.style.minWidth = '0';
+      let guard = 0;
+      while (t.scrollWidth < need && guard++ < 10) {
+        originals.forEach((li) => {
+          const extra = li.cloneNode(true);
+          extra.setAttribute('aria-hidden', 'true');
+          t.append(extra);
+        });
+      }
+      t.style.minWidth = '';
+    }
+    m.style.setProperty('--marquee-dur', (track.scrollWidth / MARQUEE_SPEED).toFixed(1) + 's');
+  };
+  fill();
+  window.addEventListener('resize', perFrame(fill));
+  /* logolar yüklenince genişlik değişir */
+  $$('img', track).forEach((img) => { if (!img.complete) img.addEventListener('load', fill, { once: true }); });
 });
+
+/* --- üyelik arka planı: bölüme ~1 ekran kala yüklenir --- */
+const joinSec = document.getElementById('uyelik');
+if (joinSec) {
+  const bgObs = new IntersectionObserver((entries) => {
+    if (!entries.some((en) => en.isIntersecting)) return;
+    joinSec.classList.add('bg-in');
+    bgObs.disconnect();
+  }, { rootMargin: '100% 0px' });
+  bgObs.observe(joinSec);
+}
 
 /* --- header scroll durumu --- */
 const header = document.getElementById('siteHeader');
@@ -178,6 +205,38 @@ if (form && note) {
   });
 }
 
+/* --- bülten ---
+   action yoksa servis henüz bağlı değil: e-posta toplanmaz, "yakında" notu çıkar.
+   action verilince form verisi oraya POST edilir (Formspree, kendi sunucumuz vb.). */
+const nlForm = document.getElementById('newsletterForm');
+const nlNote = document.getElementById('nlNote');
+if (nlForm && nlNote) {
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const input = nlForm.elements.email;
+  const say = (key, ok) => {
+    nlNote.textContent = tr(key);
+    nlNote.className = 'form-note ' + (ok ? 'ok' : 'err');
+  };
+  nlForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const bad = !EMAIL_RE.test(input.value.trim());
+    input.classList.toggle('invalid', bad);
+    if (bad) { say('nl.err', false); input.focus(); return; }
+    const endpoint = nlForm.getAttribute('action');
+    if (!endpoint) { say('nl.soon', true); return; }
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST', body: new FormData(nlForm), headers: { Accept: 'application/json' }
+      });
+      if (!res.ok) throw new Error(res.status);
+      say('nl.ok', true);
+      nlForm.reset();
+    } catch {
+      say('nl.fail', false);
+    }
+  });
+}
+
 /* --- scroll ilerleme çubuğu --- */
 const bar = document.getElementById('scrollProgress');
 if (bar && !reduceMotion) {
@@ -234,4 +293,110 @@ if (hero && !reduceMotion) {
     draw();
   }, { passive: true });
   hero.addEventListener('pointerleave', () => { x = 0; y = 0; draw(); });
+}
+
+/* --- kart spotlight: imleci takip eden ışık halkası ---
+   Her .spotlight kartı kendi --mx/--my'sini tutar; CSS'teki radial-gradient
+   bu konumu okuyup ışığı fareyle birlikte kaydırır. */
+const spotlights = $$('.spotlight');
+if (spotlights.length && !reduceMotion) {
+  spotlights.forEach((el) => {
+    el.addEventListener('pointermove', (e) => {
+      const rect = el.getBoundingClientRect();
+      el.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100).toFixed(1) + '%');
+      el.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100).toFixed(1) + '%');
+    }, { passive: true });
+  });
+}
+
+/* --- hero mini oyunu: düşen tuşları yakala, puan topla ---
+   Tuşa tıklamak/dokunmak, klavyede A/B/X/Y'ye ya da bağlı bir Xbox
+   kumandasında aynı tuşlara basmak, ekrandaki eşleşen tuşu patlatır. */
+const xbs = $$('.hud-hero .xb');
+const scoreBox = document.getElementById('xbScore');
+if (hero && xbs.length && scoreBox) {
+  const scoreVal = $('.xb-score-val', scoreBox);
+  const POINTS = 10;
+  let score = 0;
+
+  const inView = (el) => {
+    const r = el.getBoundingClientRect();
+    const h = hero.getBoundingClientRect();
+    return r.bottom > Math.max(0, h.top) && r.top < Math.min(window.innerHeight, h.bottom);
+  };
+
+  const popup = (x, y) => {
+    const h = hero.getBoundingClientRect();
+    const fx = document.createElement('span');
+    fx.className = 'xb-plus';
+    fx.textContent = '+' + POINTS;
+    fx.style.left = (x - h.left) + 'px';
+    fx.style.top = (y - h.top) + 'px';
+    hero.append(fx);
+    fx.addEventListener('animationend', () => fx.remove());
+    if (reduceMotion) setTimeout(() => fx.remove(), 700);
+  };
+
+  const hit = (el, x, y) => {
+    if (el.classList.contains('xb-hit')) return;
+    if (x == null) {
+      const r = el.getBoundingClientRect();
+      x = r.left + r.width / 2;
+      y = r.top + r.height / 2;
+    }
+    el.classList.add('xb-hit');
+    /* tuş bir sonraki düşüşünde (döngü başında) geri gelir */
+    const back = () => el.classList.remove('xb-hit');
+    if (reduceMotion) setTimeout(back, 1500);
+    else el.addEventListener('animationiteration', back, { once: true });
+
+    score += POINTS;
+    scoreVal.textContent = String(score).padStart(4, '0');
+    scoreBox.hidden = false;
+    scoreBox.classList.remove('bump');
+    void scoreBox.offsetWidth; /* animasyonu yeniden başlat */
+    scoreBox.classList.add('bump');
+    popup(x, y);
+  };
+
+  xbs.forEach((el) => el.addEventListener('pointerdown', (e) => {
+    e.preventDefault();
+    hit(el, e.clientX, e.clientY);
+  }));
+
+  /* ekranda görünen, eşleşen ilk tuşu patlatır */
+  const press = (k) => {
+    const el = xbs.find((b) => b.dataset.k === k && !b.classList.contains('xb-hit') && inView(b));
+    if (el) hit(el);
+  };
+
+  document.addEventListener('keydown', (e) => {
+    if (e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.target instanceof Element && e.target.closest('input, textarea, select, [contenteditable]')) return;
+    const k = e.key.toLowerCase();
+    if ('abxy'.includes(k) && k.length === 1) press(k);
+  });
+
+  /* Gamepad API: standart düzende 0=A 1=B 2=X 3=Y */
+  const PAD_KEYS = ['a', 'b', 'x', 'y'];
+  const prev = {};
+  let polling = false;
+  const poll = () => {
+    const pads = [...(navigator.getGamepads?.() || [])].filter(Boolean);
+    if (!pads.length) { polling = false; return; }
+    pads.forEach((pad) => {
+      PAD_KEYS.forEach((k, i) => {
+        const down = !!pad.buttons[i]?.pressed;
+        const id = pad.index + ':' + i;
+        if (down && !prev[id]) press(k);
+        prev[id] = down;
+      });
+    });
+    requestAnimationFrame(poll);
+  };
+  window.addEventListener('gamepadconnected', () => {
+    if (polling) return;
+    polling = true;
+    requestAnimationFrame(poll);
+  });
 }

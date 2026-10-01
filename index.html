@@ -17,7 +17,7 @@
 <link rel="apple-touch-icon" href="assets/img/logo-yazisiz.png">
 <!-- Hero'nun ilk karede kullandığı fontlar; diğerleri style.css'teki @font-face ile gerektiğinde iner -->
 <link rel="preload" href="assets/fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/oswald-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/oswald-tr.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/hud.css">
@@ -79,9 +79,13 @@
       <span class="xb xb-f" data-k="a"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 21 20H3Z"/></svg></span>
       <span class="xb xb-g" data-k="y"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="4.5" width="15" height="15"/></svg></span>
       <span class="xb xb-h" data-k="x"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg></span>
+      <span class="xb xb-i" data-k="y"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="4.5" width="15" height="15"/></svg></span>
+      <span class="xb xb-l" data-k="b"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg></span>
       <span class="light-orb orb-a"></span>
       <span class="light-orb orb-b"></span>
     </div>
+    <!-- mini oyun skoru: ilk puanda görünür (main.js) -->
+    <div class="xb-score" id="xbScore" aria-hidden="true" hidden><span data-i18n="game.score">SKOR</span> <b class="xb-score-val">0000</b></div>
     <div class="container">
       <div class="hud-frame">
         <div class="hud-hero-grid">
@@ -98,14 +102,26 @@
           </div>
 
           <div class="hero-visual hero-enter">
-            <img src="assets/img/logo-yazili.webp" alt="" width="512" height="512" style="aspect-ratio:1">
+            <img src="assets/img/logo-yazili.webp" alt="" width="512" height="512" fetchpriority="high" style="aspect-ratio:1">
           </div>
         </div>
 
         <div class="hud-partners">
           <span class="hud-partners-label" data-i18n="hero.partners">PARTNERLER</span>
-          <!-- #partnerList'ten main.js üretir -->
-          <div class="marquee" data-marquee data-marquee-from="partnerList" data-marquee-plain></div>
+          <!-- Partner listesinin tek kaynağı; döngü kopyasını main.js üretir -->
+          <div class="marquee" data-marquee>
+            <ul class="marquee-track">
+              <li class="has-logo"><img class="logo-mark" src="assets/img/logos/demonsoft.webp" alt="DemonSoft" width="158" height="84" decoding="async"></li>
+              <li class="has-logo logo-square"><img class="logo-mark" src="assets/img/logos/gamfed-turkiye.webp" alt="GamFed Türkiye" width="170" height="110" decoding="async"></li>
+              <li class="has-logo logo-wide"><img class="logo-mark" src="assets/img/logos/vellichor-games.webp" alt="Vellichor Games" width="202" height="71" decoding="async"></li>
+              <li class="has-logo logo-wide"><img class="logo-mark" src="assets/img/logos/reedon-games.webp" alt="Reedon Games" width="210" height="62" decoding="async"></li>
+              <li class="has-logo logo-tall"><img class="logo-mark" src="assets/img/logos/solymos-games.webp" alt="Solymos Games" width="130" height="120" decoding="async"></li>
+              <li class="has-logo"><img class="logo-mark" src="assets/img/logos/heat-interactive.webp" alt="Heat Interactive" width="207" height="96" decoding="async"></li>
+              <li class="has-logo"><img class="logo-mark" src="assets/img/logos/keep-the-engine.webp" alt="Keep The Engine" width="232" height="120" decoding="async"></li>
+              <li class="has-logo logo-tall"><img class="logo-mark" src="assets/img/logos/broken-lyre-entertainment.webp" alt="Broken Lyre Entertainment" width="164" height="144" decoding="async"></li>
+              <li class="has-logo logo-tall"><img class="logo-mark" src="assets/img/logos/mages-market.webp" alt="Mages Market" width="147" height="135" decoding="async"></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -149,13 +165,13 @@
         <h2 data-i18n="vision.head">Nereye gidiyoruz?</h2>
       </div>
       <div class="vm-grid">
-        <article class="vm-card reveal reveal-l">
+        <article class="vm-card spotlight reveal reveal-l">
           <h3><span class="vm-ico">🎯</span> <span data-i18n="vision.v">Vizyonumuz</span></h3>
           <p data-i18n="vision.vp">Akdeniz Üniversitesi'ni, öğrencilerin oyunu yalnızca oynamadığı; tasarladığı, geliştirdiği ve
             farklı alanlara uyguladığı bir üretim merkezine dönüştürmek. Türkiye'nin oyun geliştirme
             ekosistemine öğrenci projeleriyle katkı sağlayan, uluslararası ölçekte görünür bir topluluk olmak.</p>
         </article>
-        <article class="vm-card reveal reveal-r">
+        <article class="vm-card spotlight reveal reveal-r">
           <h3><span class="vm-ico">🚀</span> <span data-i18n="vision.m">Misyonumuz</span></h3>
           <p data-i18n="vision.mp">Eğitimler, atölyeler, Game Jam'ler ve sektör buluşmalarıyla öğrencilerin oyun tasarımı ve
             oyunlaştırma alanındaki bilgi, beceri ve üretim kapasitesini geliştirmek; ekip çalışmasını ve
@@ -180,12 +196,12 @@
         <p class="lead" data-i18n="act.lead">Tüzüğümüzde tanımlı faaliyet alanlarımız.</p>
       </div>
       <div class="feature-grid">
-        <article class="card feature reveal reveal-l"><span class="card-num">01</span><h3 data-i18n="act.f1h">Oyun Geliştirme Eğitimleri</h3><p data-i18n="act.f1p">Unity, Unreal Engine ve benzeri motorlarla eğitim ve atölyeler düzenliyoruz.</p></article>
-        <article class="card feature reveal reveal-zoom"><span class="card-num">02</span><h3 data-i18n="act.f2h">Tasarım &amp; Sanat Programları</h3><p data-i18n="act.f2p">Oyun tasarımı, oyun sanatı, hikâye anlatımı ve kullanıcı deneyimi üzerine eğitim programları.</p></article>
-        <article class="card feature reveal reveal-r"><span class="card-num">03</span><h3 data-i18n="act.f3h">Game Jam &amp; Projeler</h3><p data-i18n="act.f3p">Ekip tabanlı oyun geliştirme projeleri, masaüstü oyun etkinlikleri ve oyun analizi çalışmaları.</p></article>
-        <article class="card feature reveal reveal-l"><span class="card-num">04</span><h3 data-i18n="act.f4h">Oyunlaştırma Projeleri</h3><p data-i18n="act.f4p">Gamification uygulamaları üzerine akademik ve sosyal projeler geliştiriyoruz.</p></article>
-        <article class="card feature reveal reveal-zoom"><span class="card-num">05</span><h3 data-i18n="act.f5h">Sektör Buluşmaları</h3><p data-i18n="act.f5p">Oyun sektörü profesyonelleriyle konferans, panel ve söyleşiler.</p></article>
-        <article class="card feature reveal reveal-r"><span class="card-num">06</span><h3 data-i18n="act.f6h">Sosyal &amp; Kültürel Etkinlikler</h3><p data-i18n="act.f6p">Üyeler arası iletişimi güçlendiren buluşmalar ve topluluk geceleri.</p></article>
+        <article class="card feature spotlight reveal reveal-l"><span class="card-num">01</span><h3 data-i18n="act.f1h">Oyun Geliştirme Eğitimleri</h3><p data-i18n="act.f1p">Unity, Unreal Engine ve benzeri motorlarla eğitim ve atölyeler düzenliyoruz.</p></article>
+        <article class="card feature spotlight reveal reveal-zoom"><span class="card-num">02</span><h3 data-i18n="act.f2h">Tasarım &amp; Sanat Programları</h3><p data-i18n="act.f2p">Oyun tasarımı, oyun sanatı, hikâye anlatımı ve kullanıcı deneyimi üzerine eğitim programları.</p></article>
+        <article class="card feature spotlight reveal reveal-r"><span class="card-num">03</span><h3 data-i18n="act.f3h">Game Jam &amp; Projeler</h3><p data-i18n="act.f3p">Ekip tabanlı oyun geliştirme projeleri, masaüstü oyun etkinlikleri ve oyun analizi çalışmaları.</p></article>
+        <article class="card feature spotlight reveal reveal-l"><span class="card-num">04</span><h3 data-i18n="act.f4h">Oyunlaştırma Projeleri</h3><p data-i18n="act.f4p">Gamification uygulamaları üzerine akademik ve sosyal projeler geliştiriyoruz.</p></article>
+        <article class="card feature spotlight reveal reveal-zoom"><span class="card-num">05</span><h3 data-i18n="act.f5h">Sektör Buluşmaları</h3><p data-i18n="act.f5p">Oyun sektörü profesyonelleriyle konferans, panel ve söyleşiler.</p></article>
+        <article class="card feature spotlight reveal reveal-r"><span class="card-num">06</span><h3 data-i18n="act.f6h">Sosyal &amp; Kültürel Etkinlikler</h3><p data-i18n="act.f6p">Üyeler arası iletişimi güçlendiren buluşmalar ve topluluk geceleri.</p></article>
       </div>
     </div>
   </section>
@@ -194,73 +210,57 @@
   <section class="section section-alt" id="gamejam">
     <div class="container">
       <article class="jam reveal">
-        <span class="corner tl" aria-hidden="true"></span>
-        <span class="corner tr" aria-hidden="true"></span>
-        <span class="corner bl" aria-hidden="true"></span>
-        <span class="corner br" aria-hidden="true"></span>
-
-        <div class="jam-top">
-          <div class="jam-brand">
-            <img src="assets/img/gamejam-logo.svg" alt="Game Jam Akdeniz" width="1281" height="489" loading="lazy">
+        <div class="jam-top reveal">
+          <div class="jam-meta">
+            <span class="jam-tag" data-i18n="jam.eyebrow">04 — Amiral Gemimiz</span>
+            <span class="jam-when">
+              <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v3M17 3v3M4 9h16M5 6h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Z"/></svg>
+              <span data-i18n="jam.when">2–4 Mayıs 2026 · Antalya</span>
+            </span>
           </div>
-          <div class="jam-intro">
-            <p class="eyebrow" data-i18n="jam.eyebrow">04 — Amiral Gemimiz</p>
-            <h2 data-i18n="jam.head">Game Jam Akdeniz</h2>
-            <p class="jam-when" data-i18n="jam.when">2–4 Mayıs 2026 · Antalya</p>
-            <p data-i18n="jam.p1">Bugüne kadar düzenlediğimiz <strong>en büyük etkinlik</strong>.
-              Akdeniz Üniversitesi, AÜBT ve GG Lab'in birlikte
-              yürüttüğü, on altı kurum, stüdyo ve markanın desteklediği 48 saatlik oyun geliştirme maratonu.</p>
-            <p class="note" data-i18n="jam.p2">Katılımcılar 48 saat boyunca takımlar kurup açıklanan tema
-              etrafında sıfırdan oynanabilir prototipler geliştirdi. <span class="todo">2027 tarihi henüz belli değil</span> —
-              duyuruyu buradan ve sosyal medya hesaplarımızdan yapacağız.</p>
+          <h2 data-i18n="jam.head">Game Jam <span class="grad">Akdeniz</span></h2>
+          <div class="jam-body">
+            <div class="jam-brand">
+              <span class="jam-brand-ring" aria-hidden="true"></span>
+              <img src="assets/img/gamejam-logo.svg" alt="Game Jam Akdeniz" width="1281" height="489" loading="lazy">
+              <p class="jam-by">
+                <span class="jam-by-label" data-i18n="jam.byLabel">Düzenleyen</span>
+                <span class="jam-by-names">
+                  <img class="logo-mark" src="assets/img/logos/akdeniz-universitesi.webp" alt="" width="96" height="96" decoding="async">
+                  <span data-i18n="jam.byNames">Akdeniz Üniversitesi · AÜBT · GG Lab</span>
+                </span>
+              </p>
+            </div>
+            <div class="jam-copy">
+              <p data-i18n="jam.p1">Bugüne kadar düzenlediğimiz <strong>en büyük etkinlik</strong>.
+                Akdeniz Üniversitesi, AÜBT ve GG Lab'in birlikte
+                yürüttüğü, on altı kurum, stüdyo ve markanın desteklediği 48 saatlik oyun geliştirme maratonu.</p>
+              <p class="note" data-i18n="jam.p2">Katılımcılar 48 saat boyunca takımlar kurup açıklanan tema
+                etrafında sıfırdan oynanabilir prototipler geliştirdi. <strong>2027 tarihi henüz belli değil</strong> —
+                duyuruyu buradan ve sosyal medya hesaplarımızdan yapacağız.</p>
+              <a class="jam-itch" href="https://itch.io/jam/akdeniz-gamejam-2026/entries" target="_blank" rel="noopener noreferrer">
+                <span class="jam-itch-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5Z"/></svg></span>
+                <span class="jam-itch-text">
+                  <strong data-i18n="jam.itch">Jam oyunlarını oyna</strong>
+                  <small data-i18n="jam.itchSub">Game Jam Akdeniz 2026 oyunları · itch.io</small>
+                </span>
+                <span class="jam-itch-arrow" aria-hidden="true">&#8599;</span>
+              </a>
+            </div>
           </div>
         </div>
 
-        <dl class="jam-stats">
+        <dl class="jam-stats reveal">
           <div><dt data-count="48">48</dt><dd data-i18n="jam.s1">saat</dd></div>
           <div><dt data-count="16">16</dt><dd data-i18n="jam.s2">destekçi</dd></div>
           <div><dt data-count="3">3</dt><dd data-i18n="jam.s3">düzenleyen kurum</dd></div>
           <div><dt>2026</dt><dd data-i18n="jam.s4">ilk yılı</dd></div>
         </dl>
 
-        <div class="jam-support">
-          <h3 class="jam-sub" data-i18n="jam.orgH">Düzenleyenler</h3>
-          <ul class="chips">
-            <li class="has-logo"><img class="logo-mark" src="assets/img/logos/akdeniz-universitesi.webp" alt="" width="96" height="96" decoding="async"><span>Akdeniz Üniversitesi</span></li>
-            <li>AÜBT</li>
-            <li>GG Lab</li>
-          </ul>
-
-          <h3 class="jam-sub" data-i18n="jam.studioH">Oyun stüdyoları ve sektör</h3>
-          <ul class="chips">
-            <li class="has-logo"><img class="logo-mark" src="assets/img/logos/rogue-duck.webp" alt="" width="192" height="96" decoding="async"><span>Rogue Duck</span></li>
-            <li class="has-logo"><img class="logo-mark" src="assets/img/logos/keep-the-engine.webp" alt="" width="232" height="96" decoding="async"><span>Keep The Engine</span></li>
-            <li>GameDev.ist</li>
-            <li class="has-logo"><img class="logo-mark" src="assets/img/logos/heat-interactive.webp" alt="" width="207" height="96" decoding="async"><span>Heat Interactive</span></li>
-            <li>Mythronix Interactive</li>
-            <li class="has-logo"><img class="logo-mark" src="assets/img/logos/solymos-games.webp" alt="" width="99" height="124" decoding="async"><span>Solymos</span></li>
-            <li>.bug Lab</li>
-            <li>OSE — Oyun Sektörü Etkinlikleri</li>
-          </ul>
-
-          <h3 class="jam-sub" data-i18n="jam.instH">Kurumsal destek</h3>
-          <ul class="chips">
-            <li>Antalya Gençlik ve Spor İl Müdürlüğü</li>
-            <li>Özgecan Aslan Gençlik Merkezi</li>
-            <li>Antalya Teknokent</li>
-            <li>Girişimcilik ve Kariyer Ofisi</li>
-          </ul>
-
-          <h3 class="jam-sub" data-i18n="jam.sponsorH">Sponsorlar</h3>
-          <ul class="chips">
-            <li>Red Bull</li>
-            <li>Ratio Roastery</li>
-            <li>DRN Ajans &amp; PR</li>
-            <li class="chip-todo">MT <span class="todo" data-i18n="jam.unknown">tam adı eklenecek</span></li>
-          </ul>
-
-          <p class="note" data-i18n="jam.logoNote"><span class="todo">Logo dosyaları geldikçe ekleniyor</span> —
-            henüz gelmeyen destekçiler isim olarak listeleniyor.</p>
+        <div class="jam-support reveal">
+          <p class="jam-support-line"><span class="jam-support-k" data-i18n="jam.studioH">Oyun stüdyoları ve sektör</span> Rogue Duck, Keep The Engine, GameDev.ist, Heat Interactive, Mythronix Interactive, Solymos, .bug Lab, OSE — Oyun Sektörü Etkinlikleri.</p>
+          <p class="jam-support-line"><span class="jam-support-k" data-i18n="jam.instH">Kurumsal destek</span> Antalya Gençlik ve Spor İl Müdürlüğü, Özgecan Aslan Gençlik Merkezi, Antalya Teknokent, Girişimcilik ve Kariyer Ofisi.</p>
+          <p class="jam-support-line"><span class="jam-support-k" data-i18n="jam.sponsorH">Sponsorlar</span> Red Bull, Ratio Roastery, DRN Ajans &amp; PR, MT.</p>
         </div>
       </article>
     </div>
@@ -277,8 +277,8 @@
       </div>
 
       <div class="events" id="events">
-        <article class="event-card reveal reveal-zoom">
-          <div class="event-media"><img src="assets/img/event-kutu.webp" alt="" width="1400" height="787" loading="lazy" decoding="async"></div>
+        <article class="event-card spotlight reveal reveal-zoom">
+          <div class="event-media"><img src="assets/img/event-kutu.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></div>
           <div class="event-body">
             <div>
               <h3 data-i18n="ev.e1h">Kutu Oyunu Günleri</h3>
@@ -288,8 +288,8 @@
           </div>
         </article>
 
-        <article class="event-card reveal reveal-zoom">
-          <div class="event-media"><img src="assets/img/event-atolye.webp" alt="" width="1400" height="827" loading="lazy" decoding="async"></div>
+        <article class="event-card spotlight reveal reveal-zoom">
+          <div class="event-media"><img src="assets/img/event-atolye.webp" alt="" width="800" height="473" loading="lazy" decoding="async"></div>
           <div class="event-body">
             <div>
               <h3 data-i18n="ev.e2h">Oyun Geliştirme Atölyeleri</h3>
@@ -299,8 +299,8 @@
           </div>
         </article>
 
-        <article class="event-card reveal reveal-zoom">
-          <div class="event-media"><img src="assets/img/event-talks.webp" alt="" width="1400" height="933" loading="lazy" decoding="async"></div>
+        <article class="event-card spotlight reveal reveal-zoom">
+          <div class="event-media"><img src="assets/img/event-talks.webp" alt="" width="800" height="533" loading="lazy" decoding="async"></div>
           <div class="event-body">
             <div>
               <h3 data-i18n="ev.e3h">Indie Talks &amp; Sektörden Konuklar</h3>
@@ -310,8 +310,8 @@
           </div>
         </article>
 
-        <article class="event-card reveal reveal-zoom">
-          <div class="event-media"><img src="assets/img/event-jam.webp" alt="" width="1400" height="933" loading="lazy" decoding="async"></div>
+        <article class="event-card spotlight reveal reveal-zoom">
+          <div class="event-media"><img src="assets/img/event-jam.webp" alt="" width="800" height="533" loading="lazy" decoding="async"></div>
           <div class="event-body">
             <div>
               <h3 data-i18n="ev.e4h">Game Jam'ler ve Yarışmalar</h3>
@@ -333,57 +333,45 @@
         <p class="lead" data-i18n="gal.lead">Game Jam Akdeniz'den kareler. Diğer etkinliklerin fotoğrafları eklendikçe burası büyüyecek.</p>
       </div>
       <div class="gallery" id="gallery">
-        <button type="button" class="shot reveal reveal-zoom wide tall" data-full="assets/img/gallery/jam-01.webp" data-caption="Game Jam Akdeniz — katılımcılar" data-i18n-cap="gal.g1" aria-label="Game Jam Akdeniz — katılımcılar" data-i18n-aria="gal.g1"><img src="assets/img/gallery/jam-01-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
-        <button type="button" class="shot reveal reveal-zoom tall" data-full="assets/img/gallery/jam-02.webp" data-caption="Ödül töreni" data-i18n-cap="gal.g2" aria-label="Ödül töreni" data-i18n-aria="gal.g2"><img src="assets/img/gallery/jam-02-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
-        <button type="button" class="shot reveal reveal-zoom tall" data-full="assets/img/gallery/jam-03.webp" data-caption="Ödül töreni" data-i18n-cap="gal.g3" aria-label="Ödül töreni" data-i18n-aria="gal.g3"><img src="assets/img/gallery/jam-03-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
-        <button type="button" class="shot reveal reveal-zoom wide tall" data-full="assets/img/gallery/jam-04.webp" data-caption="Ödül töreni" data-i18n-cap="gal.g4" aria-label="Ödül töreni" data-i18n-aria="gal.g4"><img src="assets/img/gallery/jam-04-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
-        <button type="button" class="shot reveal reveal-zoom wide tall" data-full="assets/img/gallery/jam-05.webp" data-caption="Jam alanı" data-i18n-cap="gal.g5" aria-label="Jam alanı" data-i18n-aria="gal.g5"><img src="assets/img/gallery/jam-05-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
-        <button type="button" class="shot reveal reveal-zoom tall" data-full="assets/img/gallery/jam-08.webp" data-caption="Sahnede oyun sunumu" data-i18n-cap="gal.g8" aria-label="Sahnede oyun sunumu" data-i18n-aria="gal.g8"><img src="assets/img/gallery/jam-08-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
-        <button type="button" class="shot reveal reveal-zoom wide tall" data-full="assets/img/gallery/jam-06.webp" data-caption="Unity'de geliştirme" data-i18n-cap="gal.g6" aria-label="Unity'de geliştirme" data-i18n-aria="gal.g6"><img src="assets/img/gallery/jam-06-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
-        <button type="button" class="shot reveal reveal-zoom tall" data-full="assets/img/gallery/jam-07.webp" data-caption="Jam gecesinden bir kare" data-i18n-cap="gal.g7" aria-label="Jam gecesinden bir kare" data-i18n-aria="gal.g7"><img src="assets/img/gallery/jam-07-t.webp" alt="" width="700" height="1244" loading="lazy" decoding="async"></button>
+        <button type="button" class="shot gallery-reveal reveal wide tall" data-full="assets/img/gallery/jam-01.webp" data-caption="Game Jam Akdeniz — katılımcılar" data-i18n-cap="gal.g1" aria-label="Game Jam Akdeniz — katılımcılar" data-i18n-aria="gal.g1"><img src="assets/img/gallery/jam-01-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
+        <button type="button" class="shot gallery-reveal reveal tall" data-full="assets/img/gallery/jam-02.webp" data-caption="Ödül töreni" data-i18n-cap="gal.g2" aria-label="Ödül töreni" data-i18n-aria="gal.g2"><img src="assets/img/gallery/jam-02-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
+        <button type="button" class="shot gallery-reveal reveal tall" data-full="assets/img/gallery/jam-03.webp" data-caption="Ödül töreni" data-i18n-cap="gal.g3" aria-label="Ödül töreni" data-i18n-aria="gal.g3"><img src="assets/img/gallery/jam-03-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
+        <button type="button" class="shot gallery-reveal reveal wide tall" data-full="assets/img/gallery/jam-04.webp" data-caption="Ödül töreni" data-i18n-cap="gal.g4" aria-label="Ödül töreni" data-i18n-aria="gal.g4"><img src="assets/img/gallery/jam-04-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
+        <button type="button" class="shot gallery-reveal reveal wide tall" data-full="assets/img/gallery/jam-05.webp" data-caption="Jam alanı" data-i18n-cap="gal.g5" aria-label="Jam alanı" data-i18n-aria="gal.g5"><img src="assets/img/gallery/jam-05-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
+        <button type="button" class="shot gallery-reveal reveal tall" data-full="assets/img/gallery/jam-08.webp" data-caption="Sahnede oyun sunumu" data-i18n-cap="gal.g8" aria-label="Sahnede oyun sunumu" data-i18n-aria="gal.g8"><img src="assets/img/gallery/jam-08-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
+        <button type="button" class="shot gallery-reveal reveal wide tall" data-full="assets/img/gallery/jam-06.webp" data-caption="Unity'de geliştirme" data-i18n-cap="gal.g6" aria-label="Unity'de geliştirme" data-i18n-aria="gal.g6"><img src="assets/img/gallery/jam-06-t.webp" alt="" width="700" height="933" loading="lazy" decoding="async"></button>
+        <button type="button" class="shot gallery-reveal reveal tall" data-full="assets/img/gallery/jam-07.webp" data-caption="Jam gecesinden bir kare" data-i18n-cap="gal.g7" aria-label="Jam gecesinden bir kare" data-i18n-aria="gal.g7"><img src="assets/img/gallery/jam-07-t.webp" alt="" width="700" height="1244" loading="lazy" decoding="async"></button>
       </div>
     </div>
   </section>
 
-  <!-- PARTNERLER -->
-  <section class="section section-alt" id="paydaslar">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow" data-i18n="part.eyebrow">07 — Partnerler</p>
-        <h2 data-i18n="part.head">Partnerlerimiz</h2>
-        <p class="lead" data-i18n="part.lead">Toplulukla birlikte çalıştığımız stüdyolar ve kuruluşlar.</p>
-      </div>
-      <div class="marquee marquee-lg reveal" data-marquee>
-        <!-- Partner listesinin TEK kaynağı: hero bandı, alttaki ters bant ve döngü kopyaları buradan üretilir (js/main.js) -->
-        <ul class="marquee-track" id="partnerList">
-            <li class="partner has-logo"><img class="logo-mark" src="assets/img/logos/demonsoft.webp" alt="" width="115" height="83" decoding="async"><span>DemonSoft</span></li>
-            <li class="partner has-logo"><img class="logo-mark" src="assets/img/logos/gamfed-turkiye.webp" alt="" width="112" height="77" decoding="async"><span>GamFed Türkiye</span></li>
-            <li class="partner has-logo"><img class="logo-mark" src="assets/img/logos/vellichor-games.webp" alt="" width="178" height="74" decoding="async"><span>Vellichor Games</span></li>
-            <li class="partner has-logo"><img class="logo-mark" src="assets/img/logos/reedon-games.webp" alt="" width="210" height="62" decoding="async"><span>Reedon Games</span></li>
-            <li class="partner has-logo"><img class="logo-mark" src="assets/img/logos/solymos-games.webp" alt="" width="99" height="124" decoding="async"><span>Solymos Games</span></li>
-            <li class="partner has-logo"><img class="logo-mark" src="assets/img/logos/heat-interactive.webp" alt="" width="207" height="96" decoding="async"><span>Heat Interactive</span></li>
-            <li class="partner has-logo"><img class="logo-mark" src="assets/img/logos/keep-the-engine.webp" alt="" width="232" height="120" decoding="async"><span>Keep The Engine</span></li>
-            <li class="partner has-logo"><img class="logo-mark" src="assets/img/logos/broken-lyre-entertainment.webp" alt="" width="120" height="146" decoding="async"><span>Broken Lyre Entertainment</span></li>
-            <li class="partner has-logo"><img class="logo-mark" src="assets/img/logos/mages-market.webp" alt="" width="158" height="132" decoding="async"><span>Mages Market</span></li>
-        </ul>
-      </div>
-      <div class="marquee marquee-lg marquee-rev reveal" data-marquee data-marquee-from="partnerList" data-marquee-reverse></div>
-        </div>
-  </section>
-
   <!-- İLETİŞİM -->
   <section class="section" id="iletisim">
-    <!-- Form bir servise (Formspree vb.) bağlanana kadar gizli. Açmak için:
-         forma action ekle, `hidden`'ı kaldır, bu div'e `grid-2` sınıfını geri koy. -->
-    <div class="container">
+    <!-- İletişim formu bir servise (Formspree vb.) bağlanana kadar gizli. Açmak için:
+         forma action ekle, `hidden`'ı kaldır, bülten kutusunu bilgi sütununun altına taşı. -->
+    <div class="container grid-2">
       <div class="reveal">
-        <p class="eyebrow" data-i18n="ct.eyebrow">08 — İletişim</p>
+        <p class="eyebrow" data-i18n="ct.eyebrow">07 — İletişim</p>
         <h2 data-i18n="ct.head">Bize ulaş</h2>
-        <p class="lead" data-i18n="ct.lead">Akdeniz Üniversitesi Kampüsü, Antalya · Sağlık, Kültür ve Spor Daire Başkanlığı
-          tarafından tahsis edilen topluluk mekânı.</p>
+        <p class="lead" data-i18n="ct.lead">Soruların, iş birliği tekliflerin ya da etkinlik fikirlerin için bize yaz.</p>
 
-        <p class="mail">📧 <span class="todo" data-i18n="ct.mail">e-posta adresi eklenecek</span></p>
+        <p class="contact-line">📍 <a href="https://www.google.com/maps/search/?api=1&amp;query=Akdeniz+%C3%9Cniversitesi" target="_blank" rel="noopener noreferrer" data-i18n="ct.place">Akdeniz Üniversitesi, Konyaaltı / Antalya</a></p>
+        <p class="contact-line">📧 <a href="mailto:gglabakdeniz@gmail.com" data-i18n="ct.mail">gglabakdeniz@gmail.com</a></p>
       </div>
+
+      <!-- Bülten: action boşken gönderim yapmaz, "yakında" notu gösterir.
+           Servis/alan adı hazır olunca action="…" ve method="post" eklemek yeterli (main.js fetch ile yollar). -->
+      <form class="newsletter reveal" id="newsletterForm" novalidate>
+        <p class="eyebrow" data-i18n="nl.eyebrow">Bülten</p>
+        <h3 data-i18n="nl.head">Duyurular e-postana gelsin</h3>
+        <p class="muted" data-i18n="nl.lead">Etkinlik, atölye ve Game Jam duyurularını ilk sen duy. İstediğin an ayrılabilirsin.</p>
+        <div class="newsletter-row">
+          <label class="sr-only" for="nlEmail" data-i18n="form.email">E-posta</label>
+          <input id="nlEmail" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="sen@ornek.com" data-i18n-ph="form.emailPh">
+          <button class="cut-btn cut-btn-light" type="submit"><span data-i18n="nl.send">Abone ol</span></button>
+        </div>
+        <p class="form-note" id="nlNote" role="status"></p>
+      </form>
 
       <form class="contact-form reveal" id="contactForm" novalidate hidden>
         <div class="field">
@@ -417,21 +405,31 @@
 
   <!-- ÜYELİK -->
   <section class="section section-alt" id="uyelik">
+    <div class="shooting-stars" aria-hidden="true">
+      <i style="--x:4%;--y:8%;--dx:-220px;--dy:144px;--dur:20s;--delay:0s"></i>
+      <i style="--x:16%;--y:20%;--dx:-195px;--dy:127px;--dur:20s;--delay:2.2s"></i>
+      <i style="--x:30%;--y:10%;--dx:-240px;--dy:157px;--dur:20s;--delay:4.4s"></i>
+      <i style="--x:42%;--y:18%;--dx:-205px;--dy:134px;--dur:20s;--delay:6.7s"></i>
+      <i style="--x:54%;--y:7%;--dx:-260px;--dy:170px;--dur:20s;--delay:8.9s"></i>
+      <i style="--x:64%;--y:16%;--dx:-215px;--dy:140px;--dur:20s;--delay:11.1s"></i>
+      <i style="--x:74%;--y:9%;--dx:-230px;--dy:150px;--dur:20s;--delay:13.3s"></i>
+      <i style="--x:84%;--y:19%;--dx:-190px;--dy:124px;--dur:20s;--delay:15.6s"></i>
+      <i style="--x:92%;--y:6%;--dx:-250px;--dy:163px;--dur:20s;--delay:17.8s"></i>
+    </div>
     <div class="container">
       <div class="section-head reveal">
-        <p class="eyebrow" data-i18n="join.eyebrow">09 — Üyelik</p>
+        <p class="eyebrow" data-i18n="join.eyebrow">08 — Üyelik</p>
         <h2 data-i18n="join.head">Topluluğa katıl</h2>
         <p class="lead" data-i18n="join.lead">GG Lab, topluluğun ürettikleriyle büyüyor. Bölümün, yeteneğin ya da seviyen fark etmez: soru sormak, ekip bulmak, yaptıklarını paylaşmak ya da sadece merhaba demek için Discord'a gel. Etkinlik ve Game Jam duyuruları ilk orada. Diğer kanallardan da bizi takip edebilirsin.</p>
       </div>
       <div class="portal-top reveal">
-        <a class="portal portal-main" href="https://discord.gg/wFtA5EvmnW" target="_blank" rel="noopener noreferrer" aria-label="Discord" title="Discord"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg><span class="portal-name" data-i18n="join.dc">Discord'a katıl</span></a>
+        <a class="portal portal-main" href="https://discord.gg/wFtA5EvmnW" target="_blank" rel="noopener noreferrer" aria-label="Discord" title="Discord"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg><span class="portal-name" data-i18n="join.dc"><span lang="en">Discord</span>'a katıl</span></a>
       </div>
       <nav class="portals reveal" aria-label="Sosyal medya" data-i18n-aria="a11y.social">
-          <a class="portal" href="https://www.instagram.com/gglabakdeniz/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg><span class="portal-name">Instagram</span></a>
-          <a class="portal todo-link" href="#" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg><span class="portal-name">YouTube</span></a>
-          <a class="portal todo-link" href="#" aria-label="X / Twitter" title="X / Twitter"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg><span class="portal-name">X / Twitter</span></a>
-          <a class="portal todo-link" href="#" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><span class="portal-name">LinkedIn</span></a>
-          <a class="portal todo-link" href="#" aria-label="itch.io" title="itch.io"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M3.13 1.338C2.08 1.96.02 4.328 0 4.95v1.03c0 1.303 1.22 2.45 2.325 2.45 1.33 0 2.436-1.102 2.436-2.41 0 1.308 1.07 2.41 2.4 2.41 1.328 0 2.362-1.102 2.362-2.41 0 1.308 1.137 2.41 2.466 2.41h.024c1.33 0 2.466-1.102 2.466-2.41 0 1.308 1.034 2.41 2.363 2.41 1.33 0 2.4-1.102 2.4-2.41 0 1.308 1.106 2.41 2.435 2.41C22.78 8.43 24 7.282 24 5.98V4.95c-.02-.62-2.082-2.99-3.13-3.612-3.253-.114-5.508-.134-8.87-.133-3.362 0-7.945.053-8.87.133zm6.376 6.477a2.74 2.74 0 0 1-.468.602c-.5.49-1.19.795-1.947.795a2.786 2.786 0 0 1-1.95-.795c-.182-.178-.32-.37-.446-.59-.127.222-.303.412-.486.59a2.788 2.788 0 0 1-1.95.795c-.092 0-.187-.025-.264-.052-.107 1.113-.152 2.176-.168 2.95v.005l-.006 1.167c.02 2.334-.23 7.564 1.03 8.85 1.952.454 5.545.662 9.15.663 3.605 0 7.198-.21 9.15-.664 1.26-1.284 1.01-6.514 1.03-8.848l-.006-1.167v-.004c-.016-.775-.06-1.838-.168-2.95-.077.026-.172.052-.263.052a2.788 2.788 0 0 1-1.95-.795c-.184-.178-.36-.368-.486-.59-.127.22-.265.412-.447.59a2.786 2.786 0 0 1-1.95.794c-.76 0-1.446-.303-1.948-.793a2.74 2.74 0 0 1-.468-.602 2.738 2.738 0 0 1-.463.602 2.787 2.787 0 0 1-1.95.794h-.16a2.787 2.787 0 0 1-1.95-.793 2.738 2.738 0 0 1-.464-.602zm-2.004 2.59v.002c.795.002 1.5 0 2.373.953.687-.072 1.406-.108 2.125-.107.72 0 1.438.035 2.125.107.873-.953 1.578-.95 2.372-.953.376 0 1.876 0 2.92 2.934l1.123 4.028c.832 2.995-.266 3.068-1.636 3.07-2.03-.075-3.156-1.55-3.156-3.025-1.124.184-2.436.276-3.748.277-1.312 0-2.624-.093-3.748-.277 0 1.475-1.125 2.95-3.156 3.026-1.37-.004-2.468-.077-1.636-3.072l1.122-4.027c1.045-2.934 2.545-2.934 2.92-2.934zM12 12.714c-.002.002-2.14 1.964-2.523 2.662l1.4-.056v1.22c0 .056.56.033 1.123.007.562.026 1.124.05 1.124-.008v-1.22l1.4.055C14.138 14.677 12 12.713 12 12.713z"/></svg><span class="portal-name">itch.io</span></a>
+          <a class="portal" href="https://www.instagram.com/gglabakdeniz/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg><span class="portal-name" lang="en">Instagram</span></a>
+          <a class="portal todo-link" href="#" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg><span class="portal-name" lang="en">YouTube</span></a>
+          <a class="portal todo-link" href="#" aria-label="X / Twitter" title="X / Twitter"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg><span class="portal-name" lang="en">X / Twitter</span></a>
+          <a class="portal" href="https://www.linkedin.com/company/gglab-oyun-ve-oyunlastirma-toplulugu/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><span class="portal-name" lang="en">LinkedIn</span></a>
       </nav>
     </div>
   </section>
@@ -455,13 +453,12 @@
     <div>
       <h3 data-i18n="foot.community">Topluluk</h3>
       <a href="#uyelik" data-i18n="foot.join">Aramıza Katıl</a>
-      <a href="#paydaslar" data-i18n="foot.partners">Partnerler</a>
       <a href="#iletisim" data-i18n="nav.contact">İletişim</a>
       <a href="https://linktr.ee/gglabakdeniz" target="_blank" rel="noopener noreferrer" data-i18n="foot.links">Tüm Bağlantılar (Linktree)</a>
     </div>
   </div>
   <div class="container copyright">
-    <p>© <span id="year">2026</span> <span data-i18n="foot.copy">GG Lab — Akdeniz Üniversitesi Oyun ve Oyunlaştırma Topluluğu. Taslak site.</span></p>
+    <p>© <span id="year">2026</span> <span data-i18n="foot.copy">GG Lab — Akdeniz Üniversitesi Oyun ve Oyunlaştırma Topluluğu.</span></p>
     <a href="#top" class="to-top" data-i18n="foot.top">Yukarı ↑</a>
   </div>
 </footer>
