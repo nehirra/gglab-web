@@ -115,6 +115,11 @@ ayrı bir Partnerler bölümü yoktur.
 `#etkinlikler` bölümü takvim değil, **etkinlik türü tanıtımıdır**; tarih iddiası içermez.
 Tarihi kesinleşen etkinlikler için ayrı bir takvim bloğu eklenebilir.
 
+`#gamejam` bir oyunun "bölüm seçme" ekranı gibi kurulu: solda kutu kapağı (`jam-06` fotoğrafı +
+logo, "LEVEL 01 · Tamamlandı"), sağda bilgiler ve istatistikler, altında galeriden 4 ekran
+görüntüsü (tıklayınca galerinin lightbox'ı açılır), kilitli "Level 02" kartı ve destekçi jeneriği.
+2027 tarihi belli olunca kilitli karttaki metni güncelle.
+
 ## Dikey ölçek
 
 Hero `100svh` yüksekliğinde ve içeriği ekran yüksekliğine göre ölçekleniyor.

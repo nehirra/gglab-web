@@ -427,7 +427,6 @@ img{max-width:100%;display:block}
 
 .card-num{display:block;font-family:"Space Grotesk",sans-serif;font-size:.85rem;font-weight:700;
   letter-spacing:.18em;color:var(--accent);margin-bottom:10px}
-.note{margin-top:26px;font-size:.88rem;color:var(--muted)}
 
 /* ortak logo kuralı: yükseklik bağlama göre ayarlanır */
 .logo-mark{display:block;width:auto;object-fit:contain;flex:0 0 auto}
@@ -528,7 +527,6 @@ img{max-width:100%;display:block}
   .event-media{aspect-ratio:2/1}
   .event-body{padding:14px;gap:12px}
   .event-body p{font-size:.84rem;line-height:1.45}
-  .note{margin-top:16px;font-size:.82rem}
 
   .gallery{grid-auto-rows:clamp(120px,21vh,170px);gap:12px}
 
@@ -577,178 +575,149 @@ img{max-width:100%;display:block}
     linear-gradient(180deg,rgba(23,43,96,0),rgba(23,43,96,.6) 16%,rgba(27,40,104,.5) 84%,rgba(27,40,104,0));
 }
 
-.jam{
+/* --- bölüm kartı: solda oyun kutusu kapağı, sağda bölüm bilgileri --- */
+.level{
+  --cut:26px;
   position:relative;isolation:isolate;
-  border:1px solid var(--line);
-  background:linear-gradient(160deg,rgba(37,63,134,.62),rgba(23,43,96,.4));
-  padding:clamp(30px,4vh,56px) clamp(22px,3.4vw,52px) clamp(26px,3.4vh,46px);
-  overflow:hidden;
-  clip-path:polygon(30px 0,100% 0,100% calc(100% - 30px),calc(100% - 30px) 100%,0 100%,0 30px);
+  display:grid;grid-template-columns:minmax(220px,340px) minmax(0,1fr);
+  gap:clamp(26px,4vw,56px);align-items:center;
+  padding:clamp(22px,3vw,38px);
+  background:linear-gradient(160deg,rgba(37,63,134,.55),rgba(23,43,96,.35));
+  clip-path:polygon(var(--cut) 0,100% 0,100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,0 100%,0 var(--cut));
 }
-/* üst kenarda ince degrade şerit, panele "aktif ekran" hissi verir */
-.jam::before{
-  content:"";position:absolute;inset:0 0 auto 0;height:3px;z-index:1;
-  background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-4),var(--accent-3));
+.level::before{
+  content:"";position:absolute;inset:0 0 auto;height:3px;z-index:1;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2) 40%,transparent);
 }
-/* hafif blueprint dokusu, sol üstte yoğun, kenarlara doğru erir */
-.jam::after{
-  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.55;
-  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
-  background-size:44px 44px;
-  -webkit-mask-image:radial-gradient(ellipse 85% 70% at 18% 0%,#000,transparent 72%);
-  mask-image:radial-gradient(ellipse 85% 70% at 18% 0%,#000,transparent 72%);
-}
-.jam > *{position:relative;z-index:1}
 
-.jam-top{position:relative}
-
-/* rozet + tarih tek satırda, başlığın hemen üstünde — dağınık dikey blok yerine sıkı bir üst şerit */
-.jam-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:14px}
-/* "amiral gemimiz" etiketi: gradyanlı, kesik köşeli rozet */
-.jam-tag{
-  display:inline-block;padding:7px 16px 7px 14px;
-  font-family:Oswald,Inter,sans-serif;font-size:.72rem;font-weight:600;
-  letter-spacing:.16em;text-transform:uppercase;color:#12204a;
-  background:linear-gradient(100deg,var(--accent),var(--accent-2));
-  clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);
-  box-shadow:0 10px 26px rgba(244,124,32,.32);
-}
-.jam-when{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:Oswald,"Space Grotesk",sans-serif;letter-spacing:.1em;text-transform:uppercase;
-  font-size:.78rem;color:var(--accent-2);
-  padding:6px 14px;border-radius:999px;border:1px solid rgba(255,162,77,.35);
-  background:rgba(255,162,77,.08);
-}
-.jam-when .ic{width:14px;height:14px;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-
-.jam-top h2{margin-bottom:clamp(18px,2.6vh,28px)}
-
-/* gövde: logo solda sabit genişlikte, metin sağda — ikisi de üstten hizalı,
-   ortalanmış eski düzenin bıraktığı boş alanlar kalkıyor */
-.jam-body{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:clamp(24px,3.4vw,44px);align-items:start}
-
-/* Logo doğrudan koyu zeminin üstünde durur (plaka yok).
-   Siyah konturlar zeminle birleşir, beyaz harf yüzeyleri okunur kalır;
-   hafif bir gölge harfleri zeminden ayırır. */
-.jam-brand{position:relative;z-index:1;max-width:220px}
-/* logonun arkasında radar halkası — hero'daki hedef işaretiyle aynı dil (sabit) */
-.jam-brand-ring{
-  position:absolute;inset:6% 12%;z-index:0;border-radius:50%;
-  border:1px solid rgba(255,255,255,.14);
+/* kapak: fotoğraf + karartma + logo; köşelerde "seçili bölüm" köşebentleri */
+.level-cover{position:relative;margin:0;aspect-ratio:3/4}
+.level-cover::before{
+  content:"";position:absolute;inset:-9px;z-index:3;pointer-events:none;
+  --b:var(--accent);
   background:
-    conic-gradient(from 0deg,transparent 0 80%,rgba(244,124,32,.4) 94%,rgba(255,190,120,.9) 97% 100%),
-    radial-gradient(circle at 50% 50%,rgba(139,92,246,.16),transparent 62%);
-  -webkit-mask-image:radial-gradient(circle,transparent 0 3%,#000 4%);
-  mask-image:radial-gradient(circle,transparent 0 3%,#000 4%);
+    linear-gradient(var(--b),var(--b)) top left/22px 2px,
+    linear-gradient(var(--b),var(--b)) top left/2px 22px,
+    linear-gradient(var(--b),var(--b)) top right/22px 2px,
+    linear-gradient(var(--b),var(--b)) top right/2px 22px,
+    linear-gradient(var(--b),var(--b)) bottom left/22px 2px,
+    linear-gradient(var(--b),var(--b)) bottom left/2px 22px,
+    linear-gradient(var(--b),var(--b)) bottom right/22px 2px,
+    linear-gradient(var(--b),var(--b)) bottom right/2px 22px;
+  background-repeat:no-repeat;
 }
-.jam-brand img{
-  position:relative;z-index:1;width:100%;height:auto;
-  /* Logonun üstündeki küçük "GAME JAM" yazısı siyah çizilmiş ve koyu zeminde
-     kayboluyor; ince beyaz hâle onu okunur kılar, logonun geri kalanına
-     çıkartma görünümü verir. */
-  filter:drop-shadow(0 0 1.5px rgba(255,255,255,.95))
-         drop-shadow(0 0 2px rgba(255,255,255,.65))
-         drop-shadow(0 6px 20px rgba(0,0,0,.5));
+.level-cover::after,
+.level-cover-img{clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px)}
+.level-cover-img{width:100%;height:100%;object-fit:cover;background:var(--surface)}
+.level-cover::after{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(10,20,50,.35),rgba(10,20,50,0) 30%,rgba(10,20,50,.25) 55%,rgba(8,16,42,.92));
+}
+.level-num,.level-cleared,.level-logo{position:absolute;z-index:2}
+.level-num{
+  top:14px;left:22px;padding:5px 10px;
+  font-family:Oswald,Inter,sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.2em;color:#fff;
+  background:rgba(10,20,50,.72);border:1px solid var(--hud-line);
+}
+.level-cleared{
+  top:16px;right:14px;padding:4px 10px;transform:rotate(-8deg);
+  font-family:Oswald,Inter,sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent-2);border:2px solid var(--accent-2);background:rgba(10,20,50,.6);
+}
+.level-cleared::before{content:"✓ "}
+/* logonun siyah çizilmiş küçük yazıları koyu zeminde kaybolmasın diye ince beyaz hâle */
+.level-logo{
+  left:8%;bottom:7%;width:84%;height:auto;
+  filter:drop-shadow(0 0 1.5px rgba(255,255,255,.95)) drop-shadow(0 0 2px rgba(255,255,255,.65)) drop-shadow(0 6px 20px rgba(0,0,0,.5));
 }
 
-/* logonun altındaki "düzenleyen" kredisi: etkinliği kimin yaptığı ilk bakışta
-   görünsün diye üst içerikte durur, destekçi listesinin gölgesinde kalmaz */
-.jam-by{position:relative;z-index:1;margin:14px 0 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
-.jam-by-label{
-  font-family:Oswald,Inter,sans-serif;font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--accent-2);
+/* bilgiler */
+.level-info .eyebrow{margin-bottom:10px}
+.level-info h2{margin-bottom:12px}
+.level-info > p{max-width:62ch;color:var(--muted);font-size:.95rem}
+.level-info strong{color:var(--text)}
+.level-when{
+  display:inline-flex;align-items:center;gap:8px;margin:0 0 18px;padding:6px 14px;
+  font-family:Oswald,"Space Grotesk",sans-serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-2);
+  border:1px solid rgba(255,162,77,.35);border-radius:999px;background:rgba(255,162,77,.08);
 }
-.jam-by-names{
-  display:inline-flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;
+.level-when .ic{width:14px;height:14px;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* oyun istatistikleri gibi dört kutucuk */
+.level-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:22px 0}
+.level-stats > div{padding:12px 14px;background:rgba(10,20,50,.35);border:1px solid var(--hud-line-soft);border-left:2px solid var(--accent)}
+.level-stats dt{font-family:Oswald,"Space Grotesk",sans-serif;font-size:clamp(1.4rem,2.4vw,1.8rem);font-weight:700;line-height:1;color:var(--text)}
+.level-stats dt[data-count]{font-variant-numeric:tabular-nums}
+.level-stats dd{margin:5px 0 0;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* "oyna" düğmesi: sitenin kesik köşeli düğmesinin turuncu, büyük hâli */
+.level-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.cut-btn-play{background:var(--accent)}
+.cut-btn-play > span{gap:10px;padding:16px 26px;font-size:.95rem;color:#12204a;background:linear-gradient(120deg,#ffb066,var(--accent))}
+.cut-btn-play:hover{background:#fff}
+.cut-btn-play:hover > span{background:linear-gradient(120deg,#ffc58a,#ff9a3d)}
+.ic-play{width:18px;height:18px;fill:currentColor}
+.level-actions-sub{font-size:.78rem;color:var(--muted)}
+
+.level-label{
+  margin:0;font-family:Oswald,Inter,sans-serif;font-size:.7rem;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2);
+}
+.level-by{
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:22px 0 0;padding-top:16px;border-top:1px solid var(--line);
   font-family:Oswald,"Space Grotesk",sans-serif;font-size:.86rem;font-weight:600;color:var(--text);
 }
-.jam-by-names .logo-mark{height:20px}
+.level-by .logo-mark{height:22px}
 
-.jam-copy{max-width:62ch}
-.jam-copy p{color:var(--muted);font-size:.93rem;margin:0 0 10px}
-.jam-copy p:last-child{margin-bottom:0}
-.jam-copy strong{color:var(--text)}
-
-/* itch.io bağlantısı: kenarında dönen turuncu-mor ışık, üzerine gelince parlama */
-.jam-itch{
-  position:relative;isolation:isolate;overflow:hidden;
-  display:flex;align-items:center;gap:14px;max-width:440px;margin-top:22px;padding:14px 18px 14px 14px;
-  border-radius:var(--radius);background:rgba(255,255,255,.14);color:var(--text);
-  transition:transform .3s var(--ease),box-shadow .3s var(--ease);
-}
-.jam-itch::before{
-  content:"";position:absolute;left:50%;top:50%;width:200%;aspect-ratio:1;z-index:-2;
-  background:conic-gradient(from 0deg,transparent 0 55%,var(--accent) 72%,var(--accent-2) 80%,var(--accent-4) 92%,transparent);
-  transform:translate(-50%,-50%);
-  /* kenar ışığı yalnızca üzerine gelince döner */
-  animation:itch-spin 4.5s linear infinite paused;
-}
-.jam-itch:hover::before,.jam-itch:focus-visible::before{animation-play-state:running}
-.jam-itch::after{
-  content:"";position:absolute;inset:1.5px;z-index:-1;border-radius:calc(var(--radius) - 1px);
-  background:
-    linear-gradient(110deg,transparent 30%,rgba(255,255,255,.09) 45%,transparent 60%) -150% 0/250% 100% no-repeat,
-    linear-gradient(135deg,#1d3474,#10214d 70%);
-  transition:background-position .7s var(--ease);
-}
-.jam-itch:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(139,92,246,.32),0 0 0 1px rgba(244,124,32,.25)}
-.jam-itch:hover::after{background-position:150% 0,0 0}
-.jam-itch-ico{
-  flex:0 0 46px;height:46px;display:grid;place-items:center;
-  background:linear-gradient(135deg,var(--accent),var(--accent-4));
+/* ekran görüntüleri */
+.level-shots{margin-top:clamp(24px,3vw,34px)}
+.level-shots .level-label{margin-bottom:12px}
+.level-shots ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.level-shot{
+  display:block;aspect-ratio:4/3;overflow:hidden;background:var(--surface);
   clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);
+  transition:transform .3s var(--ease),filter .3s;filter:saturate(.85);
 }
-.jam-itch-ico svg{width:22px;height:22px;fill:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));transition:transform .3s var(--ease)}
-.jam-itch:hover .jam-itch-ico svg{transform:scale(1.15)}
-.jam-itch-text{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1 1 auto}
-.jam-itch-text strong{font-family:Oswald,Inter,sans-serif;font-size:1.05rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
-.jam-itch-text small{font-size:.78rem;color:var(--muted);line-height:1.4}
-.jam-itch-arrow{flex:0 0 auto;font-size:1.3rem;color:var(--accent-2);transition:transform .3s var(--ease)}
-.jam-itch:hover .jam-itch-arrow{transform:translate(3px,-3px)}
-@keyframes itch-spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
-@media (max-width:420px){
-  .jam-itch{gap:12px;padding:12px 14px 12px 12px}
-  .jam-itch-ico{flex-basis:40px;height:40px}
-  .jam-itch-text strong{font-size:.95rem;letter-spacing:.03em}
-}
+.level-shot img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.level-shot:hover{transform:translateY(-3px);filter:none}
+.level-shot:hover img{transform:scale(1.05)}
+/* clip-path dışa çizilen odak halkasını keser; halka içeride çizilir */
+.level-shot:focus-visible{outline-offset:-4px;border-radius:0}
 
-/* istatistikler: ince bölücülerle tek satırlık kompakt şerit — ayrı ayrı kutu yerine */
-.jam-stats{
-  display:flex;flex-wrap:wrap;
-  margin:clamp(22px,3vh,32px) 0 0;padding:16px 0;border-block:1px solid var(--line);
+/* sıradaki bölüm: kilitli */
+.level-next{
+  display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:16px 22px;
+  margin-top:clamp(18px,2.6vw,26px);padding:18px 22px;
+  border:1px dashed rgba(255,255,255,.22);background:rgba(10,20,50,.25);
 }
-.jam-stats > div{position:relative;flex:1 1 120px;text-align:center;padding:0 14px}
-.jam-stats > div + div::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:1px;background:var(--line)}
-.jam-stats dt{
-  font-family:Oswald,"Space Grotesk",sans-serif;font-size:clamp(1.4rem,2.6vw,1.9rem);font-weight:700;line-height:1;
-  background:linear-gradient(100deg,var(--accent),var(--accent-2),var(--accent-4));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
+.level-lock{
+  width:52px;height:52px;display:grid;place-items:center;color:var(--muted);
+  background:var(--hud-panel);border:1px solid var(--hud-line);border-radius:4px 14px 4px 14px;
 }
-.jam-stats dd{margin:5px 0 0;font-size:.74rem;color:var(--muted);letter-spacing:.03em;text-transform:uppercase}
+.level-lock svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.level-next h3{margin:4px 0;font-size:1.15rem}
+.level-next-text p:last-child{margin:0;color:var(--muted);font-size:.9rem}
 
-/* destekçi listesi: künye dipnotu — etkinliğin ve "biz yaptık" kredisinin
-   önüne asla geçmesin diye küçük, tek renkli, düz metin satırları */
-.jam-support{margin-top:clamp(18px,2.6vh,26px);padding-top:14px;border-top:1px solid var(--line)}
-.jam-support-line{margin:0 0 4px;font-size:.76rem;line-height:1.6;color:var(--muted);opacity:.8}
-.jam-support-line:last-child{margin-bottom:0}
-.jam-support-k{color:var(--muted);font-weight:600;margin-right:.4em}
-.jam-support-k::after{content:":"}
+/* jenerik */
+.level-credits{margin-top:clamp(18px,2.6vw,26px);padding-top:16px;border-top:1px solid var(--line)}
+.level-credits dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 28px;margin:10px 0 0}
+.level-credits dt{margin-bottom:4px;font-size:.78rem;font-weight:600;color:var(--text)}
+.level-credits dd{margin:0;font-size:.78rem;line-height:1.6;color:var(--muted)}
 
-@media (max-width:720px){
-  .jam-body{grid-template-columns:1fr;gap:18px}
-  .jam-brand{max-width:180px}
-  .jam-stats > div{flex:1 1 45%}
-  .jam-stats > div:nth-child(2)::before{display:block}
-  .jam-stats > div:nth-child(odd)::before{display:none}
+@media (max-width:900px){
+  .level{grid-template-columns:1fr}
+  /* telefonda dik kapak ekranı kaplıyordu: yatay kesit */
+  .level-cover{aspect-ratio:16/10}
+  .level-cover-img{object-position:50% 40%}
+  .level-logo{left:18%;width:64%}
+  .level-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .level-credits dl{grid-template-columns:1fr}
 }
-@media (max-height:820px){
-  .jam{padding:26px 24px}
-  .jam-stats{margin-top:16px;padding:12px 0}
-  .jam-copy p{font-size:.86rem}
-  .jam-support{margin-top:14px;padding-top:12px}
-  .jam-brand{max-width:170px}
+@media (max-width:640px){
+  .level{--cut:18px;padding:18px}
+  .level-shots ul{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .level-next{grid-template-columns:auto minmax(0,1fr);padding:16px}
+  .level-next .cut-btn{grid-column:1 / -1;justify-self:start}
 }
 
 /* ============================================================
@@ -767,7 +736,7 @@ img{max-width:100%;display:block}
 /* --- galeri: perde açılır gibi ortaya çıkma ---
    Diğer .reveal öğeleri fade+translate kullanırken galeri karoları
    clip-path ile soldan sağa "kesilerek" açılır — mevcut kesik köşe
-   dilinin (hud.css .cut-btn, .jam) bir sahne geçişi hâli. */
+   dilinin (hud.css .cut-btn, .level) bir sahne geçişi hâli. */
 .js .gallery-reveal{opacity:1;transform:none;clip-path:inset(0 0 0 100%)}
 .gallery-reveal{transition:clip-path .85s var(--ease)}
 .js .gallery-reveal.in{clip-path:inset(0)}
@@ -801,8 +770,6 @@ img{max-width:100%;display:block}
 .card-num{transition:transform .3s var(--ease)}
 .card:hover .card-num{transform:translateY(-3px) scale(1.1)}
 
-/* --- sayaç çalışırken sayı zıplamasın --- */
-.jam-stats dt[data-count]{font-variant-numeric:tabular-nums}
 
 @media (prefers-reduced-motion:reduce){
   .js .reveal-l,.js .reveal-r,.js .reveal-zoom{opacity:1;transform:none}

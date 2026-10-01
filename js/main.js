@@ -173,6 +173,13 @@ if (lb && shots.length) {
   };
 
   shots.forEach((s, i) => s.addEventListener('click', () => open(i)));
+  /* Game Jam ekran görüntüleri galerideki aynı fotoğrafı açar; JS yoksa bağlantı fotoğrafın kendisine gider */
+  $$('[data-shot]').forEach((a) => a.addEventListener('click', (e) => {
+    const i = shots.findIndex((s) => s.dataset.full.endsWith('/' + a.dataset.shot + '.webp'));
+    if (i < 0) return;
+    e.preventDefault();
+    open(i);
+  }));
   lbClose.addEventListener('click', close);
   document.getElementById('lbPrev').addEventListener('click', () => show(idx - 1));
   document.getElementById('lbNext').addEventListener('click', () => show(idx + 1));
