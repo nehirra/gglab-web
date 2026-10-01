@@ -127,7 +127,7 @@ img{max-width:100%;display:block}
    Biz Kimiz/about-bridge (kendi ızgarası), Game Jam kartı (kendi blueprint'i,
    ama dış bölüme burada yine de eklendi), Üyelik (foto + ::before/::after zaten dolu,
    üçüncü bir pseudo-eleman sığmıyor). Vizyon ve Faaliyet ayrıca kendi renkli,
-   süzülen ışık lekesini (::after) korur. İçerik her zaman üstte kalır. */
+   sabit ışık lekesini (::after) korur. İçerik her zaman üstte kalır. */
 #vizyon,#faaliyet,#gamejam,#etkinlikler,#galeri,#iletisim{overflow:hidden}
 #vizyon > .container,#faaliyet > .container,#gamejam > .container,
 #etkinlikler > .container,#galeri > .container,
@@ -147,18 +147,12 @@ img{max-width:100%;display:block}
   width:min(480px,60vw);aspect-ratio:1;right:-10%;top:-14%;border-radius:50%;
   background:radial-gradient(circle,rgba(122,170,255,.16),transparent 68%);
   filter:blur(4px);
-  animation:ambient-orb-drift 34s ease-in-out infinite;
 }
 #faaliyet::after{
   content:"";position:absolute;z-index:0;pointer-events:none;
   width:min(420px,55vw);aspect-ratio:1;left:-8%;bottom:-16%;border-radius:50%;
   background:radial-gradient(circle,rgba(244,124,32,.14),transparent 68%);
   filter:blur(4px);
-  animation:ambient-orb-drift 40s ease-in-out infinite reverse;
-}
-@keyframes ambient-orb-drift{
-  0%,100%{transform:translate3d(0,0,0) scale(1);opacity:.65}
-  50%{transform:translate3d(-3vw,4vh,0) scale(1.1);opacity:1}
 }
 
 /* ---------- about bridge ---------- */
@@ -429,8 +423,7 @@ img{max-width:100%;display:block}
 /* ============ yeni bölümler ============ */
 .hero-text{max-width:42rem}
 .hero-visual img{width:min(380px,100%);height:auto;margin-left:auto;filter:drop-shadow(0 30px 60px rgba(0,0,0,.5));
-  border-radius:28px;animation:float 6s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+  border-radius:28px}
 
 .card-num{display:block;font-family:"Space Grotesk",sans-serif;font-size:.85rem;font-weight:700;
   letter-spacing:.18em;color:var(--accent);margin-bottom:10px}
@@ -639,7 +632,7 @@ img{max-width:100%;display:block}
    Siyah konturlar zeminle birleşir, beyaz harf yüzeyleri okunur kalır;
    hafif bir gölge harfleri zeminden ayırır. */
 .jam-brand{position:relative;z-index:1;max-width:220px}
-/* logonun arkasında dönen radar halkası — hero'daki hedef işaretiyle aynı dil */
+/* logonun arkasında radar halkası — hero'daki hedef işaretiyle aynı dil (sabit) */
 .jam-brand-ring{
   position:absolute;inset:6% 12%;z-index:0;border-radius:50%;
   border:1px solid rgba(255,255,255,.14);
@@ -648,7 +641,6 @@ img{max-width:100%;display:block}
     radial-gradient(circle at 50% 50%,rgba(139,92,246,.16),transparent 62%);
   -webkit-mask-image:radial-gradient(circle,transparent 0 3%,#000 4%);
   mask-image:radial-gradient(circle,transparent 0 3%,#000 4%);
-  animation:target-spin 16s linear infinite;
 }
 .jam-brand img{
   position:relative;z-index:1;width:100%;height:auto;
@@ -689,8 +681,10 @@ img{max-width:100%;display:block}
   content:"";position:absolute;left:50%;top:50%;width:200%;aspect-ratio:1;z-index:-2;
   background:conic-gradient(from 0deg,transparent 0 55%,var(--accent) 72%,var(--accent-2) 80%,var(--accent-4) 92%,transparent);
   transform:translate(-50%,-50%);
-  animation:itch-spin 4.5s linear infinite;
+  /* kenar ışığı yalnızca üzerine gelince döner */
+  animation:itch-spin 4.5s linear infinite paused;
 }
+.jam-itch:hover::before,.jam-itch:focus-visible::before{animation-play-state:running}
 .jam-itch::after{
   content:"";position:absolute;inset:1.5px;z-index:-1;border-radius:calc(var(--radius) - 1px);
   background:
@@ -766,20 +760,9 @@ img{max-width:100%;display:block}
 /* --- galeri mozaiği --- */
 .gallery{grid-auto-flow:dense}
 .shot{transition:transform .35s var(--ease),border-color .3s,box-shadow .35s}
-/* zoom artık karenin kendisinde: fotoğraf kendi başına sürekli
-   Ken Burns animasyonu çektiği için transform'u hover'la paylaşmıyor */
+/* kare hafifçe kalkar, fotoğraf içinde yavaşça yakınlaşır — yalnızca üzerine gelince */
 .gallery .shot:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 18px 40px rgba(0,0,0,.35)}
-
-/* fotoğraf sürekli çok yavaş nefes alır (Ken Burns), hover'dan bağımsız;
-   her karo farklı süre/gecikmeyle başlar ki bant gibi senkron görünmesin */
-@keyframes shot-kenburns{
-  0%,100%{transform:scale(1.001)}
-  50%{transform:scale(1.05)}
-}
-.shot img{animation:shot-kenburns 17s ease-in-out infinite}
-.shot:nth-of-type(2n) img{animation-duration:21s;animation-delay:-4s}
-.shot:nth-of-type(3n) img{animation-duration:15s;animation-delay:-9s}
-.shot:nth-of-type(4n) img{animation-delay:-13s}
+.gallery .shot:hover img{transform:scale(1.05)}
 
 /* --- galeri: perde açılır gibi ortaya çıkma ---
    Diğer .reveal öğeleri fade+translate kullanırken galeri karoları
