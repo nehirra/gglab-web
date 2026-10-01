@@ -12,7 +12,6 @@
 }
 
 /* --- kesik köşeli kutu tekniği: dış katman çizgi, iç katman zemin --- */
-.cut,
 .cut-btn{
   --shape:polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
   clip-path:var(--shape);
@@ -417,7 +416,6 @@
 }
 .orb-a{right:15vw;top:8vh}
 .orb-b{left:5vw;bottom:9vh;width:clamp(130px,18vw,260px);opacity:.26;animation-duration:42s;animation-delay:-12s}
-
 
 /* yukarıdan aşağı düşen PlayStation tuşları */
 .xb{
