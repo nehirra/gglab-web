@@ -209,14 +209,14 @@
 .hud-partners{
   display:flex;align-items:center;gap:22px;
   border-top:1px solid var(--hud-line-soft);
-  margin:0 calc(-1 * clamp(26px,3.4vw,52px));
+  margin:16px calc(-1 * clamp(26px,3.4vw,52px)) 0;
   padding:clamp(10px,1.6vh,18px) clamp(26px,3.4vw,52px);
   background:linear-gradient(90deg,rgba(11,22,56,.62),rgba(11,22,56,.22),rgba(11,22,56,.62));
   box-shadow:0 -18px 48px rgba(0,0,0,.16);
 }
 .hud-partners-label{
   font-family:Oswald,Inter,sans-serif;font-size:.72rem;letter-spacing:.2em;color:var(--muted);
-  flex:0 0 auto;position:relative;top:6px;
+  flex:0 0 auto;
 }
 /* şerit kayan banda dönüştü; boşluk --gap üzerinden yönetilir
    (padding:0 vermek, iki şeridin birleştiği yerdeki boşluğu siliyordu) */
