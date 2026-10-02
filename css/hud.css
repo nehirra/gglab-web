@@ -229,7 +229,7 @@
 /* şeritte yalnızca logo durur; isim img alt'ında */
 .hud-partners li.has-logo{display:flex;align-items:center;gap:8px;opacity:.9}
 .hud-partners li.has-logo:hover{opacity:1}
-.hud-partners{--logo-h:clamp(26px,3.6vh,36px)}
+.hud-partners{--logo-h:clamp(32.5px,4.5vh,45px)}
 .hud-partners .logo-mark{display:block;height:calc(var(--logo-h) * var(--k,1));width:auto;max-width:120px;flex:0 0 auto}
 /* optik denge: aynı yükseklikte dik/kare logolar enlilerin yanında küçük kalıyordu.
    Çarpan logonun en/boy oranına göre: ~1.1 ve altı ×1.4, ~1.5 ×1.2, ~2 sınıfsız, ~2.8 ve üstü ×0.85 */
@@ -281,7 +281,7 @@
   .hud-hero .hero-visual img{width:min(86px,14vh);border-radius:18px}
   .hud-partners{gap:12px}
   .hud-partners li{font-size:.76rem}
-  .hud-partners{--logo-h:26px}
+  .hud-partners{--logo-h:32.5px}
   .hud-partners .logo-mark{max-width:90px}
   .cut-btn > span{padding:14px 22px;font-size:.84rem}
 }
