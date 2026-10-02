@@ -118,7 +118,7 @@
     'act.f6p': 'Gatherings and community nights that strengthen communication between members.',
 
     /* --- game jam --- */
-    'jam.eyebrow': '05 — Our Flagship',
+    'jam.eyebrow': '05 — Game Jam Akdeniz',
     'jam.head': 'Game Jam <span class="accent">Akdeniz</span>',
     'jam.when': '2–4 May 2026 · Antalya',
     'jam.p1': 'The <strong>largest event we have run so far</strong>. A 48-hour game development marathon organised together by Akdeniz University, AÜBT and GG Lab, supported by sixteen institutions, studios and brands.',
