@@ -173,7 +173,7 @@
     'join.eyebrow': '09 — Membership',
     'join.head': 'Join the community',
     'join.lead': 'GG Lab grows with what the community makes. Whatever your department, talent or level, hop into our Discord to ask questions, find a team, share what you\'re building, or just say hi. Event and Game Jam announcements land there first. You can follow us on the other channels too.',
-    'join.dc': 'Join our Discord',
+    'join.form': 'Application Form',
 
     /* --- iletişim --- */
     'ct.eyebrow': '08 — Contact',
