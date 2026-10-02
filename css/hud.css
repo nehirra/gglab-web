@@ -131,8 +131,6 @@
    Hedef: hero tek ekrana sığsın. Ölçüler hem genişliğe (vw) hem
    yüksekliğe (vh) bağlı; kısa ekranlarda kendiliğinden küçülür. */
 .hud-hero{
-  --hero-x:0px;
-  --hero-y:0px;
   min-height:100svh;padding:clamp(88px,11vh,124px) 0 clamp(20px,3vh,40px);
   display:flex;align-items:center;
 }
@@ -205,8 +203,6 @@
   position:relative;z-index:1;width:min(380px,100%,42vh);height:auto;margin:0 auto;border-radius:24px;
   filter:drop-shadow(0 30px 70px rgba(0,0,0,.55));
   image-rendering:auto;
-  transform:translate3d(calc(var(--hero-x) * -1.2),calc(var(--hero-y) * -1.2),0);
-  transition:transform .18s ease-out;
 }
 
 /* alt paydaş şeridi */

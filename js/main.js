@@ -537,23 +537,7 @@ if (reduceMotion) {
   counters.forEach((el) => countObs.observe(el));
 }
 
-/* --- hero hafif parallax --- */
 const hero = $('.hud-hero');
-if (hero && !reduceMotion) {
-  let x = 0;
-  let y = 0;
-  const draw = perFrame(() => {
-    hero.style.setProperty('--hero-x', x.toFixed(2) + 'px');
-    hero.style.setProperty('--hero-y', y.toFixed(2) + 'px');
-  });
-  hero.addEventListener('pointermove', (e) => {
-    const rect = hero.getBoundingClientRect();
-    x = ((e.clientX - rect.left) / rect.width - 0.5) * 18;
-    y = ((e.clientY - rect.top) / rect.height - 0.5) * 18;
-    draw();
-  }, { passive: true });
-  hero.addEventListener('pointerleave', () => { x = 0; y = 0; draw(); });
-}
 
 /* --- kart spotlight: imleci takip eden ışık halkası ---
    Her .spotlight kartı kendi --mx/--my'sini tutar; CSS'teki radial-gradient
