@@ -104,7 +104,6 @@
     /* --- faaliyet --- */
     'act.eyebrow': '04 — What We Do',
     'act.head': 'Our fields of activity',
-    'act.lead': 'The fields of activity defined in our charter.',
     'act.f1h': 'Game Development Trainings',
     'act.f1p': 'We run trainings and workshops with Unity, Unreal Engine and similar engines.',
     'act.f2h': 'Design &amp; Art Programmes',
