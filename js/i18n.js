@@ -87,7 +87,7 @@
     'up.dateSoon': 'Exact date soon',
 
     'vision.eyebrow': '03 — Vision &amp; Mission',
-    'vision.head': 'Where are we headed?',
+    'vision.head': 'Vision &amp; Mission',
     'vision.v': 'Our Vision',
     'vision.vp': 'To turn Akdeniz University into a place where students do not only play games but design, develop and apply them across different fields. To become an internationally visible community contributing to Türkiye\'s game development ecosystem through student projects.',
     'vision.m': 'Our Mission',
