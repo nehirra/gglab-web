@@ -16,6 +16,7 @@ const FALLBACK = {
   'up.tomorrow': 'Yarın',
   'up.daysLeft': '{n} gün kaldı',
   'up.next': 'Sıradaki',
+  'up.featured': 'Öne çıkan',
   'up.signup': 'Kayıt ol',
   'up.errH': 'Takvim şu an yüklenemedi.',
   'up.dateSoon': 'Kesin tarih yakında'
@@ -267,9 +268,9 @@ if (nlForm && nlNote) {
 /* --- yaklaşan etkinlikler ---
    Liste #yaklasan'daki data-sheet adresinden okunur: Google E-Tablolar > Dosya > Paylaş >
    Web'de yayınla > CSV. Sütunlar (ilk satır başlık, Türkçe karakterli de olabilir):
-   baslik, tarih, saat, yer, tur, aciklama, link. Tarih 2026-10-15 ya da 15.10.2026 biçiminde;
+   baslik, tarih, saat, yer, tur, aciklama, link, gorsel, oncelik (1/2/3; varsayılan 3). Tarih 2026-10-15 ya da 15.10.2026 biçiminde;
    günü belli değilse yalnızca ay: 2027-01, 01.2027 ya da "Ocak 2027".
-   Bugünden önceki etkinlikler gizlenir; en yakın tarihli olan "Sıradaki" olarak öne çıkar.
+   Geçmiş etkinlikler gizlenir; ilk öncelikli etkinlik ana afiştir. "Sıradaki" etiketi tarihe bağlıdır.
    Tablodaki metinler yalnızca textContent ile yazılır, bağlantılar yalnızca http(s) olabilir. */
 const upSec = document.getElementById('yaklasan');
 if (upSec) {
@@ -283,8 +284,10 @@ if (upSec) {
     saat: 'saat', time: 'saat',
     yer: 'yer', mekan: 'yer', place: 'yer', location: 'yer',
     tur: 'tur', type: 'tur',
+    oncelik: 'oncelik', priority: 'oncelik',
     aciklama: 'aciklama', description: 'aciklama',
-    link: 'link', kayit: 'link', url: 'link'
+    link: 'link', kayit: 'link', url: 'link',
+    gorsel: 'gorsel', foto: 'gorsel', fotograf: 'gorsel', resim: 'gorsel', image: 'gorsel'
   };
 
   /* tırnaklı alanları, alan içindeki virgül ve satır sonlarını destekleyen küçük CSV ayrıştırıcı */
@@ -340,19 +343,40 @@ if (upSec) {
     } catch { return ''; }
   };
 
+  /* görsel: repodaki bir dosya (assets/img/…) ya da https adresi. Google Drive paylaşım
+     linki ("…/file/d/KİMLİK/view") doğrudan görsel adresine çevrilir; dosya herkese açık olmalı. */
+  const safeImage = (v) => {
+    const s = v.trim();
+    if (!s) return '';
+    if (/^[\w\-./]+\.(webp|avif|jpe?g|png|gif)$/i.test(s) && !s.startsWith('/') && !s.includes('..')) return s;
+    try {
+      const u = new URL(s);
+      if (u.protocol !== 'https:') return '';
+      if (u.hostname === 'drive.google.com') {
+        const id = (u.pathname.match(/\/d\/([\w-]+)/) || [])[1] || u.searchParams.get('id');
+        return id ? `https://lh3.googleusercontent.com/d/${id}` : '';
+      }
+      return u.href;
+    } catch { return ''; }
+  };
+
   const toEvents = (text) => {
     const [head = [], ...rows] = parseCSV(text);
     const keys = head.map(headerKey);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    return rows
+    const events = rows
       .map((r) => Object.fromEntries(keys.map((k, i) => [k, (r[i] || '').trim()]).filter(([k]) => k)))
-      .map((ev) => ({ ...ev, ...parseDate(ev.tarih || '') }))
+      .map((ev) => ({ ...ev, ...parseDate(ev.tarih || ''), priority: /^[123]$/.test(ev.oncelik || '') ? Number(ev.oncelik) : 3 }))
       /* yalnızca ayı bilinen etkinlik o ay bitene kadar görünür */
       .filter((ev) => ev.baslik && ev.date
         && (ev.monthOnly ? new Date(ev.date.getFullYear(), ev.date.getMonth() + 1, 1) > today : ev.date >= today))
-      .sort((a, b) => a.date - b.date || (a.saat || '').localeCompare(b.saat || ''))
-      .slice(0, MAX_SHOWN);
+      .sort((a, b) => a.date - b.date || (a.saat || '').localeCompare(b.saat || ''));
+    // Kesin günü olmayan bir etkinlik, yakın tarihli buluşmanın etiketini almaz.
+    const next = events.find((ev) => !ev.monthOnly) || events[0];
+    const featured = events.find((ev) => ev.priority === 1);
+    const selected = featured ? [featured, ...events.filter((ev) => ev !== featured)] : events;
+    return selected.slice(0, MAX_SHOWN).map((ev) => ({ ...ev, isNext: ev === next, isFeatured: ev === featured }));
   };
 
   const make = (tag, cls, text) => {
@@ -367,12 +391,16 @@ if (upSec) {
     const fmt = (opts, d) => new Intl.DateTimeFormat(locale, opts).format(d);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+    list.classList.toggle('has-featured', events.some((ev) => ev.isFeatured));
+    list.style.setProperty('--up-rows', Math.max(1, events.length - 1));
     events.forEach((ev, i) => {
-      const li = make('li', 'up-card' + (i === 0 ? ' is-next' : ''));
+      const li = make('li', 'up-card' + (ev.isNext ? ' is-next' : '') + (ev.isFeatured ? ' is-featured' : '') + (ev.monthOnly ? ' is-planned' : ''));
+      li.dataset.priority = ev.priority;
+      li.style.setProperty('--up-delay', `${Math.min(i, 3) * 70}ms`);
       const ym = `${ev.date.getFullYear()}-${String(ev.date.getMonth() + 1).padStart(2, '0')}`;
       const iso = `${ym}-${String(ev.date.getDate()).padStart(2, '0')}`;
       const time = make('time', 'up-date' + (ev.monthOnly ? ' is-month' : ''));
-      const month = fmt({ month: 'short' }, ev.date).replace('.', '');
+      const month = fmt({ month: ev.monthOnly && !ev.isFeatured ? 'short' : 'long' }, ev.date).replace('.', '');
       if (ev.monthOnly) {
         time.dateTime = ym;
         time.append(make('span', 'up-day', month), make('span', 'up-mon', String(ev.date.getFullYear())));
@@ -380,24 +408,23 @@ if (upSec) {
         time.dateTime = ev.saat ? `${iso}T${ev.saat}` : iso;
         time.append(
           make('span', 'up-day', String(ev.date.getDate())),
-          make('span', 'up-mon', month),
+          make('span', 'up-mon', `${month} ${ev.date.getFullYear()}`),
           make('span', 'up-wd', fmt({ weekday: 'long' }, ev.date))
         );
       }
 
       const body = make('div', 'up-body');
-      const meta = make('p', 'up-meta');
-      if (i === 0) meta.append(make('span', 'up-chip is-next', tr('up.next')));
+      const meta = make('div', 'up-meta');
+      if (ev.isFeatured) meta.append(make('span', 'up-chip', tr('up.featured')));
+      if (ev.isNext) meta.append(make('span', 'up-chip is-next', tr('up.next')));
       if (ev.tur) meta.append(make('span', 'up-chip', ev.tur));
       const days = Math.round((ev.date - today) / 864e5);
       meta.append(make('span', 'up-left', ev.monthOnly ? tr('up.dateSoon')
         : days === 0 ? tr('up.today') : days === 1 ? tr('up.tomorrow') : tr('up.daysLeft').replace('{n}', days)));
-      body.append(meta, make('h3', '', ev.baslik));
+      body.append(make('h3', '', ev.baslik));
       const where = [ev.saat, ev.yer].filter(Boolean).join(' · ');
       if (where) body.append(make('p', 'up-where', where));
       if (ev.aciklama) body.append(make('p', 'up-desc', ev.aciklama));
-      li.append(time, body);
-
       const href = safeLink(ev.link || '');
       if (href) {
         const a = make('a', 'cut-btn cut-btn-light up-cta');
@@ -405,11 +432,47 @@ if (upSec) {
         a.target = '_blank';
         a.rel = 'noopener noreferrer';
         a.append(make('span', '', tr('up.signup') + ' ↗'));
-        li.append(a);
+        body.append(a);
       }
+      const content = make('div', 'up-content');
+      content.append(time, body);
+      li.append(meta);
+
+      /* fotoğraf isteğe bağlı; yüklenemezse kart fotoğrafsız düzene döner */
+      const src = safeImage(ev.gorsel || '');
+      if (src) {
+        const fig = make('div', 'up-img');
+        const img = make('img');
+        img.alt = '';
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.width = 800;
+        img.height = 450;
+        img.addEventListener('error', () => { fig.remove(); li.classList.remove('has-img'); }, { once: true });
+        img.src = src;
+        fig.append(img);
+        li.append(fig);
+        li.classList.add('has-img');
+      }
+      li.append(content);
       list.append(li);
     });
     list.hidden = false;
+    $('#upFooter', upSec).hidden = false;
+    /* Kartlar sadece ilk görünüşte canlanır; sürekli çalışan bir döngü yok. */
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(({ target, isIntersecting }) => {
+          if (!isIntersecting) return;
+          target.classList.add('is-visible');
+          observer.unobserve(target);
+        });
+      }, { threshold: 0.08 });
+      $$('.up-card', list).forEach((card) => {
+        card.classList.add('up-enter');
+        observer.observe(card);
+      });
+    }
   };
 
   const finish = (events, failed) => {

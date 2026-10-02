@@ -204,10 +204,14 @@ Game Jam,Ocak 2027,,,Game Jam,Kesin tarih yakında.,
 | `tur` | hayır | Atölye, Söyleşi, Kutu oyunu, Game Jam… (küçük etiket olarak görünür) |
 | `aciklama` | hayır | Bir iki cümle; virgül varsa çift tırnak |
 | `link` | hayır | Kayıt formu / Discord etkinliği; yalnızca `https://…` |
+| `gorsel` | hayır | Yerel görsel yolu (`assets/img/…`) veya HTTPS görsel adresi |
+| `oncelik` | hayır | `1`: büyük buluşma, `2`: özel etkinlik, `3`: düzenli buluşma. Boş veya geçersiz değerler `3` sayılır. |
 
 - Tarihi geçen satırlar sitede kendiliğinden gizlenir; silmek gerekmez. Yalnızca ayı yazılan etkinlik
   o ay bitene kadar "Kesin tarih yakında" etiketiyle görünür.
-- En fazla 6 etkinlik gösterilir; en yakını "Sıradaki" olarak öne çıkar ve kaç gün kaldığı yazılır.
+- En fazla 6 etkinlik gösterilir. En yakın Level 1 etkinlik ana afişte, kalanlar tarihe göre listelenir. Ana afiş altılı sınırına dahildir; daha ileride olsa da korunur. Birden fazla Level 1 varsa diğerleri takvimde güçlü vurguyla görünür.
+- Level 2 orta boy kart, Level 3 kompakt satır olarak gösterilir. Level 1 yoksa takvim iki sütundur; mobilde tek sütuna iner.
+- "Sıradaki" etiketi, öncelikten bağımsız olarak kesin günü belli en yakın etkinlikte kalır. Hiçbirinin günü belli değilse en yakın ayda görünür. Yalnızca günü belli etkinliklerde kaç gün kaldığı yazılır.
 - Liste boşsa ya da dosya okunamazsa bölüm "Takvim şu an boş / yüklenemedi" mesajı ve Discord düğmesi gösterir.
 - Metinler sayfaya düz metin olarak yazılır (HTML çalışmaz).
 

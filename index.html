@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#10214d">
 <script>document.documentElement.classList.add('js')</script>
 <title data-i18n="meta.title">GG Lab — Akdeniz Üniversitesi Oyun ve Oyunlaştırma Topluluğu</title>
-<meta name="description" data-i18n-meta="meta.desc" content="Akdeniz Üniversitesi Oyun ve Oyunlaştırma Topluluğu (GG Lab). Oyun geliştirme atölyeleri, Game Jam'ler, Indie Talks ve kutu oyunu günleri.">
+<meta name="description" data-i18n-meta="meta.desc" content="Akdeniz Üniversitesi Oyun ve Oyunlaştırma Topluluğu (GG Lab). Oyun geliştirme atölyeleri, Game Jam etkinlikleri, Indie Talks ve kutu oyunu günleri.">
 <meta property="og:title" content="GG Lab — Oyun ve Oyunlaştırma Topluluğu">
 <meta property="og:description" content="Akdeniz Üniversitesi'nde oyun geliştir, oyunlaştırmayı keşfet, birlikte üret.">
 <!-- og:image mutlak URL olmalı; alan adı değişirse bu iki satırı güncelle -->
@@ -95,7 +95,7 @@
             <p class="eyebrow hero-enter"><span class="tick" aria-hidden="true"></span><span data-i18n="hero.eyebrow">Akdeniz Üniversitesi · Antalya</span></p>
             <h1 class="hero-enter" data-i18n="hero.title">OYUN VE<br><span class="grad">OYUNLAŞTIRMA</span><br>TOPLULUĞU.</h1>
             <p class="lead hero-enter" data-i18n="hero.lead">Oyun sadece eğlence değil. GG Lab'de fikirlerini gerçek projelere
-              dönüştür, ekip arkadaşlarınla birlikte tasarla ve geliştir. Bölümün, yeteneğin ya da
+              dönüştür, ekibinle birlikte tasarla ve geliştir. Bölümün, yeteneğin ya da
               seviyen fark etmez — burada herkesin katkısı değerli.</p>
             <div class="hero-actions hero-enter">
               <a class="cut-btn cut-btn-light" href="#uyelik"><span data-i18n="hero.cta1"><i>&#8592;</i> Aramıza katıl</span></a>
@@ -136,7 +136,7 @@
         <p class="eyebrow" data-i18n="about.eyebrow">01 — Biz Kimiz</p>
         <h2 data-i18n="about.head">Fikirleri oynanabilir şeylere dönüştüren <span class="accent">kampüs ekibi</span>.</h2>
         <p class="about-lead" data-i18n="about.p1">GG Lab; oyun geliştirme, oyunlaştırma ve masaüstü oyun kültürü etrafında buluşan Akdeniz Üniversitesi öğrencilerinin üretim alanı.</p>
-        <p data-i18n="about.p2">Atölyelerde öğrenir, jam'lerde dener, etkinliklerde birbirimizi ve sektörü tanırız. Deneyim seviyen ne olursa olsun, burada fikir masaya gelir ve birlikte şekillenir.</p>
+        <p data-i18n="about.p2">Atölyelerde öğrenir, game jam etkinliklerinde dener, etkinliklerde birbirimizi ve sektörü tanırız. Deneyim seviyen ne olursa olsun, burada fikirler masaya gelir ve birlikte şekillenir.</p>
       </div>
       <div class="about-panel reveal reveal-r" role="group" aria-label="GG Lab çalışma alanları" data-i18n-aria="about.panelAria">
         <span class="about-panel-line" aria-hidden="true"></span>
@@ -162,16 +162,20 @@
   <!-- YAKLAŞAN ETKİNLİKLER — liste data-sheet'teki CSV'den gelir: şimdilik repodaki
        content/etkinlikler.csv, ileride yayınlanmış bir Google E-Tablosu adresi.
        Sütunlar ve düzenleme: README > Yaklaşan etkinlikler. Geçmiş tarihler kendiliğinden gizlenir. -->
-  <section class="section" id="yaklasan" data-sheet="content/etkinlikler.csv">
+  <section class="section upcoming-section" id="yaklasan" data-sheet="content/etkinlikler.csv" aria-labelledby="upHeading">
     <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow" data-i18n="up.eyebrow">02 — Yaklaşan</p>
-        <h2 data-i18n="up.head">Yaklaşan etkinlikler</h2>
-        <p class="lead" data-i18n="up.lead">Takvimdeki sıradaki buluşmalar. Kayıt bağlantısı olanlarda yerini şimdiden ayırt.</p>
+      <div class="section-head up-heading reveal">
+        <p class="eyebrow" data-i18n="up.eyebrow">Birlikte oynayalım</p>
+        <h2 id="upHeading" data-i18n="up.head">Yaklaşan <span>etkinlikler.</span></h2>
+        <p class="lead" data-i18n="up.lead">Takvimdeki sıradaki buluşmalar. Kayıt bağlantısı varsa yerini şimdiden ayırt.</p>
       </div>
-      <div class="upcoming reveal" id="upcoming" aria-busy="true">
+      <div class="upcoming" id="upcoming" aria-busy="true">
         <div class="up-skeleton" aria-hidden="true"><span></span><span></span></div>
         <ol class="up-list" id="upList" hidden></ol>
+        <div class="up-footer" id="upFooter" hidden>
+          <p data-i18n="up.followNote">Yeni buluşmalardan ilk sen haberdar ol.</p>
+          <a href="#uyelik"><span data-i18n="up.follow">Discord'da takip et</span><span class="up-arrow" aria-hidden="true">↓</span></a>
+        </div>
         <div class="up-empty" id="upEmpty" hidden>
           <p class="up-empty-h" id="upEmptyH" data-i18n="up.emptyH">Takvim şu an boş, ama uzun sürmez.</p>
           <p data-i18n="up.emptyP">Yeni etkinlikler ilk Discord'da duyuruluyor; katıl, kaçırma.</p>
@@ -204,7 +208,7 @@
         </article>
       </div>
       <div class="values reveal">
-        <div class="value"><span>01</span><h4 data-i18n="vision.n1h">Gönüllülük</h4><p data-i18n="vision.n1p">Katılım zorunluluk değil, istekle gelinen bir alan.</p></div>
+        <div class="value"><span>01</span><h4 data-i18n="vision.n1h">Gönüllülük</h4><p data-i18n="vision.n1p">Katılım zorunlu değil; istekle gelinen bir alan.</p></div>
         <div class="value"><span>02</span><h4 data-i18n="vision.n2h">Eşitlik</h4><p data-i18n="vision.n2p">Bölüm, yetenek ya da seviye fark etmez; herkesin katkısı değerli.</p></div>
         <div class="value"><span>03</span><h4 data-i18n="vision.n3h">Şeffaflık</h4><p data-i18n="vision.n3p">Kararlar ve mali işler belgeli ve açık şekilde yürütülür.</p></div>
         <div class="value"><span>04</span><h4 data-i18n="vision.n4h">Üretim Odağı</h4><p data-i18n="vision.n4p">Konuşmakla kalmaz, bitmiş iş çıkarırız.</p></div>
@@ -224,7 +228,7 @@
         <article class="card feature spotlight reveal reveal-l"><span class="card-num">01</span><h3 data-i18n="act.f1h">Oyun Geliştirme Eğitimleri</h3><p data-i18n="act.f1p">Unity, Unreal Engine ve benzeri motorlarla eğitim ve atölyeler düzenliyoruz.</p></article>
         <article class="card feature spotlight reveal reveal-zoom"><span class="card-num">02</span><h3 data-i18n="act.f2h">Tasarım &amp; Sanat Programları</h3><p data-i18n="act.f2p">Oyun tasarımı, oyun sanatı, hikâye anlatımı ve kullanıcı deneyimi üzerine eğitim programları.</p></article>
         <article class="card feature spotlight reveal reveal-r"><span class="card-num">03</span><h3 data-i18n="act.f3h">Game Jam &amp; Projeler</h3><p data-i18n="act.f3p">Ekip tabanlı oyun geliştirme projeleri, masaüstü oyun etkinlikleri ve oyun analizi çalışmaları.</p></article>
-        <article class="card feature spotlight reveal reveal-l"><span class="card-num">04</span><h3 data-i18n="act.f4h">Oyunlaştırma Projeleri</h3><p data-i18n="act.f4p">Gamification uygulamaları üzerine akademik ve sosyal projeler geliştiriyoruz.</p></article>
+        <article class="card feature spotlight reveal reveal-l"><span class="card-num">04</span><h3 data-i18n="act.f4h">Oyunlaştırma Projeleri</h3><p data-i18n="act.f4p">Oyunlaştırma uygulamaları üzerine akademik ve sosyal projeler geliştiriyoruz.</p></article>
         <article class="card feature spotlight reveal reveal-zoom"><span class="card-num">05</span><h3 data-i18n="act.f5h">Sektör Buluşmaları</h3><p data-i18n="act.f5p">Oyun sektörü profesyonelleriyle konferans, panel ve söyleşiler.</p></article>
         <article class="card feature spotlight reveal reveal-r"><span class="card-num">06</span><h3 data-i18n="act.f6h">Sosyal &amp; Kültürel Etkinlikler</h3><p data-i18n="act.f6p">Üyeler arası iletişimi güçlendiren buluşmalar ve topluluk geceleri.</p></article>
       </div>
@@ -294,7 +298,7 @@
         <div class="level-next-text">
           <p class="level-label" data-i18n="jam.nextK">Sıradaki bölüm · Level 02</p>
           <h3 data-i18n="jam.nextH">Game Jam Akdeniz 2027</h3>
-          <p data-i18n="jam.nextP">Tarih henüz belli değil. Duyuru ilk Discord'da ve yukarıdaki "Yaklaşan" bölümünde olacak.</p>
+          <p data-i18n="jam.nextP">Tarih henüz belli değil. İlk duyuru Discord'da ve yukarıdaki "Yaklaşan" bölümünde olacak.</p>
         </div>
         <a class="cut-btn cut-btn-ghost" href="https://discord.gg/wFtA5EvmnW" target="_blank" rel="noopener noreferrer"><span data-i18n="jam.nextCta">Haber al</span></a>
       </div>
@@ -328,7 +332,22 @@
             <div>
               <h3 data-i18n="ev.e1h">Kutu Oyunu Günleri</h3>
               <p data-i18n="ev.e1p">Masaüstü oyun etkinlikleri ve oyun analizi çalışmaları.
-                Oyunu hem oynuyor hem söküyoruz.</p>
+                Oyunları hem oynuyor hem birlikte inceliyoruz.</p>
+              <details class="event-games">
+                <summary data-i18n="ev.games">Oyunlarımızdan bazıları</summary>
+                <ul>
+                  <li>Marvel Champions</li>
+                  <li>Bang! <span data-i18n="ev.twoCopies">(2 adet)</span></li>
+                  <li>Munchkin + DLC</li>
+                  <li>Munchkin Cthulhu</li>
+                  <li>Cascadia</li>
+                  <li>Gulyabani</li>
+                  <li>İz Peşinde</li>
+                  <li>Kayıp Ada</li>
+                  <li>Epik Büyü Savaşları</li>
+                  <li>Monopoly Star Wars</li>
+                </ul>
+              </details>
             </div>
           </div>
         </article>
@@ -409,7 +428,7 @@
       <form class="newsletter reveal" id="newsletterForm" novalidate>
         <p class="eyebrow" data-i18n="nl.eyebrow">Bülten</p>
         <h3 data-i18n="nl.head">Duyurular e-postana gelsin</h3>
-        <p class="muted" data-i18n="nl.lead">Etkinlik, atölye ve Game Jam duyurularını ilk sen duy. İstediğin an ayrılabilirsin.</p>
+        <p class="muted" data-i18n="nl.lead">Etkinlik, atölye ve Game Jam duyurularını ilk sen duy. Abonelikten istediğin an çıkabilirsin.</p>
         <div class="newsletter-row">
           <label class="sr-only" for="nlEmail" data-i18n="form.email">E-posta</label>
           <input id="nlEmail" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="sen@ornek.com" data-i18n-ph="form.emailPh">
