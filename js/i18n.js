@@ -127,7 +127,7 @@
     'jam.nextH': 'Game Jam Akdeniz 2027',
     'jam.nextP': 'The date is not set yet. It will be announced first on Discord and in the "Upcoming" section above.',
     'jam.nextCta': 'Get notified',
-    'jam.creditsH': 'Our Sponsors',
+    'jam.creditsH': 'Our Supporters',
     'jam.s1': 'hours',
     'jam.s2': 'supporters',
     'jam.s3': 'organising bodies',
