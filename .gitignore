@@ -24,3 +24,7 @@ pnpm-debug.log*
 .env
 .env.*
 !.env.example
+
+# EN dil katmanı devre dışı (index.html'de script etiketi yorumda);
+# siteye hiç yüklenmesin diye repodan da çıkarıldı.
+js/i18n.js
