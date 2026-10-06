@@ -178,19 +178,8 @@
 
 /* görsel */
 .hud-hero .hero-visual{position:relative;z-index:0}
-.hud-hero .hero-visual::before,
 .hud-hero .hero-visual::after{
   content:"";position:absolute;pointer-events:none;z-index:0;
-}
-/* kare kutu + ayrı translate: dönme animasyonu transform'u kullandığı için
-   ortalama translate özelliğiyle yapılır; inset ile geniş kutuda elips oluyordu */
-.hud-hero .hero-visual::before{
-  left:50%;top:50%;width:min(420px,100%,46vh);aspect-ratio:1;translate:-50% -50%;
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:50%;
-  background:
-    linear-gradient(90deg,transparent 47%,rgba(244,124,32,.4) 48% 52%,transparent 53%),
-    linear-gradient(transparent 47%,rgba(122,170,255,.34) 48% 52%,transparent 53%);
 }
 .hud-hero .hero-visual::after{
   width:min(440px,100%);aspect-ratio:1;left:50%;top:50%;
@@ -254,8 +243,6 @@
   .hud-hero-grid{grid-template-columns:1fr;gap:28px;padding-bottom:32px}
   .hud-hero .hero-visual{order:-1}
   .hud-hero .hero-visual img{width:min(120px,18vh);margin:0}
-  /* logo küçülüp sola yaslanınca hedef halkası onu çevrelemiyor */
-  .hud-hero .hero-visual::before{display:none}
 }
 @media (max-width:760px){
   .hud-bar{justify-content:space-between}
