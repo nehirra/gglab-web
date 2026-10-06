@@ -207,9 +207,10 @@
   font-family:Oswald,Inter,sans-serif;font-size:.72rem;letter-spacing:.2em;color:var(--muted);
   flex:0 0 auto;
 }
-/* şerit kayan banda dönüştü; boşluk --gap üzerinden yönetilir
-   (padding:0 vermek, iki şeridin birleştiği yerdeki boşluğu siliyordu) */
-.hud-partners ul{list-style:none;margin:0}
+.hud-partners-list{
+  list-style:none;margin:0;display:flex;flex:1 1 auto;align-items:center;
+  justify-content:flex-end;flex-wrap:wrap;gap:28px;min-width:0;
+}
 .hud-partners li{
   font-family:Oswald,Inter,sans-serif;font-size:.84rem;letter-spacing:.08em;
   text-transform:uppercase;color:var(--muted);opacity:.75;transition:.25s var(--ease);
@@ -304,10 +305,6 @@
 .hero-text .hero-enter:nth-child(3){animation-delay:.14s}
 .hero-text .hero-enter:nth-child(4){animation-delay:.21s}
 
-/* hero'daki kayan paydaş şeridi */
-.hud-partners .marquee{flex:1 1 auto;min-width:0}
-/* süreyi main.js şerit genişliğinden hesaplar (sabit px/sn); JS yoksa 60s */
-.hud-partners .marquee-track{--gap:44px;animation-duration:var(--marquee-dur,60s)}
 .hud-partners li{flex:0 0 auto;white-space:nowrap}
 
 /* ---- kısa ekranlar (dizüstü, ölçeklenmiş görünüm) ----
@@ -645,7 +642,7 @@
 
   /* dar ekranda tuşlar üst üste biner: 8'i kalsın, bant arası daralsın */
   .xb-i,.xb-l{display:none}
-  .hud-partners .marquee-track{--gap:32px}
+  .hud-partners-list{gap:20px;justify-content:center}
 
   /* hero butonları yan yana sığmıyorsa eşit genişlikte alt alta */
   .hud-hero .hero-actions .cut-btn{flex:1 1 150px;text-align:center}

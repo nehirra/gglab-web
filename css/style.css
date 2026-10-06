@@ -462,39 +462,6 @@ img{max-width:100%;display:block}
 .nav a:not(.btn)::after{background:linear-gradient(90deg,var(--accent),var(--accent-4))}
 .lb-nav:hover,.lb-close:hover{background:var(--accent-4);border-color:var(--accent-4)}
 
-/* ============ kayan bant (marquee) ============
-   İki özdeş şerit yan yana akar; ilki tam sola kaydığında
-   ikincisi onun yerini alır, böylece döngü kesintisiz görünür. */
-.marquee{
-  position:relative;display:flex;width:100%;overflow:hidden;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
-  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
-}
-.marquee-track{
-  --gap:38px;
-  display:flex;flex:0 0 auto;align-items:center;gap:var(--gap);
-  list-style:none;margin:0;
-  /* şeridin sonundaki boşluk, ikinci şeridin ilk öğesiyle araya
-     aynı mesafeyi koyar — aksi halde iki isim birbirine yapışır */
-  padding:0 var(--gap) 0 0;
-  min-width:100%;justify-content:flex-start;
-  animation:marquee-run 34s linear infinite;
-  will-change:transform;
-}
-.marquee:hover .marquee-track,
-.marquee:focus-within .marquee-track{animation-play-state:paused}
-@keyframes marquee-run{
-  from{transform:translateX(0)}
-  to{transform:translateX(-100%)}
-}
-
-/* hareket azaltma tercihi: animasyon yerine elle kaydırılabilir şerit */
-@media (prefers-reduced-motion:reduce){
-  .marquee{overflow-x:auto;-webkit-mask-image:none;mask-image:none}
-  .marquee-track{animation:none}
-  .marquee-track[aria-hidden="true"]{display:none}
-}
-
 /* ============================================================
    Kısa ekranlarda dikey sıkılaştırma
    Hero dışındaki bölümler de tek ekrana yakın dursun diye
@@ -664,6 +631,7 @@ img{max-width:100%;display:block}
   font-family:Oswald,"Space Grotesk",sans-serif;font-size:.86rem;font-weight:600;color:var(--text);
 }
 .level-by .logo-mark{height:22px}
+.level-by-sep{color:var(--muted);opacity:.6}
 
 /* ekran görüntüleri */
 .level-shots{margin-top:clamp(24px,3vw,34px)}

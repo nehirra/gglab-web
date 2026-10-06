@@ -41,44 +41,6 @@ function perFrame(fn) {
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
 
-/* --- partner bandı ---
-   Kesintisiz döngü için şerit en az bant genişliği kadar olmalı: liste kısa
-   kalırsa (geniş ekran, az logo) öğeler ekran okuyucudan gizli kopyalarla
-   çoğaltılır, yoksa şeridin sonunda boşluk kalır. Ardından bant, gizli ikinci
-   bir şerit alır: ilki translateX(-100%) ile çıkarken kopyası yerine geçer.
-   Tur süresi şerit genişliğinden hesaplanır: bant her ekranda aynı hızda akar. */
-const MARQUEE_SPEED = 20; /* px/sn — yavaşlatmak için küçült */
-$$('[data-marquee]').forEach((m) => {
-  const track = $('.marquee-track', m);
-  if (!track) return;
-  const originals = [...track.children];
-  const copy = track.cloneNode(true);
-  copy.setAttribute('aria-hidden', 'true');
-  m.append(copy);
-
-  const fill = () => {
-    const need = m.clientWidth;
-    for (const t of [track, copy]) {
-      /* ölçüm min-width:100%'den etkilenmesin diye geçici olarak kapatılır */
-      t.style.minWidth = '0';
-      let guard = 0;
-      while (t.scrollWidth < need && guard++ < 10) {
-        originals.forEach((li) => {
-          const extra = li.cloneNode(true);
-          extra.setAttribute('aria-hidden', 'true');
-          t.append(extra);
-        });
-      }
-      t.style.minWidth = '';
-    }
-    m.style.setProperty('--marquee-dur', (track.scrollWidth / MARQUEE_SPEED).toFixed(1) + 's');
-  };
-  fill();
-  window.addEventListener('resize', perFrame(fill));
-  /* logolar yüklenince genişlik değişir */
-  $$('img', track).forEach((img) => { if (!img.complete) img.addEventListener('load', fill, { once: true }); });
-});
-
 /* --- üyelik arka planı: bölüme ~1 ekran kala yüklenir --- */
 const joinSec = document.getElementById('uyelik');
 if (joinSec) {
