@@ -137,7 +137,7 @@
 .hud-hero .container{position:relative;z-index:3;width:100%}
 /* alt kenar: hero tonunu About zeminine yumuşakça eritir (dikiş kalmasın) */
 .hud-hero::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:clamp(90px,16vh,160px);
+  content:"";position:absolute;left:0;right:0;bottom:0;height:clamp(50px,8vh,90px);
   background:linear-gradient(180deg,transparent,var(--bg-2));
   pointer-events:none;z-index:2;
 }
@@ -209,23 +209,25 @@
 }
 .hud-partners-list{
   list-style:none;margin:0;display:flex;flex:1 1 auto;align-items:center;
-  justify-content:flex-end;flex-wrap:wrap;gap:28px;min-width:0;
+  justify-content:center;flex-wrap:wrap;gap:14px;min-width:0;
 }
 .hud-partners li{
   font-family:Oswald,Inter,sans-serif;font-size:.84rem;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--muted);opacity:.75;transition:.25s var(--ease);
+  text-transform:uppercase;color:var(--muted);transition:.25s var(--ease);
 }
-.hud-partners li:hover{opacity:1;color:var(--text)}
-/* şeritte yalnızca logo durur; isim img alt'ında */
-.hud-partners li.has-logo{display:flex;align-items:center;gap:8px;opacity:.9}
-.hud-partners li.has-logo:hover{opacity:1}
-.hud-partners{--logo-h:clamp(36.4px,5.04vh,50.4px)}
-.hud-partners .logo-mark{display:block;height:calc(var(--logo-h) * var(--k,1));width:auto;max-width:120px;flex:0 0 auto}
-/* optik denge: aynı yükseklikte dik/kare logolar enlilerin yanında küçük kalıyordu.
-   Çarpan logonun en/boy oranına göre: ~1.1 ve altı ×1.4, ~1.5 ×1.2, ~2 sınıfsız, ~2.8 ve üstü ×0.85 */
-.hud-partners .logo-tall{--k:1.4}
-.hud-partners .logo-square{--k:1.2}
-.hud-partners .logo-wide{--k:.85}
+/* her logo eşit boyutlu bir alanda; oran farkları object-fit ile eziliyor */
+.hud-partners li.has-logo{
+  display:flex;align-items:center;justify-content:center;
+  width:128px;height:56px;flex:0 0 auto;padding:8px 14px;
+  background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.04);border-radius:10px;
+  transition:border-color .22s var(--ease),transform .22s var(--ease);
+}
+.hud-partners li.has-logo:hover{border-color:rgba(255,255,255,.14);transform:translateY(-2px)}
+.hud-partners .logo-mark{
+  display:block;height:auto;width:auto;max-width:100%;max-height:100%;object-fit:contain;
+  opacity:.85;transition:opacity .22s var(--ease);
+}
+.hud-partners li.has-logo:hover .logo-mark{opacity:1}
 
 /* ---------------- responsive ---------------- */
 @media (max-width:1100px){
@@ -267,10 +269,10 @@
   .hud-frame{padding-top:22px}
   .hud-hero-grid{gap:18px;padding-bottom:24px}
   .hud-hero .hero-visual img{width:min(86px,14vh);border-radius:18px}
-  .hud-partners{gap:12px}
+  .hud-partners{gap:12px;flex-direction:column;align-items:flex-start}
   .hud-partners li{font-size:.76rem}
-  .hud-partners{--logo-h:36.4px}
-  .hud-partners .logo-mark{max-width:90px}
+  .hud-partners-list{justify-content:center;width:100%}
+  .hud-partners li.has-logo{width:104px;height:48px}
   .cut-btn > span{padding:14px 22px;font-size:.84rem}
 }
 

@@ -689,7 +689,7 @@ img{max-width:100%;display:block}
    ============================================================ */
 /* Taste: DESIGN_VARIANCE 7 / MOTION_INTENSITY 4 / VISUAL_DENSITY 4.
    Mevcut marka, yerel fontlar ve fotoğraflar; yalnızca tek seferlik giriş hareketi. */
-.upcoming-section{--up-ink:#111d3b;--up-paper:#f1f3fa;--up-lime:#d3ec93}
+.upcoming-section{--up-ink:#111d3b;--up-paper:#f1f3fa;--up-lime:var(--accent-2)}
 .up-heading{max-width:none;margin-bottom:32px}
 .up-heading h2{font-size:3rem;letter-spacing:0;line-height:1.1}
 .up-heading h2 span{color:var(--accent-2)}
