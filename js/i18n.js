@@ -48,7 +48,7 @@
     'hero.title': 'GAMES &amp;<br><span class="grad">GAMIFICATION</span><br>COMMUNITY.',
     'hero.lead': 'Games are not just entertainment. At GG Lab you turn your ideas into real projects, then design and build them with your team. Your department, skill level or experience does not matter — everyone\'s contribution counts here.',
     'hero.cta1': '<i>&#8592;</i> Join us',
-    'hero.cta2': 'What we do',
+    'hero.cta2': 'Events',
     'hero.partners': 'PARTNERS',
     'game.score': 'SCORE',
 
