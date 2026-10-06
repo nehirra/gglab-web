@@ -194,40 +194,45 @@
   image-rendering:auto;
 }
 
-/* alt paydaş şeridi */
+/* alt paydaş şeridi
+   Dolgu ve kutu yok: üstte kenarlara doğru eriyen ince çizgi, solda etiket,
+   sağda eşit genişlikte 5 sütun, aralarında kısa ayraçlar. Logolar gri tonda
+   durur (renkli logolar şeridi dağıtıyordu), üzerine gelince rengine döner. */
 .hud-partners{
-  display:flex;align-items:center;gap:22px;
-  border-top:1px solid var(--hud-line-soft);
+  --logo-h:clamp(24px,4.6vh,36px);
+  position:relative;
+  display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;
+  gap:clamp(18px,3vw,44px);
   margin:16px calc(-1 * clamp(26px,3.4vw,52px)) 0;
-  padding:clamp(10px,1.6vh,18px) clamp(26px,3.4vw,52px);
-  background:linear-gradient(90deg,rgba(11,22,56,.62),rgba(11,22,56,.22),rgba(11,22,56,.62));
-  box-shadow:0 -18px 48px rgba(0,0,0,.16);
+  padding:clamp(12px,2vh,22px) clamp(26px,3.4vw,52px);
+}
+.hud-partners::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,var(--hud-line-soft) 16%,var(--hud-line-soft) 84%,transparent);
 }
 .hud-partners-label{
+  display:inline-flex;align-items:center;gap:10px;white-space:nowrap;
   font-family:Oswald,Inter,sans-serif;font-size:.72rem;letter-spacing:.2em;color:var(--muted);
-  flex:0 0 auto;
 }
+/* hero eyebrow'undaki turuncu çizgiyle aynı dil */
+.hud-partners-label::before{content:"";width:18px;height:1px;background:var(--accent)}
 .hud-partners-list{
-  list-style:none;margin:0;display:flex;flex:1 1 auto;align-items:center;
-  justify-content:center;flex-wrap:wrap;gap:14px;min-width:0;
+  list-style:none;margin:0;padding:0;min-width:0;
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:center;
 }
 .hud-partners li{
-  font-family:Oswald,Inter,sans-serif;font-size:.84rem;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--muted);transition:.25s var(--ease);
-}
-/* her logo eşit boyutlu bir alanda; oran farkları object-fit ile eziliyor */
-.hud-partners li.has-logo{
   display:flex;align-items:center;justify-content:center;
-  width:128px;height:56px;flex:0 0 auto;padding:8px 14px;
-  background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.04);border-radius:10px;
-  transition:border-color .22s var(--ease),transform .22s var(--ease);
+  height:calc(var(--logo-h) * 1.5);padding:0 clamp(8px,1.6vw,22px);
 }
-.hud-partners li.has-logo:hover{border-color:rgba(255,255,255,.14);transform:translateY(-2px)}
+.hud-partners li + li{border-left:1px solid var(--hud-line-soft)}
+/* --k: logonun görünür en/boy oranına göre optik denge (kare logo büyür, çok enli küçülür) */
 .hud-partners .logo-mark{
-  display:block;height:auto;width:auto;max-width:100%;max-height:100%;object-fit:contain;
-  opacity:.85;transition:opacity .22s var(--ease);
+  display:block;height:calc(var(--logo-h) * var(--k,1));width:auto;max-width:100%;object-fit:contain;
+  filter:grayscale(1) brightness(1.2);opacity:.7;
+  transition:filter .3s var(--ease),opacity .3s var(--ease);
 }
-.hud-partners li.has-logo:hover .logo-mark{opacity:1}
+.hud-partners li:hover .logo-mark{filter:none;opacity:1}
+.hud-partners.hero-enter{animation-delay:.3s}
 
 /* ---------------- responsive ---------------- */
 @media (max-width:1100px){
@@ -269,10 +274,12 @@
   .hud-frame{padding-top:22px}
   .hud-hero-grid{gap:18px;padding-bottom:24px}
   .hud-hero .hero-visual img{width:min(86px,14vh);border-radius:18px}
-  .hud-partners{gap:12px;flex-direction:column;align-items:flex-start}
-  .hud-partners li{font-size:.76rem}
-  .hud-partners-list{justify-content:center;width:100%}
-  .hud-partners li.has-logo{width:104px;height:48px}
+  /* etiket üstte; logolar 3 + 2 dizilir, alt satır yarıya bölünür */
+  .hud-partners{--logo-h:28px;grid-template-columns:1fr;gap:10px}
+  .hud-partners-list{grid-template-columns:repeat(6,minmax(0,1fr));row-gap:6px}
+  .hud-partners li:nth-child(-n+3){grid-column:span 2}
+  .hud-partners li:nth-child(n+4){grid-column:span 3}
+  .hud-partners li:nth-child(1),.hud-partners li:nth-child(4){border-left:0}
   .cut-btn > span{padding:14px 22px;font-size:.84rem}
 }
 
@@ -307,7 +314,6 @@
 .hero-text .hero-enter:nth-child(3){animation-delay:.14s}
 .hero-text .hero-enter:nth-child(4){animation-delay:.21s}
 
-.hud-partners li{flex:0 0 auto;white-space:nowrap}
 
 /* ---- kısa ekranlar (dizüstü, ölçeklenmiş görünüm) ----
    Hero'nun tek ekrana sığması için yükseklik bazlı sıkılaştırma. */
@@ -320,9 +326,8 @@
   .hud-hero .hero-visual img{width:min(330px,100%,40vh)}
   .hud-frame{padding-top:20px;border-radius:22px}
   .hud-hero-grid{padding-bottom:16px;gap:24px}
-  .hud-partners{padding-top:9px;padding-bottom:9px;gap:16px}
+  .hud-partners{padding-top:9px;padding-bottom:9px;column-gap:16px}
   .hud-partners-label{font-size:.66rem}
-  .hud-partners li{font-size:.76rem}
   .cut-btn > span{padding:11px 20px;font-size:.82rem}
 }
 @media (max-width:900px) and (max-height:780px){
@@ -644,7 +649,6 @@
 
   /* dar ekranda tuşlar üst üste biner: 8'i kalsın, bant arası daralsın */
   .xb-i,.xb-l{display:none}
-  .hud-partners-list{gap:20px;justify-content:center}
 
   /* hero butonları yan yana sığmıyorsa eşit genişlikte alt alta */
   .hud-hero .hero-actions .cut-btn{flex:1 1 150px;text-align:center}
